@@ -18,3 +18,32 @@
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
 }
+
+/* Styles for the autocomplete container */
+#autocompleteResults {
+  position: absolute;
+  border: 1px solid #ccc;
+  border-top: none;
+  z-index: 1000;
+  top: 100%;
+  width: 100%; /* Adjust the width as needed */
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  display: none; /* Initially hidden */
+}
+
+/* Styles for each autocomplete suggestion */
+#autocompleteResults div {
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #eee;
+}
+
+#autocompleteResults div:last-child {
+  border-bottom: none;
+}
+
+/* Styles for suggestion items on hover */
+#autocompleteResults div:hover {
+  background-color: #f9f9f9;
+}
