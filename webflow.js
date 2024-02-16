@@ -149,7 +149,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 div.addEventListener('click', function() {
                     searchInput.value = item; // Populate input with selected item
                     resultsContainer.style.display = 'none'; // Hide results container
-                    // Trigger any necessary search or filtering logic here if needed
+                    
+                    // Manually dispatch an input event to trigger the filter
+                    const event = new Event('input', { bubbles: true });
+                    searchInput.dispatchEvent(event);
                 });
                 resultsContainer.appendChild(div);
             });
