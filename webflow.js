@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Base URL for the link block
         const baseURL = 'https://humawave.webflow.io/session';
         // Append selected items as query parameters to the link block's URL
-        const linkBlockURL = selectedIds.length > 0 ? `${baseURL}?selectedItems=${selectedIds.join(',')}` : baseURL;
+        const linkBlockURL = selectedIds.length > 0 ? `${baseURL}?selectedStores=${selectedIds.join(',')}` : baseURL;
 
         // Toggle visibility of the div based on if any checkboxes are selected
         const sectionContinue = document.getElementById('section-continue');
