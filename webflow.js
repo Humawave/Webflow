@@ -16,12 +16,16 @@ clearButton.addEventListener('click', function() {
     searchInput.value = '';
     clearButton.style.display = 'none';
 
-    // Temporarily disable input to avoid automatic refocusing on mobile
-    searchInput.disabled = true;
+    // Create a dummy input to temporarily shift focus
+    var dummyInput = document.createElement('input');
+    document.body.appendChild(dummyInput);
+    dummyInput.setAttribute('style', 'position: absolute; opacity: 0;');
+    dummyInput.focus();
+
+    // Remove the dummy input after a short delay
     setTimeout(function() {
-        searchInput.disabled = false;
-        // Focus only if necessary, based on additional conditions or user actions
-    }, 100); // Short delay to disable and then re-enable the input
+        document.body.removeChild(dummyInput);
+    }, 50); // Adjust delay as needed
 });
 
 document.addEventListener("DOMContentLoaded", function() {
