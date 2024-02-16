@@ -19,16 +19,6 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-  #scroll-button {
-    transition: opacity 100ms ease;
-    opacity: 1; /* Start fully visible */
-  }
-
-  .hidden {
-    opacity: 0 !important;
-    pointer-events: none; /* Ensures button is not clickable when invisible */
-  }
-
 document.addEventListener("DOMContentLoaded", function() {
     var scrollButton = document.getElementById('scroll-button');
     var scrollContainer = document.getElementById('scrollable-container');
