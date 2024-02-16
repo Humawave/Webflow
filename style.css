@@ -29,7 +29,7 @@
   max-width: 100%;
   background-color: #fff;
   box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.1); /* Shadow values adjusted to rems */
-  border-radius: 0.25rem; /* 4px equivalent */
+  border-radius: 2rem; /* 4px equivalent */
   overflow: hidden;
   z-index: 1000;
 }
@@ -46,5 +46,5 @@
 }
 
 #autocompleteResults div:hover {
-  background-color: #f6f6f6;
+  background-color: #ddeba4;
 }
