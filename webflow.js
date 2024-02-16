@@ -123,3 +123,46 @@ document.addEventListener('DOMContentLoaded', function () {
     attachEventListenersAndSyncState();
 });
 
+
+
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Hard-coded array of store names
+    const cmsItems = ['ZARA', 'Abercrombie & Fitch', 'Adidas', 'Lululemon'];
+
+    const searchInput = document.getElementById('searchInput');
+    const resultsContainer = document.getElementById('autocompleteResults');
+
+    searchInput.addEventListener('input', function() {
+        const inputVal = this.value.toLowerCase();
+        // Filter CMS items based on input
+        const filteredItems = cmsItems.filter(item => item.toLowerCase().startsWith(inputVal));
+
+        // Clear previous results
+        resultsContainer.innerHTML = '';
+        if (inputVal !== '' && filteredItems.length) {
+            // Display filtered items as a list in the results container
+            filteredItems.forEach(item => {
+                const div = document.createElement('div');
+                div.textContent = item;
+                div.addEventListener('click', function() {
+                    searchInput.value = item; // Populate input with selected item
+                    resultsContainer.style.display = 'none'; // Hide results container
+                    // Trigger any necessary search or filtering logic here if needed
+                });
+                resultsContainer.appendChild(div);
+            });
+            resultsContainer.style.display = 'block';
+        } else {
+            resultsContainer.style.display = 'none';
+        }
+    });
+
+    // Optionally, hide autocomplete results when clicking outside
+    document.addEventListener('click', function(event) {
+        if (!searchInput.contains(event.target)) {
+            resultsContainer.style.display = 'none';
+        }
+    });
+});
