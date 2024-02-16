@@ -89,16 +89,20 @@ document.addEventListener('DOMContentLoaded', function () {
         countTextBlock.textContent = selectionCount === 1 ? '1 Store Selected' : `${selectionCount} Stores Selected`;
     }
 
-    // Event handler for checkbox state changes
     function checkboxChangeHandler() {
-        const checkboxId = this.getAttribute('id');
-        if (this.checked) {
-            persistentSelectedIds.add(checkboxId);
-        } else {
-            persistentSelectedIds.delete(checkboxId);
+    const checkboxId = this.getAttribute('id');
+    if (this.checked) {
+        persistentSelectedIds.add(checkboxId);
+        // Attempt to hide the keyboard on mobile devices
+        if (document.activeElement) {
+            document.activeElement.blur();
         }
-        updateURLToggleDivAndUpdateLinkAndUpdateCount();
+    } else {
+        persistentSelectedIds.delete(checkboxId);
     }
+    updateURLToggleDivAndUpdateLinkAndUpdateCount();
+}
+
 
     // Attach event listeners to checkboxes and synchronize the UI state
     function attachEventListenersAndSyncState() {
