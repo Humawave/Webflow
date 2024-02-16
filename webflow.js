@@ -120,3 +120,20 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+
+$(document).ready(function() {
+    // Read the CMS items from the hidden element
+    var cmsItemsText = $('#cmsData').text().trim();
+    var cmsItems = cmsItemsText.split(',');
+
+    // Initialize the autocomplete
+    $('#searchInput').autocomplete({
+        source: cmsItems,
+        select: function(event, ui) {
+            $('#searchInput').val(ui.item.value);
+            // Optionally, trigger a change or submit event here
+            return false;
+        }
+    });
+});
+
