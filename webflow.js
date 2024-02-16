@@ -43,28 +43,33 @@ document.addEventListener("DOMContentLoaded", function() {
     scrollContainer.addEventListener('scroll', checkScroll);
   });
 
+
+
 document.addEventListener('DOMContentLoaded', function () {
-    // Function to update URL, toggle div, update link, and update count text
+    let persistentSelectedIds = new Set(); // Persistent storage for selected checkbox IDs
+
     function updateURLToggleDivAndUpdateLinkAndUpdateCount() {
         // Find all checkboxes in the CMS list
         const checkboxes = document.querySelectorAll('.cms_list input[type="checkbox"]');
-        // Filter out the checked ones and map their ids
-        const selectedIds = Array.from(checkboxes)
-            .filter(checkbox => checkbox.checked)
-            .map(checkbox => checkbox.getAttribute('id'));
+        
+        // Synchronize the checkbox state with persistentSelectedIds
+        checkboxes.forEach(checkbox => {
+            if (persistentSelectedIds.has(checkbox.getAttribute('id'))) {
+                checkbox.checked = true;
+            }
+        });
 
-        // Create a new query parameter for the current page URL
+        // Update the selectedIds array based on the current state of persistentSelectedIds
+        const selectedIds = Array.from(persistentSelectedIds);
+
+        // The rest of your original function remains unchanged
         const queryParams = new URLSearchParams(window.location.search);
         queryParams.set('selectedStores', selectedIds.join(','));
-        // Update the current page URL without reloading
         history.pushState(null, '', '?' + queryParams.toString());
 
-        // Base URL for the link block
         const baseURL = 'https://humawave.webflow.io/session';
-        // Append selected items as query parameters to the link block's URL
         const linkBlockURL = selectedIds.length > 0 ? `${baseURL}?selectedStores=${selectedIds.join(',')}` : baseURL;
 
-        // Toggle visibility of the div based on if any checkboxes are selected
         const sectionContinue = document.getElementById('section-continue');
         if (selectedIds.length > 0) {
             sectionContinue.style.display = 'block';
@@ -75,21 +80,47 @@ document.addEventListener('DOMContentLoaded', function () {
             sectionContinue.style.transition = 'opacity 100ms ease-out';
             setTimeout(() => {
                 sectionContinue.style.display = 'none';
-            }, 100); // Wait for the animation to finish before hiding the div
+            }, 100);
         }
 
-        // Update the href attribute of the link block
         const linkContinue = document.getElementById('link-continue');
         linkContinue.setAttribute('href', linkBlockURL);
 
-        // Update the text of the "count" text block
         const countTextBlock = document.getElementById('count');
         const selectionCount = selectedIds.length;
         countTextBlock.textContent = selectionCount === 1 ? '1 Store Selected' : `${selectionCount} Stores Selected`;
     }
 
-    // Attach change event listener to checkboxes
-    document.querySelectorAll('.cms_list input[type="checkbox"]').forEach(checkbox => {
-        checkbox.addEventListener('change', updateURLToggleDivAndUpdateLinkAndUpdateCount);
-    });
+    // This function updates the persistent storage based on checkbox changes
+    function checkboxChangeHandler() {
+        const checkboxId = this.getAttribute('id');
+        if (this.checked) {
+            persistentSelectedIds.add(checkboxId);
+        } else {
+            persistentSelectedIds.delete(checkboxId);
+        }
+        updateURLToggleDivAndUpdateLinkAndUpdateCount();
+    }
+
+    // Attach change event listener to checkboxes and synchronize the initial state
+    function attachEventListenersAndSyncState() {
+        document.querySelectorAll('.cms_list input[type="checkbox"]').forEach(checkbox => {
+            checkbox.removeEventListener('change', checkboxChangeHandler); // Cleanup to avoid duplicating listeners
+            checkbox.addEventListener('change', checkboxChangeHandler);
+
+            // Initial state synchronization
+            if (checkbox.checked) {
+                persistentSelectedIds.add(checkbox.getAttribute('id'));
+            }
+        });
+        updateURLToggleDivAndUpdateLinkAndUpdateCount(); // Update UI based on the initial state
+    }
+
+    attachEventListenersAndSyncState();
+
+    // Placeholder for re-initialization logic after search
+    // You will need to call attachEventListenersAndSyncState() after the search functionality updates the DOM
+    // For example, if Finsweet's CMS Attributes triggers a custom event after updating the DOM, you could do something like:
+    // document.addEventListener('finsweetSearchComplete', attachEventListenersAndSyncState);
 });
+
