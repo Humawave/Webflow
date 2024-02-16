@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Create a new query parameter for the current page URL
         const queryParams = new URLSearchParams(window.location.search);
-        queryParams.set('selectedItems', selectedIds.join(','));
+        queryParams.set('selectedStores', selectedIds.join(','));
         // Update the current page URL without reloading
         history.pushState(null, '', '?' + queryParams.toString());
 
