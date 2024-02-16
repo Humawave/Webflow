@@ -11,21 +11,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // Clear the search input when the 'X' button is clicked
-clearButton.addEventListener('click', function() {
+// Clear the search input when the 'X' button is clicked
+  clearButton.addEventListener('click', function() {
     searchInput.value = '';
     clearButton.style.display = 'none';
-
-    // Create a dummy input to temporarily shift focus
-    var dummyInput = document.createElement('input');
-    document.body.appendChild(dummyInput);
-    dummyInput.setAttribute('style', 'position: absolute; opacity: 0;');
-    dummyInput.focus();
-
-    // Remove the dummy input after a short delay
-    setTimeout(function() {
-        document.body.removeChild(dummyInput);
-    }, 50); // Adjust delay as needed
+    searchInput.focus(); // Optional: Bring focus back to the input
+  });
 });
 
 document.addEventListener("DOMContentLoaded", function() {
