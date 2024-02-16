@@ -15,7 +15,9 @@ document.addEventListener('DOMContentLoaded', function() {
   clearButton.addEventListener('click', function() {
     searchInput.value = '';
     clearButton.style.display = 'none';
-    searchInput.focus(); // Optional: Bring focus back to the input
+    if (window.innerWidth > 768) {
+        searchInput.focus();
+    }
   });
 });
 
