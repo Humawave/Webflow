@@ -50,37 +50,33 @@ document.addEventListener("DOMContentLoaded", function() {
 document.addEventListener('DOMContentLoaded', function () {
     let persistentSelectedIds = new Set(); // Persistent storage for selected checkbox IDs
 
+    // Hard-coded mapping of store IDs to names
+    const storeNames = {
+        '1': 'Abercrombie & Fitch',
+        '2': 'Adidas',
+        // Add more stores as needed
+        '88': 'Example Store Name'
+    };
+
     function updateURLToggleDivAndUpdateLinkAndUpdateCount() {
         const checkboxes = document.querySelectorAll('.cms_list input[type="checkbox"]');
         const selectedIds = Array.from(persistentSelectedIds);
         const queryParams = new URLSearchParams(window.location.search);
 
-        // Clear URL when no checkboxes are selected
         if (selectedIds.length > 0) {
             queryParams.set('selectedStores', selectedIds.join(','));
             history.pushState(null, '', '?' + queryParams.toString());
         } else {
-            // Removes any existing 'selectedStores' without leaving a blank parameter
             queryParams.delete('selectedStores');
-            const newUrl = window.location.pathname + (queryParams.toString() ? '?' + queryParams.toString() : '');
-            history.pushState(null, '', newUrl);
+            history.pushState(null, '', window.location.pathname);
         }
 
-        // Adjusted base URL handling
         const baseURL = 'https://humawave.webflow.io/session';
         const linkBlockURL = selectedIds.length > 0 ? `${baseURL}?selectedStores=${selectedIds.join(',')}` : baseURL;
 
-        const sectionContinue = document.getElementById('section-continue');
-        if (selectedIds.length > 0) {
-            sectionContinue.style.display = 'block';
-        } else {
-            sectionContinue.style.opacity = 0;
-            setTimeout(() => {
-                sectionContinue.style.display = 'none';
-            }, 100);
-        }
-
+        // Always display the link, but dynamically update its href
         const linkContinue = document.getElementById('link-continue');
+        linkContinue.style.display = 'inline-block'; // Ensure the button is visible
         linkContinue.setAttribute('href', linkBlockURL);
 
         const countTextBlock = document.getElementById('count');
