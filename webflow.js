@@ -50,60 +50,76 @@ document.addEventListener("DOMContentLoaded", function() {
 document.addEventListener('DOMContentLoaded', function () {
     let persistentSelectedIds = new Set(); // Persistent storage for selected checkbox IDs
 
-    // Hard-coded mapping of store IDs to names
-    const storeNames = {
-        '1': 'Abercrombie & Fitch',
-        '2': 'Adidas',
-        // Add more stores as needed
-        '88': 'Example Store Name'
-    };
-
+    // Function to update URL, toggle div, update link, and update count text based on selected checkboxes
     function updateURLToggleDivAndUpdateLinkAndUpdateCount() {
+        // Retrieve all checkboxes in the CMS list
         const checkboxes = document.querySelectorAll('.cms_list input[type="checkbox"]');
+        
+        // Update the selectedIds array based on the current state of persistentSelectedIds
         const selectedIds = Array.from(persistentSelectedIds);
+
+        // Create a new query parameter for the current page URL with selected stores
         const queryParams = new URLSearchParams(window.location.search);
+        queryParams.set('selectedStores', selectedIds.join(','));
+        history.pushState(null, '', '?' + queryParams.toString());
 
-        if (selectedIds.length > 0) {
-            queryParams.set('selectedStores', selectedIds.join(','));
-            history.pushState(null, '', '?' + queryParams.toString());
-        } else {
-            queryParams.delete('selectedStores');
-            history.pushState(null, '', window.location.pathname);
-        }
-
+        // Define the base URL for the link block and append selected items as query parameters
         const baseURL = 'https://humawave.webflow.io/session';
         const linkBlockURL = selectedIds.length > 0 ? `${baseURL}?selectedStores=${selectedIds.join(',')}` : baseURL;
 
-        // Always display the link, but dynamically update its href
+        // Toggle visibility of the continue section based on if any checkboxes are selected
+        const sectionContinue = document.getElementById('section-continue');
+        if (selectedIds.length > 0) {
+            sectionContinue.style.display = 'block';
+            sectionContinue.style.opacity = 1;
+            sectionContinue.style.transition = 'opacity 100ms ease-in';
+        } else {
+            sectionContinue.style.opacity = 0;
+            sectionContinue.style.transition = 'opacity 100ms ease-out';
+            setTimeout(() => {
+                sectionContinue.style.display = 'none';
+            }, 100);
+        }
+
+        // Update the href attribute of the continue link
         const linkContinue = document.getElementById('link-continue');
-        linkContinue.style.display = 'inline-block'; // Ensure the button is visible
         linkContinue.setAttribute('href', linkBlockURL);
 
+        // Update the text of the count text block based on the number of selected stores
         const countTextBlock = document.getElementById('count');
         const selectionCount = selectedIds.length;
         countTextBlock.textContent = selectionCount === 1 ? '1 Store Selected' : `${selectionCount} Stores Selected`;
     }
 
     function checkboxChangeHandler() {
-        const checkboxId = this.getAttribute('id');
-        if (this.checked) {
-            persistentSelectedIds.add(checkboxId);
-        } else {
-            persistentSelectedIds.delete(checkboxId);
+    const checkboxId = this.getAttribute('id');
+    if (this.checked) {
+        persistentSelectedIds.add(checkboxId);
+        // Attempt to hide the keyboard on mobile devices
+        if (document.activeElement) {
+            document.activeElement.blur();
         }
-        updateURLToggleDivAndUpdateLinkAndUpdateCount();
+    } else {
+        persistentSelectedIds.delete(checkboxId);
     }
-
+    updateURLToggleDivAndUpdateLinkAndUpdateCount();
+}
+    // Attach event listeners to checkboxes and synchronize the UI state
     function attachEventListenersAndSyncState() {
         document.querySelectorAll('.cms_list input[type="checkbox"]').forEach(checkbox => {
-            checkbox.removeEventListener('change', checkboxChangeHandler);
+            checkbox.removeEventListener('change', checkboxChangeHandler); // Prevent duplicating listeners
             checkbox.addEventListener('change', checkboxChangeHandler);
+
+            // Sync checkbox state from persistentSelectedIds
             checkbox.checked = persistentSelectedIds.has(checkbox.getAttribute('id'));
         });
-        updateURLToggleDivAndUpdateLinkAndUpdateCount();
+        updateURLToggleDivAndUpdateLinkAndUpdateCount(); // Update the UI based on the current state
     }
 
+    // Re-initialize event listeners and UI state after Finsweet filtering updates
     document.addEventListener('fs:filter:updated', attachEventListenersAndSyncState);
+
+    // Initial setup
     attachEventListenersAndSyncState();
 });
 
