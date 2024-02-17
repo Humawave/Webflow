@@ -22,23 +22,22 @@
 /* Styles for the autocomplete container */
 #autocompleteResults {
   position: absolute;
-  top: calc(100% - 0.25rem); /* Adjust this value to close the gap, equivalent to 4px if 1rem = 16px */
-  left: 0;
-  right: 0;
-  width: auto;
-  max-width: 100%;
+  top: calc(100% - 0.25rem);
+  left: 1rem; /* Add space on the left */
+  right: 1rem; /* Add space on the right */
+  max-width: calc(100% - 2rem); /* Subtract the left and right margins from the total width */
   background-color: #fff;
-  box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.1); /* Shadow values adjusted to rems */
-  border-radius: 2rem; /* 4px equivalent */
+  box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.1);
+  border-radius: 0.25rem;
   overflow: hidden;
   z-index: 1000;
 }
 
 /* Styles for each autocomplete suggestion */
 #autocompleteResults div {
-  padding: 0.75rem 1rem; /* 12px and 16px equivalents */
+  padding: 0.75rem 1rem; /* Top and bottom padding of 0.75rem, left and right padding of 1rem */
   cursor: pointer;
-  border-bottom: 1px solid #eee; /* Border width is typically left as px */
+  border-bottom: 1px solid #eee;
 }
 
 #autocompleteResults div:last-child {
