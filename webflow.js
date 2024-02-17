@@ -89,6 +89,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Update the href attribute of the link block
         const linkContinue = document.getElementById('link-continue');
         linkContinue.setAttribute('href', linkBlockURL);
+    } // This closing brace ends the function definition
 
     // Attach change event listener to checkboxes
     document.querySelectorAll('.cms_list input[type="checkbox"]').forEach(checkbox => {
