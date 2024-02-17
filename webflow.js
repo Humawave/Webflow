@@ -19,6 +19,8 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+//
+
 document.addEventListener("DOMContentLoaded", function() {
     var scrollButton = document.getElementById('scroll-button');
     var scrollContainer = document.getElementById('scrollable-container');
@@ -43,89 +45,73 @@ document.addEventListener("DOMContentLoaded", function() {
     scrollContainer.addEventListener('scroll', checkScroll);
   });
 
-
+//
 
 document.addEventListener('DOMContentLoaded', function () {
     let persistentSelectedIds = new Set(); // Persistent storage for selected checkbox IDs
 
-    // Function to update URL, toggle div, update link, and update count text based on selected checkboxes
     function updateURLToggleDivAndUpdateLinkAndUpdateCount() {
-        // Retrieve all checkboxes in the CMS list
         const checkboxes = document.querySelectorAll('.cms_list input[type="checkbox"]');
-        
-        // Update the selectedIds array based on the current state of persistentSelectedIds
         const selectedIds = Array.from(persistentSelectedIds);
-
-        // Create a new query parameter for the current page URL with selected stores
         const queryParams = new URLSearchParams(window.location.search);
-        queryParams.set('selectedStores', selectedIds.join(','));
-        history.pushState(null, '', '?' + queryParams.toString());
 
-        // Define the base URL for the link block and append selected items as query parameters
+        // Clear URL when no checkboxes are selected
+        if (selectedIds.length > 0) {
+            queryParams.set('selectedStores', selectedIds.join(','));
+            history.pushState(null, '', '?' + queryParams.toString());
+        } else {
+            // Removes any existing 'selectedStores' without leaving a blank parameter
+            queryParams.delete('selectedStores');
+            const newUrl = window.location.pathname + (queryParams.toString() ? '?' + queryParams.toString() : '');
+            history.pushState(null, '', newUrl);
+        }
+
+        // Adjusted base URL handling
         const baseURL = 'https://humawave.webflow.io/session';
         const linkBlockURL = selectedIds.length > 0 ? `${baseURL}?selectedStores=${selectedIds.join(',')}` : baseURL;
 
-        // Toggle visibility of the continue section based on if any checkboxes are selected
         const sectionContinue = document.getElementById('section-continue');
         if (selectedIds.length > 0) {
             sectionContinue.style.display = 'block';
-            sectionContinue.style.opacity = 1;
-            sectionContinue.style.transition = 'opacity 100ms ease-in';
         } else {
             sectionContinue.style.opacity = 0;
-            sectionContinue.style.transition = 'opacity 100ms ease-out';
             setTimeout(() => {
                 sectionContinue.style.display = 'none';
             }, 100);
         }
 
-        // Update the href attribute of the continue link
         const linkContinue = document.getElementById('link-continue');
         linkContinue.setAttribute('href', linkBlockURL);
 
-        // Update the text of the count text block based on the number of selected stores
         const countTextBlock = document.getElementById('count');
         const selectionCount = selectedIds.length;
         countTextBlock.textContent = selectionCount === 1 ? '1 Store Selected' : `${selectionCount} Stores Selected`;
     }
 
     function checkboxChangeHandler() {
-    const checkboxId = this.getAttribute('id');
-    if (this.checked) {
-        persistentSelectedIds.add(checkboxId);
-        // Attempt to hide the keyboard on mobile devices
-        if (document.activeElement) {
-            document.activeElement.blur();
+        const checkboxId = this.getAttribute('id');
+        if (this.checked) {
+            persistentSelectedIds.add(checkboxId);
+        } else {
+            persistentSelectedIds.delete(checkboxId);
         }
-    } else {
-        persistentSelectedIds.delete(checkboxId);
+        updateURLToggleDivAndUpdateLinkAndUpdateCount();
     }
-    updateURLToggleDivAndUpdateLinkAndUpdateCount();
-}
 
-
-    // Attach event listeners to checkboxes and synchronize the UI state
     function attachEventListenersAndSyncState() {
         document.querySelectorAll('.cms_list input[type="checkbox"]').forEach(checkbox => {
-            checkbox.removeEventListener('change', checkboxChangeHandler); // Prevent duplicating listeners
+            checkbox.removeEventListener('change', checkboxChangeHandler);
             checkbox.addEventListener('change', checkboxChangeHandler);
-
-            // Sync checkbox state from persistentSelectedIds
             checkbox.checked = persistentSelectedIds.has(checkbox.getAttribute('id'));
         });
-        updateURLToggleDivAndUpdateLinkAndUpdateCount(); // Update the UI based on the current state
+        updateURLToggleDivAndUpdateLinkAndUpdateCount();
     }
 
-    // Re-initialize event listeners and UI state after Finsweet filtering updates
     document.addEventListener('fs:filter:updated', attachEventListenersAndSyncState);
-
-    // Initial setup
     attachEventListenersAndSyncState();
 });
 
-
-
-
+//
 
 document.addEventListener("DOMContentLoaded", function() {
     // Hard-coded array of store names
