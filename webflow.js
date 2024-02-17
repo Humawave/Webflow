@@ -15,11 +15,13 @@ document.addEventListener('DOMContentLoaded', function() {
   clearButton.addEventListener('click', function() {
     searchInput.value = '';
     clearButton.style.display = 'none';
-    searchInput.focus(); // Optional: Bring focus back to the input
   });
 });
 
-//
+
+
+
+
 
 document.addEventListener("DOMContentLoaded", function() {
     var scrollButton = document.getElementById('scroll-button');
@@ -45,7 +47,9 @@ document.addEventListener("DOMContentLoaded", function() {
     scrollContainer.addEventListener('scroll', checkScroll);
   });
 
-//
+
+
+
 
 document.addEventListener('DOMContentLoaded', function () {
     // Function to update URL, toggle div, update link, and update count text
@@ -59,14 +63,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Create a new query parameter for the current page URL
         const queryParams = new URLSearchParams(window.location.search);
-        queryParams.set('selectedItems', selectedIds.join(','));
+        queryParams.set('selectedStores', selectedIds.join(','));
         // Update the current page URL without reloading
         history.pushState(null, '', '?' + queryParams.toString());
 
         // Base URL for the link block
         const baseURL = 'https://humawave.webflow.io/session';
         // Append selected items as query parameters to the link block's URL
-        const linkBlockURL = selectedIds.length > 0 ? `${baseURL}?selectedItems=${selectedIds.join(',')}` : baseURL;
+        const linkBlockURL = selectedIds.length > 0 ? `${baseURL}?selectedStores=${selectedIds.join(',')}` : baseURL;
 
         // Toggle visibility of the div based on if any checkboxes are selected
         const sectionContinue = document.getElementById('section-continue');
@@ -86,12 +90,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const linkContinue = document.getElementById('link-continue');
         linkContinue.setAttribute('href', linkBlockURL);
 
-        // Update the text of the "count" text block
-        const countTextBlock = document.getElementById('count');
-        const selectionCount = selectedIds.length;
-        countTextBlock.textContent = selectionCount === 1 ? '1 Store Selected' : `${selectionCount} Stores Selected`;
-    }
-
     // Attach change event listener to checkboxes
     document.querySelectorAll('.cms_list input[type="checkbox"]').forEach(checkbox => {
         checkbox.addEventListener('change', updateURLToggleDivAndUpdateLinkAndUpdateCount);
@@ -99,7 +97,8 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-//
+
+
 
 document.addEventListener("DOMContentLoaded", function() {
     // Hard-coded array of store names
