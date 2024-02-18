@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (selectedIds.length === 1) {
             selectedQuantityText.textContent = '1 Store Selected';
         } else if (selectedIds.length > 1) {
-            selectedQuantityText.textContent = `${selectedIds.length} Checkboxes Selected`;
+            selectedQuantityText.textContent = `${selectedIds.length} Stores Selected`;
         } else {
             // Set text to "0 Stores Selected" when no checkboxes are selected
             selectedQuantityText.textContent = '0 Stores Selected';
