@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 document.addEventListener('DOMContentLoaded', function () {
-    // Function to update URL, toggle div, update link, update count text, and update selected quantity text
+    // Function to update URL, toggle div, update link, update count text, and ensure selected quantity text is always visible
     function updateURLToggleDivAndUpdateLinkAndUpdateCount() {
         // Find all checkboxes in the CMS list
         const checkboxes = document.querySelectorAll('.cms_list input[type="checkbox"]');
@@ -90,15 +90,15 @@ document.addEventListener('DOMContentLoaded', function () {
         const linkContinue = document.getElementById('link-continue');
         linkContinue.setAttribute('href', linkBlockURL);
 
-        // Update the text for the selected-quantity element
+        // Update the text for the selected-quantity element to always show, even if 0 checkboxes are selected
         const selectedQuantityText = document.getElementById('selected-quantity');
         if (selectedIds.length === 1) {
             selectedQuantityText.textContent = '1 Store Selected';
         } else if (selectedIds.length > 1) {
             selectedQuantityText.textContent = `${selectedIds.length} Checkboxes Selected`;
         } else {
-            // Optional: Update this else block if you want to handle the case when no checkboxes are selected
-            selectedQuantityText.textContent = ''; // Clear the text or set it to some default message
+            // Set text to "0 Stores Selected" when no checkboxes are selected
+            selectedQuantityText.textContent = '0 Stores Selected';
         }
     } // This closing brace ends the function definition
 
