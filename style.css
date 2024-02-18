@@ -19,6 +19,10 @@
     scrollbar-width: none; /* Firefox */
 }
 
+
+
+
+
 /* Styles for the autocomplete container */
 #autocompleteResults {
   position: absolute;
@@ -28,9 +32,10 @@
   max-width: calc(100% - 2rem); /* Subtract the left and right margins from the total width */
   background-color: #fff;
   box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.1);
-  border-radius: 0.25rem;
+  border-radius: 1rem;
   overflow: hidden;
   z-index: 1000;
+  border: 1px solid #143723; /* Added border color */
 }
 
 /* Styles for each autocomplete suggestion */
