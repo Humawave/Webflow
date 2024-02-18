@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 document.addEventListener("DOMContentLoaded", function() {
     // Hard-coded array of store names
-    const cmsItems = ['ZARA', 'Abercrombie & Fitch', 'Adidas', 'Lululemon'];
+    const cmsItems = ['ZARA', 'Abercrombie & Fitch', 'Adidas', 'Lululemon','GEOX','La Senza','Loblaws','Sephora'];
 
     const searchInput = document.getElementById('searchInput');
     const resultsContainer = document.getElementById('autocompleteResults');
@@ -152,7 +152,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const storeNames = {
         '1': 'Abercrombie & Fitch',
         '2': 'Adidas',
+        '47': 'Geox',
+        '70': 'La Senza',
+        '81': 'Loblaws',
         '82': 'Lululemon',
+        '107': 'Sephora',
         '133': 'ZARA'
     };
 
