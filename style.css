@@ -31,11 +31,14 @@
   right: 1rem; /* Add space on the right */
   max-width: calc(100% - 2rem); /* Subtract the left and right margins from the total width */
   background-color: #fff;
-  box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.1);
+  box-shadow: 
+    0px 0.1px 0.2px rgba(0, 0, 0, 0.1), /* Second shadow */
+    0px 0.9px 1.9px rgba(0, 0, 0, 0.11), /* Third shadow */
+    0px 5.1px 10.9px rgba(0, 0, 0, 0.13); /* Fourth shadow */
   border-radius: 1rem;
   overflow: hidden;
   z-index: 1000;
-  border: 1px solid #143723; /* Added border color */
+  border: 1px solid #143723; /* Border color */
 }
 
 /* Styles for each autocomplete suggestion */
