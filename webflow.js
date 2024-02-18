@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
         history.pushState(null, '', '?' + queryParams.toString());
 
         // Base URL for the link block
-        const baseURL = 'https://humawave.webflow.io/session';
+        const baseURL = 'https://humawave.webflow.io/shop';
         // Append selected items as query parameters to the link block's URL
         const linkBlockURL = selectedIds.length > 0 ? `${baseURL}?selectedStores=${selectedIds.join(',')}` : baseURL;
 
