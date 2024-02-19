@@ -104,8 +104,8 @@ document.addEventListener('DOMContentLoaded', function() {
     searchInput.addEventListener('input', function() {
         var searchTerm = searchInput.value.toLowerCase();
 
-        // Getting all the CMS items by their class name or custom attribute
-        var cmsItems = document.querySelectorAll('.cms-item');
+        // Getting all the CMS items by their correct class name 'cms_item'
+        var cmsItems = document.querySelectorAll('.cms_item');
 
         cmsItems.forEach(function(item) {
             // Retrieving the store name from the custom data attribute
