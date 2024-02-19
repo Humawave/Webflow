@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Get 'selectedStores' from URL
     const queryParams = new URLSearchParams(window.location.search);
-    const selectedStores = queryParams.get('selectedStores');
+    const selectedStores = queryParams.get('selectedIds');
     
     if (selectedStores) {
         const selectedIds = selectedStores.split(',');
