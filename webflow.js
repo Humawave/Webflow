@@ -98,81 +98,50 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 document.addEventListener('DOMContentLoaded', function () {
+    // Function to update URL, toggle div, update link, and update count text
     function updateURLToggleDivAndUpdateLinkAndUpdateCount() {
-        const checkboxes = document.querySelectorAll('.cms_list input[type="checkbox"]');
-        const selectedIds = Array.from(checkboxes)
-            .filter(checkbox => checkbox.checked)
-            .map(checkbox => checkbox.getAttribute('id'));
+    const checkboxes = document.querySelectorAll('.cms_list input[type="checkbox"]');
+    const selectedIds = Array.from(checkboxes)
+        .filter(checkbox => checkbox.checked)
+        .map(checkbox => checkbox.getAttribute('id'));
 
-        const queryParams = new URLSearchParams(window.location.search);
-        queryParams.set('selectedStores', selectedIds.join(','));
+    const queryParams = new URLSearchParams(window.location.search);
+    queryParams.set('selectedStores', selectedIds.join(','));
 
-        // Preserve other query parameters
-        const currentParams = new URLSearchParams(window.location.search);
-        currentParams.forEach((value, key) => {
-            if (key !== 'selectedStores') {
-                queryParams.set(key, value);
-            }
-        });
-
-        history.pushState(null, '', '?' + queryParams.toString());
-
-        const baseURL = 'https://humawave.webflow.io/onboarding';
-        const linkBlockURL = selectedIds.length > 0 ? `${baseURL}?${queryParams.toString()}` : baseURL;
-
-        const sectionContinue = document.getElementById('section-continue');
-        if (selectedIds.length > 0) {
-            sectionContinue.style.display = 'block';
-            sectionContinue.style.opacity = 1;
-            sectionContinue.style.transition = 'opacity 100ms ease-in';
-        } else {
-            sectionContinue.style.opacity = 0;
-            sectionContinue.style.transition = 'opacity 100ms ease-out';
-            setTimeout(() => {
-                sectionContinue.style.display = 'none';
-            }, 100);
+    // Preserve other query parameters
+    const currentParams = new URLSearchParams(window.location.search);
+    currentParams.forEach((value, key) => {
+        if (key !== 'selectedStores') { // Don't overwrite the selectedStores parameter
+            queryParams.set(key, value);
         }
+    });
 
-        const linkContinue = document.getElementById('link-continue');
-        linkContinue.setAttribute('href', linkBlockURL);
+    history.pushState(null, '', '?' + queryParams.toString());
+
+    const baseURL = 'https://humawave.webflow.io/onboarding';
+    const linkBlockURL = selectedIds.length > 0 ? `${baseURL}?${queryParams.toString()}` : baseURL;
+
+    const sectionContinue = document.getElementById('section-continue');
+    if (selectedIds.length > 0) {
+        sectionContinue.style.display = 'block';
+        sectionContinue.style.opacity = 1;
+        sectionContinue.style.transition = 'opacity 100ms ease-in';
+    } else {
+        sectionContinue.style.opacity = 0;
+        sectionContinue.style.transition = 'opacity 100ms ease-out';
+        setTimeout(() => {
+            sectionContinue.style.display = 'none';
+        }, 100);
     }
 
-    // Function to initialize checkboxes based on the URL
-    function initializeCheckboxesFromURL() {
-        const selectedStores = new URLSearchParams(window.location.search).get('selectedStores');
-        const selectedIds = selectedStores ? selectedStores.split(',') : [];
-        document.querySelectorAll('.cms_list input[type="checkbox"]').forEach(checkbox => {
-            checkbox.checked = selectedIds.includes(checkbox.getAttribute('id'));
-        });
-    }
+    const linkContinue = document.getElementById('link-continue');
+    linkContinue.setAttribute('href', linkBlockURL);
+}
 
     // Attach change event listener to checkboxes
     document.querySelectorAll('.cms_list input[type="checkbox"]').forEach(checkbox => {
         checkbox.addEventListener('change', updateURLToggleDivAndUpdateLinkAndUpdateCount);
     });
-
-    // Initialize checkboxes based on the URL at page load
-    initializeCheckboxesFromURL();
-
-    // Ensure the page state is updated correctly after a filter operation
-    window.fsAttributes = window.fsAttributes || [];
-    window.fsAttributes.push([
-      'cmsfilter',
-      (filterInstances) => {
-        console.log('cmsfilter Successfully loaded!');
-        const [filterInstance] = filterInstances;
-
-        filterInstance.listInstance.on('renderitems', () => {
-            // Re-initialize checkboxes based on the URL after filtering
-            initializeCheckboxesFromURL();
-            // Update the URL and page state based on current checkbox selections
-            updateURLToggleDivAndUpdateLinkAndUpdateCount();
-        });
-      },
-    ]);
-
-    // Call this function initially to ensure the page state is correct based on the URL
-    updateURLToggleDivAndUpdateLinkAndUpdateCount();
 });
 
 
