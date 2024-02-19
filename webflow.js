@@ -83,29 +83,34 @@ document.addEventListener('DOMContentLoaded', function () {
             sectionContinue.style.transition = 'opacity 100ms ease-out';
             setTimeout(() => {
                 sectionContinue.style.display = 'none';
-            }, 100); // Wait for the animation to finish before hiding the div
+            }, 100);
         }
 
         // Update the href attribute of the link block
         const linkContinue = document.getElementById('link-continue');
         linkContinue.setAttribute('href', linkBlockURL);
 
-        // Update the text for the selected-quantity element to always show, even if 0 checkboxes are selected
+        // Update the text for the selected-quantity element to always show
         const selectedQuantityText = document.getElementById('selected-quantity');
         if (selectedIds.length === 1) {
             selectedQuantityText.textContent = '1 Store Selected';
         } else if (selectedIds.length > 1) {
-            selectedQuantityText.textContent = `${selectedIds.length} Stores Selected`;
+            selectedQuantityText.textContent = `${selectedIds.length} Checkboxes Selected`;
         } else {
-            // Set text to "0 Stores Selected" when no checkboxes are selected
             selectedQuantityText.textContent = '0 Stores Selected';
         }
-    } // This closing brace ends the function definition
+    }
 
-    // Attach change event listener to checkboxes
-    document.querySelectorAll('.cms_list input[type="checkbox"]').forEach(checkbox => {
-        checkbox.addEventListener('change', updateURLToggleDivAndUpdateLinkAndUpdateCount);
-    });
+    // Attach event listener to the CMS list for delegation
+    const cmsList = document.querySelector('.cms_list');
+    if (cmsList) {
+        cmsList.addEventListener('change', function(event) {
+            // Check if the event's target is a checkbox
+            if (event.target && event.target.type === 'checkbox') {
+                updateURLToggleDivAndUpdateLinkAndUpdateCount();
+            }
+        });
+    }
 });
 
 
