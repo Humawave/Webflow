@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
         history.pushState(null, '', '?' + queryParams.toString());
 
         // Define the base URL for the link block and append selected items as query parameters
-        const baseURL = 'https://humawave.webflow.io/shop';
+        const baseURL = 'https://humawave.webflow.io/onboarding';
         const linkBlockURL = selectedIds.length > 0 ? `${baseURL}?selectedStores=${selectedIds.join(',')}` : baseURL;
 
         // Toggle visibility of the continue section based on if any checkboxes are selected
