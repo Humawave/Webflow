@@ -1,6 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
-    // Function to update URL, toggle div, update link, and update count text
-    function updateURLToggleDivAndUpdateLinkAndUpdateCount() {
+function updateURLToggleDivAndUpdateLinkAndUpdateCount() {
     const checkboxes = document.querySelectorAll('.cms_list input[type="checkbox"]');
     const selectedIds = Array.from(checkboxes)
         .filter(checkbox => checkbox.checked)
@@ -39,8 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
     linkContinue.setAttribute('href', linkBlockURL);
 }
 
-    // Attach change event listener to checkboxes
-    document.querySelectorAll('.cms_list input[type="checkbox"]').forEach(checkbox => {
-        checkbox.addEventListener('change', updateURLToggleDivAndUpdateLinkAndUpdateCount);
-    });
+// Attach change event listener to checkboxes
+document.querySelectorAll('.cms_list input[type="checkbox"]').forEach(checkbox => {
+    checkbox.addEventListener('change', updateURLToggleDivAndUpdateLinkAndUpdateCount);
 });
