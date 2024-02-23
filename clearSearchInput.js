@@ -18,5 +18,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Clears the input field and hides the clear button when clicked
     searchInput.value = '';
     clearButton.style.display = 'none';
+
+    // Manually dispatch an input event to trigger any attached input event listeners
+    searchInput.dispatchEvent(new Event('input', { bubbles: true, cancelable: true }));
   });
 });
