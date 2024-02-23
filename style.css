@@ -63,18 +63,3 @@
 .highlight {
     background-color: yellow;
 }
-
-
-
-
-/* CSS for smooth fade in/out transitions */
-.cms_item {
-    transition: opacity 0.1s ease-in-out; /* Adjust the duration (0.3s here) as needed */
-    opacity: 0; /* Start items as invisible */
-    display: none; /* Ensure items take no space when not shown */
-}
-
-.cms_item.show {
-    display: block; /* Items are displayed as block when shown */
-    opacity: 1; /* Fully visible when the .show class is added */
-}
