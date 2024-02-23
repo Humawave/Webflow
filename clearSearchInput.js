@@ -1,17 +1,22 @@
-var searchInput = document.getElementById('searchInput');
-var clearButton = document.getElementById('clearSearch');
+document.addEventListener('DOMContentLoaded', function() {
+  // Element selection after the DOM is fully loaded
+  var searchInput = document.getElementById('searchInput');
+  var clearButton = document.getElementById('clearSearch');
 
-// Show the 'X' button when there's at least one character in the input
-searchInput.addEventListener('input', function() {
-  if (searchInput.value.length > 0) {
-    clearButton.style.display = 'block';
-  } else {
+  // Adds an 'input' event listener to the search input
+  searchInput.addEventListener('input', function() {
+    // Shows the clear button if there's text in the input field, hides it otherwise
+    if (searchInput.value.length > 0) {
+      clearButton.style.display = 'block';
+    } else {
+      clearButton.style.display = 'none';
+    }
+  });
+
+  // Adds a 'click' event listener to the clear button
+  clearButton.addEventListener('click', function() {
+    // Clears the input field and hides the clear button when clicked
+    searchInput.value = '';
     clearButton.style.display = 'none';
-  }
-});
-
-// Clear the search input when the 'X' button is clicked
-clearButton.addEventListener('click', function() {
-  searchInput.value = '';
-  clearButton.style.display = 'none';
+  });
 });
