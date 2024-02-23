@@ -14,8 +14,8 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     }
 
-    var handleSearch = debounce(function(event) {
-        var searchTerm = event.target.value.toLowerCase();
+    var handleSearch = debounce(function() {
+        var searchTerm = searchInput.value.toLowerCase();
 
         // Getting all the CMS items by their correct class name 'cms_item'
         var cmsItems = document.querySelectorAll('.cms_item');
@@ -24,24 +24,14 @@ document.addEventListener('DOMContentLoaded', function() {
             // Retrieving the store name from the custom data attribute
             var storeName = item.getAttribute('data-store-name').toLowerCase();
 
-            // Show item if it matches exactly the search term, hide it otherwise
-            if (storeName === searchTerm) {
-                item.style.display = '';
-                item.innerHTML = highlightMatch(storeName, searchTerm);
+            // Checking if the store name includes the search term
+            if (storeName.includes(searchTerm)) {
+                item.style.display = ''; // Show the item if it matches
             } else {
-                item.style.display = 'none';
+                item.style.display = 'none'; // Hide the item if it doesn't match
             }
         });
     }, 250); // Adjust debounce time as needed
 
     searchInput.addEventListener('input', handleSearch);
-
-    // Function to highlight matching letters
-    function highlightMatch(fullString, termToMatch) {
-        const startIndex = fullString.indexOf(termToMatch);
-        if (startIndex === -1) return fullString; // No match found
-
-        const endIndex = startIndex + termToMatch.length;
-        return `${fullString.substring(0, startIndex)}<span class="highlight">${fullString.substring(startIndex, endIndex)}</span>${fullString.substring(endIndex)}`;
-    }
 });
