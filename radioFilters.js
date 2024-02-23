@@ -1,23 +1,29 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Function to filter CMS items based on the selected category
-    function filterItemsByCategory(category) {
+    function filterItemsByCategory(selectedCategory) {
         // Select all CMS items
         const cmsItems = document.querySelectorAll('.cms_item');
 
         cmsItems.forEach(function(item) {
-            // Find the .cms_categories container within the item
-            const categoriesContainer = item.querySelector('.cms_categories');
-            
-            // Determine if the item belongs to the selected category
-            const belongsToCategory = categoriesContainer && categoriesContainer.querySelector(`div[id="${category}"]`);
+            // Assume the item does not belong to the category initially
+            let belongsToCategory = false;
+
+            // Check each category div within the item for a match
+            for (let i = 1; i <= 5; i++) {
+                const categoryDiv = item.querySelector(`.cms_categories .cms_title-category-${i}`);
+                if (categoryDiv && categoryDiv.id === selectedCategory) {
+                    belongsToCategory = true;
+                    break; // Stop checking further if a match is found
+                }
+            }
 
             // Show or hide the item based on whether it belongs to the selected category
-            item.style.display = belongsToCategory || category === 'all-stores' ? '' : 'none';
+            item.style.display = belongsToCategory || selectedCategory === 'all-stores' ? '' : 'none';
         });
     }
 
     // Attach event listeners to all category radio buttons within the .radio_field container
-    const categoryButtons = document.querySelector('.radio_field').querySelectorAll('input[type="radio"][name="category"]'); // Adjust if the name attribute differs
+    const categoryButtons = document.querySelectorAll('.radio_field input[type="radio"][name="category"]');
     categoryButtons.forEach(function(button) {
         button.addEventListener('change', function() {
             if (this.checked) {
