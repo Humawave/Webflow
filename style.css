@@ -55,3 +55,10 @@
 #autocompleteResults div:hover {
   background-color: #ddeba4;
 }
+
+
+
+
+.highlight {
+    background-color: yellow;
+}
