@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     var searchInput = document.getElementById('searchInput');
 
-    // Debounce function to limit how often a function is executed
+    // Debounce function as previously defined
     function debounce(func, wait) {
         let timeout;
         return function executedFunction(...args) {
@@ -16,22 +16,32 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var handleSearch = debounce(function() {
         var searchTerm = searchInput.value.toLowerCase();
-
-        // Getting all the CMS items by their correct class name 'cms_item'
         var cmsItems = document.querySelectorAll('.cms_item');
 
         cmsItems.forEach(function(item) {
-            // Retrieving the store name from the custom data attribute
             var storeName = item.getAttribute('data-store-name').toLowerCase();
 
-            // Checking if the store name includes the search term
-            if (storeName.includes(searchTerm)) {
-                item.style.display = ''; // Show the item if it matches
+            // Use classList to control visibility and allow CSS transitions
+            if (storeName.includes(searchTerm) && searchTerm !== '') {
+                item.classList.add('show');
             } else {
-                item.style.display = 'none'; // Hide the item if it doesn't match
+                item.classList.remove('show');
+            }
+
+            // Additional handling to ensure smooth transition when clearing search
+            if (searchTerm === '') {
+                item.style.display = 'none';
+                requestAnimationFrame(() => {
+                    item.classList.remove('show');
+                    // Use setTimeout to ensure display:none is applied after opacity transition
+                    setTimeout(() => item.style.display = 'none', 300); // Match transition duration
+                });
+            } else {
+                // Ensure items are displayed for opacity transition to be visible
+                item.style.display = '';
             }
         });
-    }, 250); // Adjust debounce time as needed
+    }, 250);
 
     searchInput.addEventListener('input', handleSearch);
 });
