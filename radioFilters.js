@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Function to filter CMS items based on the selected category
     function filterItemsByCategory(selectedCategory) {
+        console.log("Selected category:", selectedCategory); // Log the selected category ID
+        
         // Select all CMS items
         const cmsItems = document.querySelectorAll('.cms_item');
 
@@ -11,8 +13,11 @@ document.addEventListener('DOMContentLoaded', function() {
             // Check each category div within the item for a match
             for (let i = 1; i <= 5; i++) {
                 const categoryDiv = item.querySelector(`.cms_categories .cms_title-category-${i}`);
+                console.log(`Checking ID for category-${i}:`, categoryDiv ? categoryDiv.id : "No div found"); // Log the IDs being checked
+
                 if (categoryDiv && categoryDiv.id === selectedCategory) {
                     belongsToCategory = true;
+                    console.log(`Match found for: ${categoryDiv.id}`); // Log when a match is found
                     break; // Stop checking further if a match is found
                 }
             }
