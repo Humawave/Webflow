@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 item.style.display = 'none'; // Hide the item if it doesn't match
             }
         });
-    }, 250); // Adjust debounce time as needed
+    }, 100); // Adjust debounce time as needed
 
     searchInput.addEventListener('input', handleSearch);
 });
