@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     var searchInput = document.getElementById('searchInput');
 
-    // Debounce function to limit how often a function is executed
     function debounce(func, wait) {
         let timeout;
         return function executedFunction(...args) {
@@ -16,22 +15,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var handleSearch = debounce(function() {
         var searchTerm = searchInput.value.toLowerCase();
-
-        // Getting all the CMS items by their correct class name 'cms_item'
-        var cmsItems = document.querySelectorAll('.cms_item');
+        const cmsItems = document.querySelectorAll('.cms_item');
+        let anyItemVisible = false;
 
         cmsItems.forEach(function(item) {
-            // Retrieving the store name from the custom data attribute
             var storeName = item.getAttribute('data-store-name').toLowerCase();
 
-            // Checking if the store name starts with the search term
             if (storeName.startsWith(searchTerm)) {
-                item.style.display = ''; // Show the item if it matches
+                item.style.display = '';
+                anyItemVisible = true; // At least one item is visible
             } else {
-                item.style.display = 'none'; // Hide the item if it doesn't match
+                item.style.display = 'none';
             }
         });
-    }, 100); // Adjust debounce time as needed
+
+        // Show or hide the 'cms_list-empty' div based on anyItemVisible flag
+        document.querySelector('.cms_list-empty').style.display = anyItemVisible ? 'none' : 'block';
+    }, 100);
 
     searchInput.addEventListener('input', handleSearch);
 });
