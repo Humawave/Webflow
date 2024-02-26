@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Hard-coded array of store names
-    const cmsItems = ['ZARA', 'Abercrombie & Fitch', 'Adidas', 'Lululemon', 'GEOX', 'La Senza', 'Loblaws'];
+    const cmsItems = ['ZARA', 'Abercrombie & Fitch', 'Adidas', 'Lululemon', 'GEOX', 'La Senza', 'Loblaws', 'UGG'];
 
     const searchInput = document.getElementById('searchInput');
     const resultsContainer = document.getElementById('autocompleteResults');
