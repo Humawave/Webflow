@@ -7,6 +7,7 @@ const storeNames = {
     '81': 'Loblaws',
     '82': 'Lululemon',
     '107': 'Sephora',
+    '125': 'UGG',
     '133': 'ZARA'
 };
 
