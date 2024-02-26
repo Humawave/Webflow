@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Function to update URL, toggle div, update link, and update count based on selected checkboxes
     function updateURLToggleDivAndUpdateLinkAndUpdateCount() {
         const checkboxes = document.querySelectorAll('.cms_list input[type="checkbox"]');
         const selectedIds = Array.from(checkboxes)
@@ -21,30 +22,32 @@ document.addEventListener('DOMContentLoaded', function() {
         const baseURL = 'https://humawave.webflow.io/onboarding';
         const linkBlockURL = selectedIds.length > 0 ? `${baseURL}?${queryParams.toString()}` : baseURL;
 
-        document.getElementById('section-continue').style.display = selectedIds.length > 0 ? 'block' : 'none';
-        document.getElementById('link-continue').setAttribute('href', linkBlockURL);
+        const sectionContinue = document.getElementById('section-continue');
+        sectionContinue.style.display = selectedIds.length > 0 ? 'block' : 'none';
+        sectionContinue.style.opacity = selectedIds.length > 0 ? 1 : 0;
+        sectionContinue.style.transition = 'opacity 100ms ease-in-out';
 
-        // Toggle visibility of the 'cms_list-empty' div
-        document.querySelector('.cms_list-empty').style.display = checkboxes.length > 0 && selectedIds.length === 0 ? 'block' : 'none';
+        const linkContinue = document.getElementById('link-continue');
+        linkContinue.setAttribute('href', linkBlockURL);
     }
 
-    function attachEventListeners() {
+    // Function to attach or reattach event listeners to checkboxes
+    function attachChangeEventListeners() {
         document.querySelectorAll('.cms_list input[type="checkbox"]').forEach(checkbox => {
-            checkbox.removeEventListener('change', updateURLToggleDivAndUpdateLinkAndUpdateCount);
+            checkbox.removeEventListener('change', updateURLToggleDivAndUpdateLinkAndUpdateCount); // Prevent multiple bindings
             checkbox.addEventListener('change', updateURLToggleDivAndUpdateLinkAndUpdateCount);
         });
     }
 
     // Initial attachment of event listeners
-    attachEventListeners();
+    attachChangeEventListeners();
 
-    // MutationObserver to reapply logic after content updates
+    // MutationObserver to detect when new content is loaded via pagination and reapply logic
     const observer = new MutationObserver(function(mutationsList, observer) {
         // Assuming content updates might change the structure under '.cms_list'
         for (let mutation of mutationsList) {
             if (mutation.type === 'childList') {
-                attachEventListeners(); // Reattach event listeners
-                // Additional reinitialization logic can go here
+                attachChangeEventListeners(); // Reattach event listeners
             }
         }
     });
