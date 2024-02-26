@@ -1,16 +1,15 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Update the URL and visibility based on checkbox selections
+    // Update URL and visibility based on checkbox selections
     function updateURLToggleDivAndUpdateLinkAndUpdateCount() {
         const checkboxes = document.querySelectorAll('.cms_list input[type="checkbox"]');
         const selectedIds = Array.from(checkboxes)
             .filter(checkbox => checkbox.checked)
             .map(checkbox => checkbox.getAttribute('id'));
 
-        // Construct the query parameters
         const queryParams = new URLSearchParams(window.location.search);
         queryParams.set('selectedStores', selectedIds.join(','));
 
-        // Preserve other query parameters, except for pagination and selected stores
+        // Preserve other query parameters, excluding pagination parameters
         const currentParams = new URLSearchParams(window.location.search);
         currentParams.forEach((value, key) => {
             if (key !== 'selectedStores' && !key.includes('_page')) {
@@ -18,47 +17,48 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // Update the URL without reloading the page
         history.pushState(null, '', '?' + queryParams.toString());
 
-        // Update visibility of sections based on selections
         const sectionContinue = document.getElementById('section-continue');
         sectionContinue.style.display = selectedIds.length > 0 ? 'block' : 'none';
+
         const linkContinue = document.getElementById('link-continue');
         const baseURL = 'https://humawave.webflow.io/onboarding';
-        linkContinue.setAttribute('href', selectedIds.length > 0 ? `${baseURL}?${queryParams.toString()}` : baseURL);
-
-        // Update pagination links to preserve the current state
-        updatePaginationLinks();
+        linkContinue.setAttribute('href', `${baseURL}?${queryParams.toString()}`);
     }
 
-    // Attach event listeners to checkboxes for change events
+    // Attach event listeners to checkboxes
     function attachChangeEventListeners() {
         document.querySelectorAll('.cms_list input[type="checkbox"]').forEach(checkbox => {
+            checkbox.removeEventListener('change', updateURLToggleDivAndUpdateLinkAndUpdateCount); // Prevent duplicate listeners
             checkbox.addEventListener('change', updateURLToggleDivAndUpdateLinkAndUpdateCount);
         });
     }
 
-    // Update pagination links to include the selected store IDs and current pagination state
-    function updatePaginationLinks() {
-        const selectedStores = new URLSearchParams(window.location.search).get('selectedStores');
-
+    // Handle pagination link clicks to preserve selectedStores parameter
+    function handlePaginationClicks() {
         document.querySelectorAll('.w-pagination-wrap a').forEach(link => {
-            let href = link.getAttribute('href');
-            let url = new URL(href, window.location.origin);
-            let searchParams = url.searchParams;
+            link.addEventListener('click', function(e) {
+                e.preventDefault(); // Prevent default link behavior
+                
+                const selectedStores = new URLSearchParams(window.location.search).get('selectedStores');
+                const targetPageHref = this.getAttribute('href');
+                const baseUrl = window.location.href.split('?')[0];
+                const pageParam = new URL(targetPageHref, baseUrl).searchParams.get('4bedf26e_page');
+                
+                const queryParams = new URLSearchParams(window.location.search);
+                if (selectedStores) {
+                    queryParams.set('selectedStores', selectedStores);
+                }
+                if (pageParam) {
+                    queryParams.set('4bedf26e_page', pageParam);
+                }
 
-            // Update or add the selectedStores parameter
-            if (selectedStores) {
-                searchParams.set('selectedStores', selectedStores);
-            }
-
-            // Update the link's href attribute
-            link.setAttribute('href', url.toString());
+                window.location.href = `${baseUrl}?${queryParams.toString()}`;
+            });
         });
     }
 
-    // Initial setup: attach event listeners and update pagination links
     attachChangeEventListeners();
-    updatePaginationLinks();
+    handlePaginationClicks();
 });
