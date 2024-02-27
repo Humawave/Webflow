@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
+    const itemsToShow = 20; // Number of items to show initially and upon each "Load More" click
+
     // Update URL and visibility based on checkbox selections
     function updateURLToggleDivAndUpdateLinkAndUpdateCount() {
         const checkboxes = document.querySelectorAll('.cms_list input[type="checkbox"]');
@@ -35,30 +37,30 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Handle pagination link clicks to preserve selectedStores parameter
-    function handlePaginationClicks() {
-        document.querySelectorAll('.w-pagination-wrap a').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault(); // Prevent default link behavior
-                
-                const selectedStores = new URLSearchParams(window.location.search).get('selectedStores');
-                const targetPageHref = this.getAttribute('href');
-                const baseUrl = window.location.href.split('?')[0];
-                const pageParam = new URL(targetPageHref, baseUrl).searchParams.get('4bedf26e_page');
-                
-                const queryParams = new URLSearchParams(window.location.search);
-                if (selectedStores) {
-                    queryParams.set('selectedStores', selectedStores);
-                }
-                if (pageParam) {
-                    queryParams.set('4bedf26e_page', pageParam);
-                }
+    // Load More functionality
+    const cmsItems = document.querySelectorAll('.cms_list .cms_item'); // Adjust the selector as needed
+    const loadMoreLink = document.getElementById('loadMoreLink'); // Adjust this ID to match your link block's ID
 
-                window.location.href = `${baseUrl}?${queryParams.toString()}`;
-            });
+    cmsItems.forEach((item, index) => {
+        if (index >= itemsToShow) item.style.display = 'none';
+    });
+
+    function showMoreItems(event) {
+        event.preventDefault(); // Prevent the link from navigating
+        const hiddenItems = document.querySelectorAll('.cms_list .cms_item[style="display: none;"]');
+        hiddenItems.forEach((item, index) => {
+            if (index < itemsToShow) item.style.display = ''; // Adjust display style as needed
         });
+
+        if (document.querySelectorAll('.cms_list .cms_item[style="display: none;"]').length === 0) {
+            loadMoreLink.style.display = 'none';
+        }
+    }
+
+    if (cmsItems.length > itemsToShow) {
+        loadMoreLink.style.display = 'inline-block'; // Adjust if your link block should be displayed differently
+        loadMoreLink.addEventListener('click', showMoreItems);
     }
 
     attachChangeEventListeners();
-    handlePaginationClicks();
 });
