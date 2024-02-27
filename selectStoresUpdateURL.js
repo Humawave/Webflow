@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const itemsToShow = 20; // Number of items to show initially and upon each "Load More" click
+    const itemsToShow = 4; // Number of items to show initially and upon each "Load More" click
 
     // Update URL and visibility based on checkbox selections
     function updateURLToggleDivAndUpdateLinkAndUpdateCount() {
