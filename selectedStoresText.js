@@ -2,7 +2,7 @@
 const storeNames = {
     '1': 'Abercrombie & Fitch',
     '2': 'Adidas',
-    '47': 'Geox',
+    '47': 'GEOX',
     '70': 'La Senza',
     '81': 'Loblaws',
     '82': 'Lululemon',
