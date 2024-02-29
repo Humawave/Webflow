@@ -28,9 +28,23 @@ document.addEventListener('DOMContentLoaded', function() {
             emptyListDiv.style.display = anyVisible ? 'none' : 'block';
         }
 
-        // Update the results count
+        // Update the results count if the function exists
         if (window.updateResultsCount) {
             window.updateResultsCount();
+        }
+
+        // Smooth scroll to the anchor after filtering
+        smoothScrollToAnchor();
+    }
+
+    // Function to smooth scroll to the anchor
+    function smoothScrollToAnchor() {
+        const anchorElement = document.getElementById('anchor');
+        if (anchorElement) {
+            anchorElement.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
         }
     }
 
