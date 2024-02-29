@@ -1,6 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    let isFirstLoad = true; // Flag to check if it's the initial page load
-
     function filterItemsByCategory(selectedCategory, isUserInitiated = false) {
         const cmsItems = document.querySelectorAll('.cms_item');
         let anyVisible = false; // Track if any items are visible
@@ -30,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
             emptyListDiv.style.display = anyVisible ? 'none' : 'block';
         }
 
-        // Update the results count
+        // Update the results count if the function exists
         if (window.updateResultsCount) {
             window.updateResultsCount();
         }
@@ -51,14 +49,38 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Preselect the "all-stores" radio button but avoid scrolling on initial load
+    function clearFiltersAndShowAll() {
+        // Clear the search input field
+        var searchInput = document.getElementById('searchInput');
+        if (searchInput) {
+            searchInput.value = '';
+        }
+
+        // Select the "all-stores" radio button
+        const allStoresButton = document.getElementById('all-stores');
+        if (allStoresButton) {
+            allStoresButton.checked = true;
+            filterItemsByCategory('all-stores', true);
+        }
+    }
+
+    // Attach event listener to the "Clear Filters" link block
+    const clearFiltersLink = document.getElementById('clear-filters');
+    if (clearFiltersLink) {
+        clearFiltersLink.addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent any default link action
+            clearFiltersAndShowAll();
+        });
+    }
+
+    // Preselect the "all-stores" radio button and apply filter initially without triggering scroll
     const allStoresButton = document.getElementById('all-stores');
     if (allStoresButton) {
         allStoresButton.checked = true;
-        filterItemsByCategory('all-stores', !isFirstLoad);
+        filterItemsByCategory('all-stores', isFirstLoad);
     }
 
-    // Attach event listeners to category radio buttons and enable smooth scroll on interaction
+    // Attach event listeners to category radio buttons for user interaction
     const categoryButtons = document.querySelectorAll('.radio_field input[type="radio"][name="category"]');
     categoryButtons.forEach(function(button) {
         button.addEventListener('change', function() {
@@ -68,6 +90,5 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // After the initial setup, mark that any further actions are user-initiated
-    isFirstLoad = false;
+    let isFirstLoad = false; // Mark that any further actions are user-initiated after initial setup
 });
