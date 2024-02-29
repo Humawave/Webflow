@@ -1,14 +1,15 @@
 // Mapping of store IDs to names
 const storeNames = {
-    '1': 'Abercrombie & Fitch',
-    '2': 'Adidas',
-    '47': 'GEOX',
-    '70': 'La Senza',
-    '81': 'Loblaws',
-    '82': 'Lululemon',
-    '107': 'Sephora',
-    '125': 'UGG',
-    '133': 'ZARA'
+    'A1': 'Abercrombie & Fitch',
+    'A2': 'Adidas',
+    'A4': 'Aesop',
+    'A12': 'Aritzia',
+    'G3': 'GEOX',
+    'L14': 'Loblaws',
+    'L15': 'Lululemon',
+    'S4': 'Sephora',
+    'U1': 'UGG',
+    'Z1': 'ZARA'
 };
 
 // Function to format the selected store names text
