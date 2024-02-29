@@ -31,6 +31,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Show or hide the 'cms_list-empty' div based on anyItemVisible flag
         document.querySelector('.cms_list-empty').style.display = anyItemVisible ? 'none' : 'block';
+
+        // Update the results count after search filter is applied
+        if (window.updateResultsCount) {
+            window.updateResultsCount();
+        }
     }, 100);
 
     searchInput.addEventListener('input', handleSearch);
