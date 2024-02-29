@@ -16,11 +16,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
 
-            if (belongsToCategory || selectedCategory === 'all-stores') {
-                item.style.display = '';
+            item.style.display = belongsToCategory || selectedCategory === 'all-stores' ? '' : 'none';
+            if (item.style.display !== 'none') {
                 anyVisible = true; // Mark that we have at least one item visible
-            } else {
-                item.style.display = 'none';
             }
         });
 
@@ -29,6 +27,13 @@ document.addEventListener('DOMContentLoaded', function() {
         if (emptyListDiv) {
             emptyListDiv.style.display = anyVisible ? 'none' : 'block';
         }
+    }
+
+    // Preselect the "all-stores" radio button
+    const allStoresButton = document.getElementById('all-stores'); // Ensure this matches the ID of your "all-stores" radio button
+    if (allStoresButton) {
+        allStoresButton.checked = true;
+        filterItemsByCategory('all-stores'); // Apply filter to show all items initially
     }
 
     const categoryButtons = document.querySelectorAll('.radio_field input[type="radio"][name="category"]');
