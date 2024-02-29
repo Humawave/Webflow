@@ -27,17 +27,22 @@ document.addEventListener('DOMContentLoaded', function() {
         if (emptyListDiv) {
             emptyListDiv.style.display = anyVisible ? 'none' : 'block';
         }
+
+        // Update the results count
+        if (window.updateResultsCount) {
+            window.updateResultsCount();
+        }
     }
 
-    // Preselect the "all-stores" radio button
-    const allStoresButton = document.getElementById('all-stores'); // Ensure this matches the ID of your "all-stores" radio button
+    // Preselect the "all-stores" radio button and apply filter initially
+    const allStoresButton = document.getElementById('all-stores');
     if (allStoresButton) {
         allStoresButton.checked = true;
-        filterItemsByCategory('all-stores'); // Apply filter to show all items initially
+        filterItemsByCategory('all-stores');
     }
 
+    // Attach event listeners to category radio buttons
     const categoryButtons = document.querySelectorAll('.radio_field input[type="radio"][name="category"]');
-    
     categoryButtons.forEach(function(button) {
         button.addEventListener('change', function() {
             if (this.checked) {
