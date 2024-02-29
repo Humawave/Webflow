@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
-    function filterItemsByCategory(selectedCategory) {
+    let isFirstLoad = true; // Flag to check if it's the initial page load
+
+    function filterItemsByCategory(selectedCategory, isUserInitiated = false) {
         const cmsItems = document.querySelectorAll('.cms_item');
         let anyVisible = false; // Track if any items are visible
 
@@ -28,16 +30,17 @@ document.addEventListener('DOMContentLoaded', function() {
             emptyListDiv.style.display = anyVisible ? 'none' : 'block';
         }
 
-        // Update the results count if the function exists
+        // Update the results count
         if (window.updateResultsCount) {
             window.updateResultsCount();
         }
 
-        // Smooth scroll to the anchor after filtering
-        smoothScrollToAnchor();
+        // Smooth scroll to the anchor after filtering, but only if it's a user-initiated action
+        if (isUserInitiated) {
+            smoothScrollToAnchor();
+        }
     }
 
-    // Function to smooth scroll to the anchor
     function smoothScrollToAnchor() {
         const anchorElement = document.getElementById('anchor');
         if (anchorElement) {
@@ -48,20 +51,23 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Preselect the "all-stores" radio button and apply filter initially
+    // Preselect the "all-stores" radio button but avoid scrolling on initial load
     const allStoresButton = document.getElementById('all-stores');
     if (allStoresButton) {
         allStoresButton.checked = true;
-        filterItemsByCategory('all-stores');
+        filterItemsByCategory('all-stores', !isFirstLoad);
     }
 
-    // Attach event listeners to category radio buttons
+    // Attach event listeners to category radio buttons and enable smooth scroll on interaction
     const categoryButtons = document.querySelectorAll('.radio_field input[type="radio"][name="category"]');
     categoryButtons.forEach(function(button) {
         button.addEventListener('change', function() {
             if (this.checked) {
-                filterItemsByCategory(this.id);
+                filterItemsByCategory(this.id, true);
             }
         });
     });
+
+    // After the initial setup, mark that any further actions are user-initiated
+    isFirstLoad = false;
 });
