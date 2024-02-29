@@ -1,6 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const itemsToShow = 20; // Number of items to show initially and upon each "Load More" click
-
     // Update URL and visibility based on checkbox selections
     function updateURLToggleDivAndUpdateLinkAndUpdateCount() {
         const checkboxes = document.querySelectorAll('.cms_list input[type="checkbox"]');
@@ -35,31 +33,6 @@ document.addEventListener('DOMContentLoaded', function() {
             checkbox.removeEventListener('change', updateURLToggleDivAndUpdateLinkAndUpdateCount); // Prevent duplicate listeners
             checkbox.addEventListener('change', updateURLToggleDivAndUpdateLinkAndUpdateCount);
         });
-    }
-
-    // Load More functionality
-    const cmsItems = document.querySelectorAll('.cms_list .cms_item'); // Adjust the selector as needed
-    const loadMoreLink = document.getElementById('loadMoreLink'); // Adjust this ID to match your link block's ID
-
-    cmsItems.forEach((item, index) => {
-        if (index >= itemsToShow) item.style.display = 'none';
-    });
-
-    function showMoreItems(event) {
-        event.preventDefault(); // Prevent the link from navigating
-        const hiddenItems = document.querySelectorAll('.cms_list .cms_item[style="display: none;"]');
-        hiddenItems.forEach((item, index) => {
-            if (index < itemsToShow) item.style.display = ''; // Adjust display style as needed
-        });
-
-        if (document.querySelectorAll('.cms_list .cms_item[style="display: none;"]').length === 0) {
-            loadMoreLink.style.display = 'none';
-        }
-    }
-
-    if (cmsItems.length > itemsToShow) {
-        loadMoreLink.style.display = 'inline-block'; // Adjust if your link block should be displayed differently
-        loadMoreLink.addEventListener('click', showMoreItems);
     }
 
     attachChangeEventListeners();
