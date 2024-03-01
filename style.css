@@ -55,20 +55,3 @@
 #autocompleteResults div:hover {
   background-color: #ddeba4;
 }
-
-
-
-
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-.cms_item {
-    opacity: 0;
-    animation: fadeIn 0.3s ease forwards;
-}
