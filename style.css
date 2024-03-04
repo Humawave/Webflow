@@ -52,6 +52,36 @@
   border-bottom: none;
 }
 
+
+
+
+/* Make Flatpickr full width within its container */
+.flatpickr-calendar {
+    width: 100% !important; /* Force full width */
+    background: white; /* Set background color */
+    font-family: 'Figtree', sans-serif; /* Apply Figtree font */
+}
+
+/* Style the selected date */
+.flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange,
+.flatpickr-day.selected:focus, .flatpickr-day.startRange:focus, .flatpickr-day.endRange:focus,
+.flatpickr-day.selected:hover, .flatpickr-day.startRange:hover, .flatpickr-day.endRange:hover {
+    background: #143723 !important; /* Change selection color */
+    color: white; /* Change text color for selected date */
+}
+
+/* Style the hover state for days */
+.flatpickr-day:hover {
+    background: #143723 !important; /* Lighter or different hover color if needed */
+    color: white;
+}
+
+/* Additional styles for the input field to match */
+input.flatpickr-input {
+    width: 100%; /* Ensure input is full width */
+    font-family: 'Figtree', sans-serif; /* Match font */
+}
+
 #autocompleteResults div:hover {
   background-color: #ddeba4;
 }
