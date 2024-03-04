@@ -55,33 +55,45 @@
 
 
 
-/* Make Flatpickr full width within its container */
+/* Base styles for Flatpickr calendar */
 .flatpickr-calendar {
-    width: 100% !important; /* Force full width */
-    background: white; /* Set background color */
+    width: 100% !important; /* Ensure calendar is full width */
+    background: #f7f5ef !important; /* New background color */
     font-family: 'Figtree', sans-serif; /* Apply Figtree font */
+}
+
+/* Ensure internal components of Flatpickr also stretch to full width */
+.flatpickr-innerContainer, .flatpickr-rContainer, .flatpickr-days {
+    width: 100% !important;
+}
+
+/* Ensure that weekdays and week numbers take full width */
+.flatpickr-weekdays, .flatpickr-weeks {
+    display: flex;
+    width: 100%;
 }
 
 /* Style the selected date */
 .flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange,
 .flatpickr-day.selected:focus, .flatpickr-day.startRange:focus, .flatpickr-day.endRange:focus,
 .flatpickr-day.selected:hover, .flatpickr-day.startRange:hover, .flatpickr-day.endRange:hover {
-    background: #143723 !important; /* Change selection color */
-    color: white; /* Change text color for selected date */
+    background: #143723 !important; /* Selection color */
+    color: white !important; /* Text color for selected date */
 }
 
 /* Style the hover state for days */
 .flatpickr-day:hover {
-    background: #143723 !important; /* Lighter or different hover color if needed */
-    color: white;
+    background: #143723 !important; /* Hover color */
+    color: white !important;
 }
 
-/* Additional styles for the input field to match */
+/* Styles for the input field to match the calendar */
 input.flatpickr-input {
-    width: 100%; /* Ensure input is full width */
+    width: 100%; /* Full width for the input */
     font-family: 'Figtree', sans-serif; /* Match font */
 }
 
+/* Style for autocomplete results hover state */
 #autocompleteResults div:hover {
-  background-color: #ddeba4;
+    background-color: #ddeba4;
 }
