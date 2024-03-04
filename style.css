@@ -63,7 +63,7 @@
 }
 
 /* Ensure internal components of Flatpickr also stretch to full width */
-.flatpickr-innerContainer, .flatpickr-rContainer, .flatpickr-days {
+.flatpickr-innerContainer, .flatpickr-rContainer, .flatpickr-days, .dayContainer, .flatpickr-weeks {
     width: 100% !important;
 }
 
@@ -71,6 +71,19 @@
 .flatpickr-weekdays, .flatpickr-weeks {
     display: flex;
     width: 100%;
+}
+
+/* Ensure the days of the week stretch to the full width of the calendar */
+.flatpickr-weekday {
+    flex: 1;
+    text-align: center;
+}
+
+/* Ensure the date cells fill up the container */
+.flatpickr-day {
+    flex: 1 0 14%; /* Adjust the percentage based on the total number of columns (usually 7 for a week) */
+    box-sizing: border-box;
+    width: 14%; /* Adjust the width to be (100 / number of days in the week)% */
 }
 
 /* Style the selected date */
