@@ -116,15 +116,27 @@ input.flatpickr-input {
 
 /* FullCalendar Custom Styles */
 
+/* Style for day cells to create square effect */
+.fc .fc-daygrid-day {
+    border: 1px solid #ddd; /* Light grey border */
+    height: 6rem; /* Height for square cells using rem units */
+    width: 6rem; /* Width for square cells using rem units */
+}
+
 /* Style for "today" */
-.fc .fc-day-today {
-    background-color: #ddeba4 !important; /* Background color for today */
-    color: #f7f5ef !important; /* Text color for today */
+.fc .fc-day-today .fc-daygrid-day-number {
+    background-color: #143723 !important; /* Dark green background for today */
+    color: #f7f5ef !important; /* Light text color for today */
+    padding: 0.3rem 0.6rem; /* Padding to create a "badge" effect if desired */
+    border-radius: 50%; /* Makes the "badge" circular */
 }
 
 /* Style for all day numbers */
 .fc .fc-daygrid-day-number {
     color: #143723 !important; /* Text color for all days */
+    text-align: center; /* Centers the text horizontally */
+    margin-top: 0.5rem; /* Adjust as needed to center vertically within the cell */
+    display: block; /* Ensures the margin-top is respected */
 }
 
 /* Change text color for days of the week */
