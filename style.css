@@ -116,36 +116,33 @@ input.flatpickr-input {
 
 /* FullCalendar Custom Styles */
 
-/* Style for day cells to create square effect */
+/* Remove borders and background color from day cells */
 .fc .fc-daygrid-day {
-    border: 1px solid #ddd; /* Light grey border */
-    height: 6rem; /* Height for square cells using rem units */
-    width: 6rem; /* Width for square cells using rem units */
-}
-
-/* Style for "today" */
-.fc .fc-day-today .fc-daygrid-day-number {
-    background-color: #143723 !important; /* Dark green background for today */
-    color: #f7f5ef !important; /* Light text color for today */
-    padding: 0.3rem 0.6rem; /* Padding to create a "badge" effect if desired */
-    border-radius: 50%; /* Makes the "badge" circular */
+    border: none;
+    background: none;
 }
 
 /* Style for all day numbers */
 .fc .fc-daygrid-day-number {
-    color: #143723 !important; /* Text color for all days */
-    text-align: center; /* Centers the text horizontally */
-    margin-top: 0.5rem; /* Adjust as needed to center vertically within the cell */
-    display: block; /* Ensures the margin-top is respected */
+    color: #143723; /* Text color for all days */
+    text-align: center; /* Center the text horizontally */
+    padding: 0.5rem 0; /* Adds padding to vertically center the text */
 }
 
-/* Change text color for days of the week */
-.fc .fc-col-header-cell .fc-col-header-cell-cushion {
-    color: #143723 !important; /* Custom text color for days of the week */
+/* Change text color for days of the week header */
+.fc .fc-col-header-cell-cushion {
+    color: #143723; /* Custom text color for days of the week */
+}
+
+/* Style for "today" */
+.fc .fc-day-today .fc-daygrid-day-number {
+    background-color: #ddeba4; /* Background color for today */
+    color: #f7f5ef; /* Text color for today */
+    border-radius: 50%; /* Makes the "badge" circular */
+    padding: 0.3rem 0.6rem; /* Padding to create a "badge" effect if desired */
 }
 
 /* Grey out past days */
-.fc .fc-day-past {
-    background-color: #e9ecef; /* Bootstrap's light grey color */
-    color: #6c757d; /* Bootstrap's grey color for text */
+.fc .fc-day-past .fc-daygrid-day-number {
+    color: #6c757d; /* Bootstrap's grey color for text of past days */
 }
