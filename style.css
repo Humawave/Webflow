@@ -114,6 +114,8 @@ input.flatpickr-input {
 
 
 
+/* FullCalendar Custom Styles */
+
 /* Style for "today" */
 .fc .fc-day-today {
     background-color: #143723 !important; /* Background color for today */
@@ -125,7 +127,7 @@ input.flatpickr-input {
     color: #143723 !important; /* Text color for all days */
 }
 
-/* Optional: Style for day cells (not the day number) to change text color for events, etc. */
-.fc .fc-daygrid-day {
-    color: #143723 !important; /* Text color for all day cells */
+/* Change text color for days of the week */
+.fc .fc-col-header-cell .fc-col-header-cell-cushion {
+    color: #143723 !important; /* Custom text color for days of the week */
 }
