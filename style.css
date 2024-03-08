@@ -131,3 +131,9 @@ input.flatpickr-input {
 .fc .fc-col-header-cell .fc-col-header-cell-cushion {
     color: #143723 !important; /* Custom text color for days of the week */
 }
+
+/* Grey out past days */
+.fc .fc-day-past {
+    background-color: #e9ecef; /* Bootstrap's light grey color */
+    color: #6c757d; /* Bootstrap's grey color for text */
+}
