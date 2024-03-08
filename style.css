@@ -110,3 +110,22 @@ input.flatpickr-input {
 #autocompleteResults div:hover {
     background-color: #ddeba4;
 }
+
+
+
+
+/* Style for "today" */
+.fc .fc-day-today {
+    background-color: #143723 !important; /* Background color for today */
+    color: #f7f5ef !important; /* Text color for today */
+}
+
+/* Style for all day numbers */
+.fc .fc-daygrid-day-number {
+    color: #143723 !important; /* Text color for all days */
+}
+
+/* Optional: Style for day cells (not the day number) to change text color for events, etc. */
+.fc .fc-daygrid-day {
+    color: #143723 !important; /* Text color for all day cells */
+}
