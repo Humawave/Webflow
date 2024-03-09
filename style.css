@@ -96,7 +96,7 @@
 }
 
 /* Change the text color of the selected date */
-.air-datepicker .air-datepicker-cell.-selected- div {
+.air-datepicker .air-datepicker-cell.-selected- {
     color: #f7f5ef !important; /* Off-white text color */
 }
 
