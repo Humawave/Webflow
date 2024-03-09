@@ -56,3 +56,17 @@
 #autocompleteResults div:hover {
     background-color: #ddeba4;
 }
+
+
+
+
+/* Stretch the datepicker container */
+#calendar {
+    width: 100%;
+}
+
+/* Customize Air Datepicker */
+.air-datepicker {
+    width: 100% !important; /* Make the datepicker stretch to fill width */
+    background-color: transparent !important; /* Make the background transparent */
+}
