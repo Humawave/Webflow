@@ -84,22 +84,44 @@
     pointer-events: none; /* Disallow clicking */
 }
 
-/* Selection color for the selected date */
-.air-datepicker .air-datepicker-cell.-selected- .air-datepicker-cell-content {
-    background-color: #143723 !important; /* Dark green background */
-    color: #f7f5ef !important; /* Off-white text color */
-}
-
 /* Days of the week color and bold text */
 .air-datepicker .air-datepicker-body--day-name {
     color: #143723 !important; /* Dark green text color */
     font-weight: bold !important; /* Bold font weight */
 }
 
-/* Slider handle and range bar color in the timepicker */
-.air-datepicker .air-datepicker-range-slider-bar {
-    background-color: #143723 !important; /* Dark green slider bar color */
+/* Change the background color of the selected date */
+.air-datepicker .air-datepicker-cell.-selected- {
+    background-color: #143723 !important; /* Dark green background */
 }
-.air-datepicker .air-datepicker-range-slider-handle {
-    background-color: #143723 !important; /* Dark green slider handle color */
+
+/* Change the text color of the selected date */
+.air-datepicker .air-datepicker-cell.-selected- div {
+    color: #f7f5ef !important; /* Off-white text color */
+}
+
+/* Change slider thumb color */
+.air-datepicker input[type="range"]::-webkit-slider-thumb {
+    background-color: #143723 !important; /* Dark green thumb color for WebKit browsers */
+}
+
+.air-datepicker input[type="range"]::-moz-range-thumb {
+    background-color: #143723 !important; /* Dark green thumb color for Firefox */
+}
+
+.air-datepicker input[type="range"]::-ms-thumb {
+    background-color: #143723 !important; /* Dark green thumb color for IE/Edge */
+}
+
+/* Change slider track color */
+.air-datepicker input[type="range"]::-webkit-slider-runnable-track {
+    background-color: #143723 !important; /* Dark green track color for WebKit browsers */
+}
+
+.air-datepicker input[type="range"]::-moz-range-track {
+    background-color: #143723 !important; /* Dark green track color for Firefox */
+}
+
+.air-datepicker input[type="range"]::-ms-track {
+    background-color: #143723 !important; /* Dark green track color for IE/Edge */
 }
