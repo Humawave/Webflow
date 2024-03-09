@@ -60,13 +60,9 @@
 
 
 
-/* Stretch the datepicker container */
-#calendar {
-    width: 100%;
-}
-
 /* Customize Air Datepicker */
 .air-datepicker {
-    width: 100% !important; /* Make the datepicker stretch to fill width */
-    background-color: transparent !important; /* Make the background transparent */
+    width: 100% !important; /* Full width */
+    height: 100% !important; /* Full height - make sure this doesn't stretch it too thin */
+    background-color: transparent !important; /* Transparent background */
 }
