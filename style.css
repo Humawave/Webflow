@@ -66,3 +66,13 @@
     height: 100% !important; /* Full height - make sure this doesn't stretch it too thin */
     background-color: transparent !important; /* Transparent background */
 }
+
+/* Text color for dates */
+.air-datepicker .air-datepicker-cell-content {
+    color: #143723 !important; /* Custom text color for dates */
+}
+
+/* Background color on hover */
+.air-datepicker .air-datepicker-cell:not(.air-datepicker-cell-disabled):hover .air-datepicker-cell-content {
+    background-color: #ddeba4 !important;
+}
