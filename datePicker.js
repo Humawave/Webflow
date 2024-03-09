@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         nextButton.addEventListener('click', function() {
           document.getElementById('step-1').style.display = 'none';
-          document.getElementById('step-2').style.display = 'block';
+          document.getElementById('step-2').style.display = 'flex';
         }, { once: true });
       }
     },
