@@ -1,9 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-        plugins: [ FullCalendar.dayGridPlugin ], // Use the plugin
-        initialView: 'dayGridMonth',
-        firstDay: 1, // Monday as the first day
-    });
-    calendar.render();
+  // Instead of attaching to an input, attach the datepicker directly to a div
+  new AirDatepicker('#calendar', {
+    inline: true, // This option tells Air Datepicker to always show the calendar
+    // You can add other options here as needed
+  });
 });
