@@ -91,12 +91,21 @@
 }
 
 /* Sliders color in timepicker */
-.air-datepicker .air-datepicker-range-slider-handle {
+.air-datepicker .air-datepicker-range--from,
+.air-datepicker .air-datepicker-range--to {
     background-color: #143723 !important; /* Dark green handle color */
 }
 
 /* Days of the week color and bold text */
-.air-datepicker .air-datepicker-nav-title {
+.air-datepicker .air-datepicker-body--day-name {
     color: #143723 !important; /* Dark green text color */
     font-weight: bold; /* Bold font */
+}
+
+/* Change the handle color of the range slider in the time picker */
+.air-datepicker .air-datepicker-range-slider-bar {
+    background-color: #143723 !important; /* Dark green slider color */
+}
+.air-datepicker .air-datepicker-range-slider-handle {
+    border: 3px solid #143723 !important; /* Dark green slider handle border */
 }
