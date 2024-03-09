@@ -125,9 +125,3 @@
 .air-datepicker input[type="range"]::-ms-track {
     background-color: #143723 !important; /* Dark green track color for IE/Edge */
 }
-
-.air-datepicker .time--current-ampm {
-    font-size: 1rem; /* Adjust the size as needed */
-    color: #143723; /* Dark green color */
-    font-weight: bold; /* Make it bold */
-}
