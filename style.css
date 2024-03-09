@@ -68,11 +68,11 @@
 }
 
 /* Text color for dates */
-.air-datepicker .air-datepicker-cell-content {
+.air-datepicker-cell.-day- {
     color: #143723 !important; /* Custom text color for dates */
 }
 
 /* Background color on hover */
-.air-datepicker .air-datepicker-cell:not(.air-datepicker-cell-disabled):hover .air-datepicker-cell-content {
+.air-datepicker-cell.-day-:hover {
     background-color: #ddeba4 !important;
 }
