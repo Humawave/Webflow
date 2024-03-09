@@ -76,3 +76,10 @@
 .air-datepicker-cell.-day-:hover {
     background-color: #ddeba4 !important;
 }
+
+/* Grey out and disable interaction for past days if applicable */
+/* This assumes there's a class like '-disabled-' or similar for past days; adjust as necessary */
+.air-datepicker-cell.-disabled- {
+    color: #999 !important; /* Grey text color for past days */
+    pointer-events: none; /* Disallow clicking */
+}
