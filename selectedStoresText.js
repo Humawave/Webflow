@@ -10,6 +10,7 @@ const storeNames = {
     'A11': 'Arcteryx',
     'A12': 'Aritzia',
     'A13': 'Athleta',
+    'A14': 'Aveda',
     'G3': 'GEOX',
     'L14': 'Loblaws',
     'L15': 'Lululemon',
