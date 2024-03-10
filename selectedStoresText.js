@@ -6,6 +6,7 @@ const storeNames = {
     'A5': 'ALDO',
     'A7': 'AllSaints',
     'A8': 'Alo Yoga',
+    'A9': 'American Eagle Outfitters',
     'A11': 'Arcteryx',
     'A12': 'Aritzia',
     'G3': 'GEOX',
