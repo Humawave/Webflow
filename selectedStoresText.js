@@ -9,6 +9,7 @@ const storeNames = {
     'A9': 'American Eagle Outfitters',
     'A11': 'Arcteryx',
     'A12': 'Aritzia',
+    'A13': 'Athleta',
     'G3': 'GEOX',
     'L14': 'Loblaws',
     'L15': 'Lululemon',
