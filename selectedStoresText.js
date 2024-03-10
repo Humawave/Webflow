@@ -5,6 +5,7 @@ const storeNames = {
     'A4': 'Aesop',
     'A5': 'ALDO',
     'A7': 'AllSaints',
+    'A8': 'Alo Yoga',
     'A11': 'Arcteryx',
     'A12': 'Aritzia',
     'G3': 'GEOX',
