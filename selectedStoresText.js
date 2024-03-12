@@ -3,7 +3,7 @@ const storeNames = {
     'A1': 'Abercrombie & Fitch',
     'A2': 'Adidas',
     'A4': 'Aesop',
-    'A5': 'ALDO',
+    'A5': 'Aldo',
     'A7': 'AllSaints',
     'A8': 'Alo Yoga',
     'A9': 'American Eagle Outfitters',
@@ -12,12 +12,12 @@ const storeNames = {
     'A13': 'Athleta',
     'A14': 'Aveda',
     'B5': 'Bath & Body Works',
-    'G3': 'GEOX',
+    'G3': 'Geox',
     'L14': 'Loblaws',
     'L15': 'Lululemon',
     'S4': 'Sephora',
     'U1': 'UGG',
-    'Z1': 'ZARA'
+    'Z1': 'Zara'
 };
 
 // Function to format the selected store names text
