@@ -17,17 +17,5 @@ document.addEventListener('DOMContentLoaded', function() {
     minDate: new Date(),
     timepicker: true,
     isMobile: true,
-    onSelect: function({date, formattedDate, datepicker}) {
-      if (date && formattedDate) {
-        var nextButton = document.getElementById('next-calendar');
-        nextButton.style.opacity = 1;
-        nextButton.style.pointerEvents = 'auto'; // Make it clickable
-        
-        nextButton.addEventListener('click', function() {
-          document.getElementById('step-1').style.display = 'none';
-          document.getElementById('step-2').style.display = 'flex';
-        }, { once: true });
-      }
-    },
   });
 });
