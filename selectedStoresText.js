@@ -12,6 +12,7 @@ const storeNames = {
     'A13': 'Athleta',
     'A14': 'Aveda',
     'B5': 'Bath & Body Works',
+    'B7': 'Best Buy',
     'G3': 'Geox',
     'L14': 'Loblaws',
     'L15': 'Lululemon',
