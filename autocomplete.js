@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Hard-coded array of store names
-    const cmsItems = ['Aldo', 'Abercrombie & Fitch', 'Adidas', 'Aesop', 'AllSaints', 'Alo Yoga', 'American Eagle Outfitters', 'Arcteryx', 'Aritzia', 'Athleta', 'Aveda', 'Bath & Body Works', 'Geox', 'Loblaws', 'Lululemon', 'Sephora', 'UGG', 'Zara'];
+    const cmsItems = ['Aldo', 'Abercrombie & Fitch', 'Adidas', 'Aesop', 'AllSaints', 'Alo Yoga', 'American Eagle Outfitters', 'Arcteryx', 'Aritzia', 'Athleta', 'Aveda', 'Bath & Body Works', 'Best Buy', 'Geox', 'Loblaws', 'Lululemon', 'Sephora', 'UGG', 'Zara'];
 
     const searchInput = document.getElementById('searchInput');
     const resultsContainer = document.getElementById('autocompleteResults');
