@@ -1,4 +1,3 @@
-// Mapping of store IDs to names
 const storeNames = {
     'A1': 'Abercrombie & Fitch',
     'A2': 'Adidas',
@@ -11,6 +10,7 @@ const storeNames = {
     'A12': 'Aritzia',
     'A13': 'Athleta',
     'A14': 'Aveda',
+    'B4': 'Banana Republic',
     'B5': 'Bath & Body Works',
     'B7': 'Best Buy',
     'G3': 'Geox',
