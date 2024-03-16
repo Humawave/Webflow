@@ -13,6 +13,7 @@ const storeNames = {
     'B4': 'Banana Republic',
     'B5': 'Bath & Body Works',
     'B7': 'Best Buy',
+    'B11': 'Best Buy',
     'G3': 'Geox',
     'L14': 'Loblaws',
     'L15': 'Lululemon',
