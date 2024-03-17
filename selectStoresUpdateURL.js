@@ -25,6 +25,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const linkContinue = document.getElementById('link-continue');
         const baseURL = 'https://humawave.webflow.io/onboarding';
         linkContinue.setAttribute('href', `${baseURL}?${queryParams.toString()}`);
+        
+        // Update the quantity text
+        const quantityText = document.getElementById('quantity');
+        quantityText.textContent = `(${selectedIds.length})`; // Sets the count in the button
     }
 
     // Attach event listeners to checkboxes
