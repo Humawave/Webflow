@@ -37,18 +37,6 @@ document.addEventListener("DOMContentLoaded", function() {
     showStep('step-2'); // Navigate back to Step 2
   });
 
-  // Logic for the Date Picker (Step 2)
-  var enLocale = {
-    // Locale configuration for AirDatepicker
-  };
-  new AirDatepicker('#calendar', {
-    locale: enLocale,
-    minDate: new Date(),
-    onSelect: function({date, formattedDate, datepicker}) {
-      enableButton('next-2'); // Enable the "Next" button when a date is selected
-    }
-  });
-
   // Event listener for the "next" button in Step 2 to show Step 3
   document.getElementById('next-2').addEventListener('click', function() {
     showStep('step-3');
