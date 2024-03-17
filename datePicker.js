@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-  var enLocale = {
+    var enLocale = {
     days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
     daysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
     daysMin: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
@@ -16,11 +16,16 @@ document.addEventListener('DOMContentLoaded', function() {
     locale: enLocale,
     minDate: new Date(),
     onSelect: function({date, formattedDate, datepicker}) {
-      // Function to enable the "Next" button
       var nextButton = document.getElementById('next-2');
       nextButton.style.opacity = '1';
       nextButton.style.pointerEvents = 'auto';
       nextButton.style.cursor = 'pointer';
+
+      // Store the selected date in a data attribute on the timeSlotsContainer
+      document.getElementById('timeSlotsContainer').setAttribute('data-selected-date', formattedDate);
+      
+      // Update time slots according to the selected date
+      updateTimeSlotsAvailability();
     }
   });
 });
