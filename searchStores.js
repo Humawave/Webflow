@@ -39,4 +39,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 100);
 
     searchInput.addEventListener('input', handleSearch);
+
+    // Event listener for the focus event to scroll to the div with ID 'anchor'
+    searchInput.addEventListener('focus', function() {
+        var anchorDiv = document.getElementById('anchor');
+        if (anchorDiv) {
+            anchorDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    });
 });
