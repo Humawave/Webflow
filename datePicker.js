@@ -15,5 +15,12 @@ document.addEventListener('DOMContentLoaded', function() {
   var datePicker = new AirDatepicker('#calendar', {
     locale: enLocale,
     minDate: new Date(),
+    onSelect: function({date, formattedDate, datepicker}) {
+      // Function to enable the "Next" button
+      var nextButton = document.getElementById('next-2');
+      nextButton.style.opacity = '1';
+      nextButton.style.pointerEvents = 'auto';
+      nextButton.style.cursor = 'pointer';
+    }
   });
 });
