@@ -36,11 +36,16 @@ document.addEventListener('DOMContentLoaded', function() {
         if (window.updateResultsCount) {
             window.updateResultsCount();
         }
+
+        // Scroll to the div with the ID of 'anchor' if any item is visible
+        if (anyItemVisible) {
+            document.getElementById('anchor').scrollIntoView({ behavior: 'smooth' });
+        }
     }, 100);
 
     searchInput.addEventListener('input', handleSearch);
 
-    // Event listener for the focus event to scroll to the div with ID 'anchor'
+    // Add a focus event listener to scroll to the div with the ID of 'anchor'
     searchInput.addEventListener('focus', function() {
         var anchorDiv = document.getElementById('anchor');
         if (anchorDiv) {
