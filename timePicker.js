@@ -6,6 +6,14 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
+  // Function to enable the "Next" button
+  function enableNextButton() {
+    var nextButton = document.getElementById('next-3');
+    nextButton.style.opacity = '1';
+    nextButton.style.pointerEvents = 'auto';
+    nextButton.style.cursor = 'pointer';
+  }
+
   // Get the current time
   var now = new Date();
   var currentHour = now.getHours();
@@ -32,6 +40,7 @@ document.addEventListener("DOMContentLoaded", function() {
       slot.addEventListener('click', function() {
         removeActiveClasses();
         slot.classList.add('is-active-inputactive');
+        enableNextButton(); // Enable the "Next" button when a time slot is selected
       });
     }
   });
