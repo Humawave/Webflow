@@ -15,6 +15,7 @@ const storeNames = {
     'B7':  'Best Buy',
     'B11': 'Boss Hugo Boss',
     'C2':  'Canada Goose',
+    'C6':  'Club Monaco',
     'G3':  'Geox',
     'L14': 'Loblaws',
     'L15': 'Lululemon',
