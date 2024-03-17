@@ -24,7 +24,6 @@ const storeNames = {
     'Z1':  'Zara'
 };
 
-// Function to format the selected store names text
 function formatSelectedStoresText(selectedIds) {
     const names = selectedIds.map(id => storeNames[id]).filter(name => name !== undefined);
     
@@ -36,7 +35,7 @@ function formatSelectedStoresText(selectedIds) {
     }
 }
 
-// Get 'selectedStores' from URL
+// Extract 'selectedStores' from URL
 const queryParams = new URLSearchParams(window.location.search);
 const selectedStores = queryParams.get('selectedStores');
 
@@ -44,9 +43,15 @@ if (selectedStores) {
     const selectedIds = selectedStores.split(',');
     const selectedText = formatSelectedStoresText(selectedIds);
     
-    // Assuming you have a div with an ID of 'selections-text' for displaying the selections
+    // Display the selections text in a div
     const selectionsDiv = document.getElementById('selections-text');
     if (selectionsDiv) {
         selectionsDiv.textContent = selectedText;
+    }
+
+    // Update the input field value with the selected stores text
+    const selectedStoresInput = document.getElementById('selectedStores'); // Assuming the ID is 'selectedStores'
+    if (selectedStoresInput) {
+        selectedStoresInput.value = selectedText;
     }
 }
