@@ -15,7 +15,5 @@ document.addEventListener('DOMContentLoaded', function() {
   var datePicker = new AirDatepicker('#calendar', {
     locale: enLocale,
     minDate: new Date(),
-    timepicker: true,
-    isMobile: true,
   });
 });
