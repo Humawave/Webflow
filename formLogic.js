@@ -18,16 +18,20 @@ document.addEventListener("DOMContentLoaded", function() {
   // Function to handle radio button changes in Step 1
   function handleStep1Choice() {
     enableButton('next-1'); // Enable the "Next" button for Step 1
-    if (document.getElementById('step-1-choice-1').checked) {
-      showStep('step-4'); // Show Step 4 if first radio is selected
-    } else if (document.getElementById('step-1-choice-2').checked) {
-      showStep('step-2'); // Show Step 2 if second radio is selected
-    }
   }
 
-  // Attach event listeners to the radio buttons in Step 1
+  // Attach event listeners to the radio buttons in Step 1 for enabling the "Next" button
   document.getElementById('step-1-choice-1').addEventListener('change', handleStep1Choice);
   document.getElementById('step-1-choice-2').addEventListener('change', handleStep1Choice);
+
+  // Event listener for the "Next" button in Step 1 to show the next step based on radio button selection
+  document.getElementById('next-1').addEventListener('click', function() {
+    if (document.getElementById('step-1-choice-1').checked) {
+      showStep('step-4'); // Go to Step 4 if first radio button is selected
+    } else if (document.getElementById('step-1-choice-2').checked) {
+      showStep('step-2'); // Go to Step 2 if second radio button is selected
+    }
+  });
 
   // Attach event listener to the "back" buttons
   document.getElementById('back-2').addEventListener('click', function() {
