@@ -20,6 +20,7 @@ const storeNames = {
     'C5':  'Claires',
     'C6':  'Club Monaco',
     'C7':  'Coach',
+    'D2':  'Dollarama',
     'G3':  'Geox',
     'L14': 'Loblaws',
     'L15': 'Lululemon',
