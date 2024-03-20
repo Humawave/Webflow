@@ -1,11 +1,22 @@
 document.addEventListener("DOMContentLoaded", function() {
     
-    // Function to show a specific step and hide others
+    // Function to show a specific step, hide others, and manage progress bar visibility
     function showStep(stepId) {
+        // Hide all steps
         document.querySelectorAll('[id^="step-"]').forEach(function(step) {
-            step.style.display = 'none'; // Hide all steps
+            step.style.display = 'none';
         });
-        document.getElementById(stepId).style.display = 'flex'; // Show the specified step
+        // Show the specified step
+        document.getElementById(stepId).style.display = 'flex';
+
+        // Hide all progress bars
+        document.querySelectorAll('[id^="progress-"]').forEach(function(progress) {
+            progress.style.display = 'none';
+        });
+
+        // Show the progress bar corresponding to the current step
+        var progressId = 'progress-' + stepId.split('-')[1]; // Constructs the progress ID based on the step ID
+        document.getElementById(progressId).style.display = 'block';
     }
 
     // Function to enable a specific button
@@ -23,9 +34,6 @@ document.addEventListener("DOMContentLoaded", function() {
         button.style.pointerEvents = 'none';
         button.style.cursor = 'default';
     });
-
-    // Logic for date selection in Step 1 (assumes this is already implemented)
-    // ...
 
     // Attach event listener to the "Next" button in Step 1 to show Step 2
     document.getElementById('next-1').addEventListener('click', function() {
@@ -62,17 +70,18 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Attach event listener for the "Back" button in Step 4
     document.getElementById('back-4').addEventListener('click', function() {
+        // This will take the user back to Step 3 directly as per your flow
         showStep('step-3');
     });
 
-    // Time Picker Logic
-  document.querySelectorAll('.time-slot').forEach(function(slot) {
-    slot.addEventListener('click', function() {
-      document.querySelectorAll('.time-slot').forEach(function(slot) {
-        slot.classList.remove('is-active-inputactive'); // Remove active class from all slots
-      });
-      slot.classList.add('is-active-inputactive'); // Add active class to the clicked slot
-      enableButton('next-2'); // Enable the "Next" button when a time slot is selected
+    // Time Picker Logic for Step 2
+    document.querySelectorAll('.time-slot').forEach(function(slot) {
+        slot.addEventListener('click', function() {
+            document.querySelectorAll('.time-slot').forEach(function(slot) {
+                slot.classList.remove('is-active-inputactive'); // Remove active class from all slots
+            });
+            slot.classList.add('is-active-inputactive'); // Add active class to the clicked slot
+            enableButton('next-2'); // Enable the "Next" button when a time slot is selected
+        });
     });
-  });
 });
