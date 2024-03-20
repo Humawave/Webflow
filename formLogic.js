@@ -66,12 +66,14 @@ document.addEventListener("DOMContentLoaded", function() {
         showStep(lastStepBeforeStep4);
     });
 
-    // Logic for updating time slots based on the selected date in Step 2
-    // ...
+    // Time Picker Logic
+  document.querySelectorAll('.time-slot').forEach(function(slot) {
+    slot.addEventListener('click', function() {
+      document.querySelectorAll('.time-slot').forEach(function(slot) {
+        slot.classList.remove('is-active-inputactive'); // Remove active class from all slots
+      });
+      slot.classList.add('is-active-inputactive'); // Add active class to the clicked slot
+      enableButton('next-3'); // Enable the "Next" button when a time slot is selected
+    });
+  });
 });
-
-// Logic for handling date selection in Step 1
-// ...
-
-// Logic for updating time slots in Step 2
-// ...
