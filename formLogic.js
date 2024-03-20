@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    var lastStepBeforeStep4 = 'step-1'; // Default to 'step-1'
-
+    
     // Function to show a specific step and hide others
     function showStep(stepId) {
         document.querySelectorAll('[id^="step-"]').forEach(function(step) {
