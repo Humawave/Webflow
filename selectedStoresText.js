@@ -21,6 +21,7 @@ const storeNames = {
     'C6':  'Club Monaco',
     'C7':  'Coach',
     'D2':  'Dollarama',
+    'E1':  'ECCO',
     'G3':  'Geox',
     'L14': 'Loblaws',
     'L15': 'Lululemon',
