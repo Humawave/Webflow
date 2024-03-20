@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Show the progress bar corresponding to the current step
         var progressId = 'progress-' + stepId.split('-')[1]; // Constructs the progress ID based on the step ID
-        document.getElementById(progressId).style.display = 'block';
+        document.getElementById(progressId).style.display = 'flex';
     }
 
     // Function to enable a specific button
