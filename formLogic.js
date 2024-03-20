@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Attach event listener for the "Back" button in Step 4
     document.getElementById('back-4').addEventListener('click', function() {
-        showStep(lastStepBeforeStep4);
+        showStep('step-3');
     });
 
     // Time Picker Logic
