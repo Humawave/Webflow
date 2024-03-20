@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function() {
         slot.classList.remove('is-active-inputactive'); // Remove active class from all slots
       });
       slot.classList.add('is-active-inputactive'); // Add active class to the clicked slot
-      enableButton('next-3'); // Enable the "Next" button when a time slot is selected
+      enableButton('next-2'); // Enable the "Next" button when a time slot is selected
     });
   });
 });
