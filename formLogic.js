@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    var lastStepBeforeStep4 = 'step-1'; // Default starting step
+    var lastStepBeforeStep4 = 'step-1'; // Default to 'step-1'
 
     // Function to show a specific step and hide others
     function showStep(stepId) {
@@ -17,40 +17,61 @@ document.addEventListener("DOMContentLoaded", function() {
         button.style.cursor = 'pointer';
     }
 
-    // Attach event listeners to buttons for navigating steps
+    // Initialize the form by showing Step 1 and disabling "next" buttons
+    showStep('step-1');
+    document.querySelectorAll('[id^="next-"]').forEach(function(button) {
+        button.style.opacity = '0.5';
+        button.style.pointerEvents = 'none';
+        button.style.cursor = 'default';
+    });
+
+    // Logic for date selection in Step 1 (assumes this is already implemented)
+    // ...
+
+    // Attach event listener to the "Next" button in Step 1 to show Step 2
     document.getElementById('next-1').addEventListener('click', function() {
-        showStep('step-2'); // Navigate to Step 2 when the "Next" button in Step 1 is clicked
+        showStep('step-2');
     });
-    
+
+    // Attach event listener to the "Back" button in Step 2 to show Step 1
     document.getElementById('back-2').addEventListener('click', function() {
-        showStep('step-1'); // Navigate back to Step 1
+        showStep('step-1');
     });
 
+    // Attach event listener to the "Next" button in Step 2 to show Step 3
     document.getElementById('next-2').addEventListener('click', function() {
-        showStep('step-3'); // Navigate to Step 3
+        showStep('step-3');
     });
 
+    // Attach event listener for the "Back" button in Step 3 to show Step 2
     document.getElementById('back-3').addEventListener('click', function() {
-        showStep('step-2'); // Navigate back to Step 2
+        showStep('step-2');
     });
 
-    document.getElementById('next-3').addEventListener('click', function() {
-        showStep('step-4'); // Navigate to Step 4
-    });
-
-    // Event listeners for the radio buttons in Step 3
+    // Attach event listeners to radio buttons in Step 3 to enable the "Next" button
     document.getElementById('one-time').addEventListener('change', function() {
-        enableButton('next-3'); // Enable the "Next" button for Step 3
+        enableButton('next-3');
     });
     document.getElementById('monthly').addEventListener('change', function() {
-        enableButton('next-3'); // Enable the "Next" button for Step 3
+        enableButton('next-3');
     });
 
-    // Back button in Step 4 takes you to the last step viewed before Step 4
+    // Attach event listener for the "Next" button in Step 3 to show Step 4
+    document.getElementById('next-3').addEventListener('click', function() {
+        showStep('step-4');
+    });
+
+    // Attach event listener for the "Back" button in Step 4
     document.getElementById('back-4').addEventListener('click', function() {
         showStep(lastStepBeforeStep4);
     });
 
-    // Time Picker Logic and Date Picker Logic remain the same
-    // Add your updateTimeSlotsAvailability and date picker code here
+    // Logic for updating time slots based on the selected date in Step 2
+    // ...
 });
+
+// Logic for handling date selection in Step 1
+// ...
+
+// Logic for updating time slots in Step 2
+// ...
