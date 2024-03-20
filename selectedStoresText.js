@@ -16,6 +16,7 @@ const storeNames = {
     'B11': 'Boss Hugo Boss',
     'C2':  'Canada Goose',
     'C3':  'Canadian Tire',
+    'C4':  'Champs Sports',
     'C5':  'Claires',
     'C6':  'Club Monaco',
     'C7':  'Coach',
