@@ -17,14 +17,6 @@ document.addEventListener("DOMContentLoaded", function() {
         button.style.cursor = 'pointer';
     }
 
-    // Initialize the form by showing Step 1 and disabling "next" buttons
-    showStep('step-1');
-    document.querySelectorAll('[id^="next-"]').forEach(function(button) {
-        button.style.opacity = '0.5';
-        button.style.pointerEvents = 'none';
-        button.style.cursor = 'default';
-    });
-
     // Attach event listeners to buttons for navigating steps
     document.getElementById('next-1').addEventListener('click', function() {
         showStep('step-2'); // Navigate to Step 2 when the "Next" button in Step 1 is clicked
