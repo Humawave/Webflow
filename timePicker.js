@@ -1,17 +1,18 @@
 function updateTimeSlotsAvailability() {
     var now = new Date();
-    // Important to ensure 'now' is rounded down to the nearest minute to avoid skipping slots due to seconds difference
-    now = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes(), 0);
+    now = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes());
 
-    var selectedDate = document.getElementById('timeSlotsContainer').getAttribute('data-selected-date');
-    var selectedDateObj = selectedDate ? new Date(selectedDate + "T00:00:00") : null; // Ensure correct parsing
+    var selectedDateString = document.getElementById('selectedDate').value;
+    // Convert the dd/MM/yyyy format to MM/dd/yyyy format for correct parsing
+    var [day, month, year] = selectedDateString.split('/');
+    var selectedDateObj = new Date(`${month}/${day}/${year}`);
 
-    var isSelectedDateToday = selectedDateObj && selectedDateObj.toDateString() === now.toDateString();
+    var isSelectedDateToday = selectedDateObj.toDateString() === now.toDateString();
 
     document.querySelectorAll('.time-slot').forEach(function(slot) {
-        var slotHour = parseInt(slot.getAttribute('data-hour'));
-        var slotMinute = parseInt(slot.getAttribute('data-minute') || '0');
-        var slotTime = new Date(selectedDateObj.getFullYear(), selectedDateObj.getMonth(), selectedDateObj.getDate(), slotHour, slotMinute, 0);
+        var slotHour = parseInt(slot.getAttribute('data-hour'), 10);
+        var slotMinute = parseInt(slot.getAttribute('data-minute'), 10 || '0', 10);
+        var slotTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), slotHour, slotMinute);
 
         if (isSelectedDateToday && slotTime <= now) {
             slot.style.opacity = '0.5';
@@ -19,14 +20,19 @@ function updateTimeSlotsAvailability() {
         } else {
             slot.style.opacity = '';
             slot.style.pointerEvents = '';
-            slot.removeEventListener('click'); // Remove previous event listeners to prevent duplicates
             slot.addEventListener('click', function() {
                 document.querySelectorAll('.time-slot').forEach(function(slot) {
                     slot.classList.remove('is-active-inputactive');
                 });
                 slot.classList.add('is-active-inputactive');
+                // Assuming you have an 'enableButton' function that correctly enables the 'next-2' button
                 enableButton('next-2');
             });
         }
     });
 }
+
+// Ensure this function is called when a date is selected
+document.addEventListener('DOMContentLoaded', function() {
+    updateTimeSlotsAvailability(); // This may need to be called directly after a date is picked, not just on DOMContentLoaded
+});
