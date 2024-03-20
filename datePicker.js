@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
         minDate: new Date(),
         onSelect: function({date, formattedDate, datepicker}) {
             // Enable the "Next" button when a date is selected
-            var nextButton = document.getElementById('next-2');
+            var nextButton = document.getElementById('next-1');
             nextButton.style.opacity = '1';
             nextButton.style.pointerEvents = 'auto';
             nextButton.style.cursor = 'pointer';
