@@ -24,6 +24,7 @@ const storeNames = {
     'E1':  'ECCO',
     'E2':  'Ever New',
     'F1':  'Foot Locker',
+    'F5':  'FYE',
     'G3':  'Geox',
     'L14': 'Loblaws',
     'L15': 'Lululemon',
