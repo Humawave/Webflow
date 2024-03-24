@@ -25,10 +25,41 @@ document.addEventListener('DOMContentLoaded', function() {
             // Update the hidden input field with the selected date
             document.getElementById('selectedDate').value = formattedDate;
             
-            // If you have an updateTimeSlotsAvailability function or other related logic,
-            // you can call it here to update the time slots based on the selected date
-            // Example:
-            updateTimeSlotsAvailability();
+            // Update the availability of time slots based on the selected date
+            updateTimeSlotsAvailability(formattedDate); // Pass the selected date directly
         }
     });
+
+    function updateTimeSlotsAvailability(selectedDateString) {
+        var now = new Date();
+        now = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes());
+
+        // Convert the dd/MM/yyyy format to MM/dd/yyyy format for correct parsing
+        var [day, month, year] = selectedDateString.split('/');
+        var selectedDateObj = new Date(`${month}/${day}/${year}`);
+
+        var isSelectedDateToday = selectedDateObj.toDateString() === now.toDateString();
+
+        document.querySelectorAll('.time-slot').forEach(function(slot) {
+            var slotHour = parseInt(slot.getAttribute('data-hour'), 10);
+            var slotMinute = parseInt(slot.getAttribute('data-minute'), 10 || '0', 10);
+            var slotTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), slotHour, slotMinute);
+
+            if (isSelectedDateToday && slotTime <= now) {
+                slot.style.opacity = '0.5';
+                slot.style.pointerEvents = 'none';
+            } else {
+                slot.style.opacity = '';
+                slot.style.pointerEvents = '';
+                slot.removeEventListener('click'); // First, remove any previous click listener to avoid duplicates
+                slot.addEventListener('click', function() {
+                    document.querySelectorAll('.time-slot').forEach(function(slot) {
+                        slot.classList.remove('is-active-inputactive');
+                    });
+                    slot.classList.add('is-active-inputactive');
+                    enableButton('next-2'); // Ensure this function correctly enables the 'next-2' button
+                });
+            }
+        });
+    }
 });
