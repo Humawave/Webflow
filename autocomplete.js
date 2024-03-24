@@ -1,12 +1,15 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Hard-coded array of store names
     const cmsItems = ['Aldo', 'Abercrombie & Fitch', 'Adidas', 'Aesop', 'AllSaints', 'Alo Yoga', 'American Eagle Outfitters', 'Arcteryx', 'Aritzia', 'Athleta', 'Aveda', 'Banana Republic', 'Bath & Body Works', 'Best Buy', 'Boss Hugo Boss', 'Canada Goose', 'Canadian Tire', 'Champs Sports', 'Claires', 'Club Monaco', 'Coach', 'Dollarama', 'ECCO', 'Ever New', 'Foot Locker', 'FYE', 'GameStop', 'Geox', 'Loblaws', 'Lululemon', 'Sephora', 'UGG', 'Zara'];
-
     const searchInput = document.getElementById('searchInput');
     const resultsContainer = document.getElementById('autocompleteResults');
+    const clearButton = document.getElementById('clearSearch');
 
     searchInput.addEventListener('input', function() {
         const inputVal = this.value.toLowerCase();
+
+        // Show or hide the clear button based on input field content
+        clearButton.style.display = inputVal.length > 0 ? 'block' : 'none';
+
         // Filter CMS items based on input
         const filteredItems = cmsItems.filter(item => item.toLowerCase().startsWith(inputVal));
 
@@ -21,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     searchInput.value = item; // Populate input with selected item
                     resultsContainer.style.display = 'none'; // Hide results container
                     
-                    // Manually dispatch an input event to trigger the filter
+                    // Manually dispatch an input event to update clear button and potentially other bindings
                     const event = new Event('input', { bubbles: true });
                     searchInput.dispatchEvent(event);
                 });
@@ -31,6 +34,17 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             resultsContainer.style.display = 'none';
         }
+    });
+
+    // Adds a 'click' event listener to the clear button
+    clearButton.addEventListener('click', function() {
+        // Clears the input field, hides the clear button, and hides the results container when clicked
+        searchInput.value = '';
+        clearButton.style.display = 'none';
+        resultsContainer.style.display = 'none';
+
+        // Manually dispatch an input event to trigger any attached input event listeners
+        searchInput.dispatchEvent(new Event('input', { bubbles: true, cancelable: true }));
     });
 
     // Optionally, hide autocomplete results when clicking outside
