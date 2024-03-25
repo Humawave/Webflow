@@ -27,6 +27,7 @@ const storeNames = {
     'F5':  'FYE',
     'G1':  'GameStop',
     'G3':  'Geox',
+    'G4':  'GNC',
     'L14': 'Loblaws',
     'L15': 'Lululemon',
     'S4':  'Sephora',
