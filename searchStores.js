@@ -1,14 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const cmsItems = ['Aldo', 'Abercrombie & Fitch', 'Adidas', 'Aesop', 'AllSaints', 'Alo Yoga', 'American Eagle Outfitters', 'Arcteryx', 'Aritzia', 'Athleta', 'Aveda', 'Banana Republic', 'Bath & Body Works', 'Best Buy', 'Boss Hugo Boss', 'Canada Goose', 'Canadian Tire', 'Champs Sports', 'Claires', 'Club Monaco', 'Coach', 'Dollarama', 'ECCO', 'Ever New', 'Foot Locker', 'FYE', 'GameStop', 'Geox', 'GNC', 'Loblaws', 'Lululemon', 'Sephora', 'UGG', 'Zara'];
-    const searchInput = document.getElementById('searchInput');
-    const resultsContainer = document.getElementById('autocompleteResults');
-    const clearButton = document.getElementById('clearSearch');
-    const resultsTextBlock = document.getElementById('cms-results');
-
-    function updateResultsCount() {
-        const visibleItems = Array.from(document.querySelectorAll('.cms_item')).filter(item => item.style.display !== 'none').length;
-        resultsTextBlock.textContent = `${visibleItems} store${visibleItems === 1 ? '' : 's'} found`;
-    }
+    var searchInput = document.getElementById('searchInput');
 
     function debounce(func, wait) {
         let timeout;
@@ -22,47 +13,43 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     }
 
-    const handleSearch = debounce(function() {
-        const inputVal = searchInput.value.toLowerCase();
+    var handleSearch = debounce(function() {
+        var searchTerm = searchInput.value.toLowerCase();
+        const cmsItems = document.querySelectorAll('.cms_item');
+        let anyItemVisible = false;
 
-        // Show or hide the clear button based on input field content
-        clearButton.style.display = inputVal.length > 0 ? 'block' : 'none';
+        cmsItems.forEach(function(item) {
+            var storeName = item.getAttribute('data-store-name').toLowerCase();
 
-        // Filter CMS items based on input or show all if the input is empty
-        const filteredItems = inputVal === '' ? cmsItems : cmsItems.filter(item => item.toLowerCase().startsWith(inputVal));
-
-        // Clear previous results and update results count
-        resultsContainer.innerHTML = '';
-        filteredItems.forEach(item => {
-            const div = document.createElement('div');
-            div.textContent = item;
-            div.addEventListener('click', function() {
-                searchInput.value = item;
-                resultsContainer.style.display = 'none';
-                searchInput.dispatchEvent(new Event('input', { bubbles: true }));
-            });
-            resultsContainer.appendChild(div);
+            if (storeName.startsWith(searchTerm)) {
+                item.style.display = '';
+                anyItemVisible = true; // At least one item is visible
+            } else {
+                item.style.display = 'none';
+            }
         });
 
-        resultsContainer.style.display = filteredItems.length ? 'block' : 'none';
-        updateResultsCount();
-    }, 200); // Debounce time
+        // Show or hide the 'cms_list-empty' div based on anyItemVisible flag
+        document.querySelector('.cms_list-empty').style.display = anyItemVisible ? 'none' : 'block';
+
+        // Update the results count after search filter is applied
+        if (window.updateResultsCount) {
+            window.updateResultsCount();
+        }
+
+        // Scroll to the div with the ID of 'anchor' if any item is visible
+        if (anyItemVisible) {
+            document.getElementById('anchor').scrollIntoView({ behavior: 'smooth' });
+        }
+    }, 100);
 
     searchInput.addEventListener('input', handleSearch);
 
-    clearButton.addEventListener('click', function() {
-        searchInput.value = '';
-        clearButton.style.display = 'none';
-        resultsContainer.style.display = 'none';
-        searchInput.dispatchEvent(new Event('input', { bubbles: true, cancelable: true }));
-    });
-
-    document.addEventListener('click', function(event) {
-        if (!searchInput.contains(event.target) && event.target !== searchInput) {
-            resultsContainer.style.display = 'none';
+    // Add a focus event listener to scroll to the div with the ID of 'anchor'
+    searchInput.addEventListener('focus', function() {
+        var anchorDiv = document.getElementById('anchor');
+        if (anchorDiv) {
+            anchorDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     });
-
-    // Initial update for the count based on the default visible items on page load
-    updateResultsCount();
 });
