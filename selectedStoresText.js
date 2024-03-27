@@ -29,6 +29,7 @@ const storeNames = {
     'G3':  'Geox',
     'G4':  'GNC',
     'H1':  'H&M',
+    'H3':  'Harry Rosen',
     'L14': 'Loblaws',
     'L15': 'Lululemon',
     'S4':  'Sephora',
