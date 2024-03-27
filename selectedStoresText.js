@@ -32,6 +32,7 @@ const storeNames = {
     'H3':  'Harry Rosen',
     'H4':  'Herschel',
     'H5':  'Hoka',
+    'H7':  'HomeSense',
     'H10':  'Hudson\'s Bay',
     'L14': 'Loblaws',
     'L15': 'Lululemon',
