@@ -31,6 +31,7 @@ const storeNames = {
     'H1':  'H&M',
     'H3':  'Harry Rosen',
     'H4':  'Herschel',
+    'H5':  'Hoka',
     'L14': 'Loblaws',
     'L15': 'Lululemon',
     'S4':  'Sephora',
