@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const cmsItems = ['Aldo', 'Abercrombie & Fitch', 'Adidas', 'Aesop', 'AllSaints', 'Alo Yoga', 'American Eagle Outfitters', 'Arcteryx', 'Aritzia', 'Athleta', 'Aveda', 'Banana Republic', 'Bath & Body Works', 'Best Buy', 'Boss Hugo Boss', 'Canada Goose', 'Canadian Tire', 'Champs Sports', 'Claires', 'Club Monaco', 'Coach', 'Dollarama', 'ECCO', 'Ever New', 'Foot Locker', 'FYE', 'GameStop', 'Geox', 'H&M', 'Harry Rosen', 'Herschel', 'Loblaws', 'Lululemon', 'Sephora', 'UGG', 'Zara'];
+    const cmsItems = ['Aldo', 'Abercrombie & Fitch', 'Adidas', 'Aesop', 'AllSaints', 'Alo Yoga', 'American Eagle Outfitters', 'Arcteryx', 'Aritzia', 'Athleta', 'Aveda', 'Banana Republic', 'Bath & Body Works', 'Best Buy', 'Boss Hugo Boss', 'Canada Goose', 'Canadian Tire', 'Champs Sports', 'Claires', 'Club Monaco', 'Coach', 'Dollarama', 'ECCO', 'Ever New', 'Foot Locker', 'FYE', 'GameStop', 'Geox', 'H&M', 'Harry Rosen', 'Herschel', 'Hoka', 'Loblaws', 'Lululemon', 'Sephora', 'UGG', 'Zara'];
     const searchInput = document.getElementById('searchInput');
     const resultsContainer = document.getElementById('autocompleteResults');
     const clearButton = document.getElementById('clearSearch');
