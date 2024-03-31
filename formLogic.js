@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     
-    // Function to show a specific step, hide others, and manage progress bar visibility
+    // Function to show a specific step and hide others
     function showStep(stepId) {
         // Hide all steps
         document.querySelectorAll('[id^="step-"]').forEach(function(step) {
@@ -8,15 +8,6 @@ document.addEventListener("DOMContentLoaded", function() {
         });
         // Show the specified step
         document.getElementById(stepId).style.display = 'flex';
-
-        // Hide all progress bars
-        document.querySelectorAll('[id^="progress-"]').forEach(function(progress) {
-            progress.style.display = 'none';
-        });
-
-        // Show the progress bar corresponding to the current step
-        var progressId = 'progress-' + stepId.split('-')[1]; // Constructs the progress ID based on the step ID
-        document.getElementById(progressId).style.display = 'flex';
     }
 
     // Function to enable a specific button
@@ -70,7 +61,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Attach event listener for the "Back" button in Step 4
     document.getElementById('back-4').addEventListener('click', function() {
-        // This will take the user back to Step 3 directly as per your flow
         showStep('step-3');
     });
 
