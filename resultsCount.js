@@ -8,9 +8,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Check the number of items and update the text accordingly
         if(visibleItemCount === 1) {
-            resultsTextBlock.textContent = 'Found your store'; // If there's only one store
+            resultsTextBlock.textContent = 'Select your store below ⬇️'; // If there's only one store
         } else if(visibleItemCount > 1) {
-            resultsTextBlock.textContent = `Select any of ${visibleItemCount} stores`; // If there are multiple stores
+            resultsTextBlock.textContent = `Select any of ${visibleItemCount} stores below ⬇️`; // If there are multiple stores
         } else {
             resultsTextBlock.textContent = `${visibleItemCount} stores available`; // Default message
         }
