@@ -6,7 +6,14 @@ document.addEventListener('DOMContentLoaded', function() {
         
         const visibleItemCount = Array.from(cmsItems).filter(item => item.style.display !== 'none').length;
         
-        resultsTextBlock.textContent = `${visibleItemCount} store${visibleItemCount === 1 ? '' : 's'} found`;
+        // Check the number of items and update the text accordingly
+        if(visibleItemCount === 1) {
+            resultsTextBlock.textContent = 'Found your store'; // If there's only one store
+        } else if(visibleItemCount > 1) {
+            resultsTextBlock.textContent = `Select any of ${visibleItemCount} stores`; // If there are multiple stores
+        } else {
+            resultsTextBlock.textContent = `${visibleItemCount} stores available`; // Default message
+        }
     }
 
     // Attach this function to run after any action that changes the visibility of CMS items
