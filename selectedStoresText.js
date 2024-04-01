@@ -36,6 +36,7 @@ const storeNames = {
     'H7':  'HomeSense',
     'H9':  'Hot Topic',
     'H10':  'Hudson\'s Bay',
+    'I1':  'IKEA',
     'L14': 'Loblaws',
     'L15': 'Lululemon',
     'S4':  'Sephora',
