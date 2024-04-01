@@ -1,65 +1,108 @@
-document.addEventListener('DOMContentLoaded', function() {
-    var enLocale = {
-        days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-        daysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-        daysMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-        months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-        monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-        today: 'Today',
-        clear: 'Clear',
-        dateFormat: 'dd/MM/yyyy',
-        timeFormat: 'hh:mm aa',
-        firstDay: 1
-    };
+document.addEventListener("DOMContentLoaded", function() {
+    // Function to show a specific step and hide others
+    function showStep(stepId) {
+        document.querySelectorAll('[id^="step-"]').forEach(step => step.style.display = 'none');
+        document.getElementById(stepId).style.display = 'flex';
+    }
 
-    var datePicker = new AirDatepicker('#calendar', {
-        locale: enLocale,
-        minDate: new Date(),
-        onSelect: function({date, formattedDate, datepicker}) {
-            // Enable the "Next" button when a date is selected
-            var nextButton = document.getElementById('next-1');
-            nextButton.style.opacity = '1';
-            nextButton.style.pointerEvents = 'auto';
-            nextButton.style.cursor = 'pointer';
+    // Function to enable a specific button
+    function enableButton(buttonId) {
+        let button = document.getElementById(buttonId);
+        button.style.opacity = '1';
+        button.style.pointerEvents = 'auto';
+        button.style.cursor = 'pointer';
+    }
 
-            // Update the hidden input field with the selected date
-            document.getElementById('selectedDate').value = formattedDate;
-            
-            // Update the availability of time slots based on the selected date
-            updateTimeSlotsAvailability(formattedDate); // Pass the selected date directly
-        }
+    // Function to disable a specific button
+    function disableButton(buttonId) {
+        let button = document.getElementById(buttonId);
+        button.style.opacity = '0.5';
+        button.style.pointerEvents = 'none';
+        button.style.cursor = 'default';
+    }
+
+    // Check if all fields in step-5 are filled
+    function checkStep5Fields() {
+        let fieldsFilled = Array.from(document.querySelectorAll('#step-5 input')).every(input => input.value.trim() !== '');
+        fieldsFilled ? enableButton('next-5') : disableButton('next-5');
+    }
+
+    // Initialize the form by showing Step 1 and disabling "next" buttons
+    showStep('step-1');
+    document.querySelectorAll('[id^="next-"]').forEach(button => disableButton(button.id));
+
+    // Attach event listener to the "Next" button in Step 1 to show Step 2
+    document.getElementById('next-1').addEventListener('click', () => showStep('step-2'));
+
+    // Attach event listener to the "Back" button in Step 2 to show Step 1
+    document.getElementById('back-2').addEventListener('click', () => showStep('step-1'));
+
+    // Logic for Steps 3 to 5
+    document.querySelectorAll('#step-3 input[type="radio"]').forEach(radio => {
+        radio.addEventListener('change', () => enableButton('next-3'));
     });
 
-    function updateTimeSlotsAvailability(selectedDateString) {
-        var now = new Date();
-        now = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes());
+    document.querySelectorAll('#step-4 input[type="radio"]').forEach(radio => {
+        radio.addEventListener('change', () => enableButton('next-4'));
+    });
 
-        // Convert the dd/MM/yyyy format to MM/dd/yyyy format for correct parsing
-        var [day, month, year] = selectedDateString.split('/');
-        var selectedDateObj = new Date(`${month}/${day}/${year}`);
+    document.getElementById('next-3').addEventListener('click', () => showStep('step-4'));
 
-        var isSelectedDateToday = selectedDateObj.toDateString() === now.toDateString();
+    document.getElementById('next-4').addEventListener('click', () => {
+        let referralSelected = document.getElementById('referral').checked;
+        showStep(referralSelected ? 'step-5' : 'step-6');
+    });
 
-        document.querySelectorAll('.time-slot').forEach(function(slot) {
-            var slotHour = parseInt(slot.getAttribute('data-hour'), 10);
-            var slotMinute = parseInt(slot.getAttribute('data-minute'), 10 || '0', 10);
-            var slotTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), slotHour, slotMinute);
+    document.querySelectorAll('#step-5 input').forEach(input => {
+        input.addEventListener('input', checkStep5Fields);
+    });
 
-            if (isSelectedDateToday && slotTime <= now) {
-                slot.style.opacity = '0.5';
-                slot.style.pointerEvents = 'none';
-            } else {
-                slot.style.opacity = '';
-                slot.style.pointerEvents = '';
-                slot.removeEventListener('click'); // First, remove any previous click listener to avoid duplicates
-                slot.addEventListener('click', function() {
-                    document.querySelectorAll('.time-slot').forEach(function(slot) {
-                        slot.classList.remove('is-active-inputactive');
-                    });
-                    slot.classList.add('is-active-inputactive');
-                    enableButton('next-2'); // Ensure this function correctly enables the 'next-2' button
-                });
-            }
+    document.getElementById('next-5').addEventListener('click', () => showStep('step-6'));
+
+    document.getElementById('back-5').addEventListener('click', () => showStep('step-4'));
+
+    // Back button logic for Step 6
+    document.getElementById('back-6').addEventListener('click', () => {
+        let lastStepBeforeStep6 = document.getElementById('referral').checked ? 'step-5' : 'step-4';
+        showStep(lastStepBeforeStep6);
+    });
+
+    // Initial disable of next buttons until conditions are met
+    disableButton('next-3');
+    disableButton('next-4');
+    disableButton('next-5');
+
+    // Event listeners for radio buttons in Step 3 to enable next button
+    ['one-time', 'monthly', 'referral'].forEach(id => {
+        document.getElementById(id).addEventListener('change', () => enableButton('next-3'));
+    });
+
+    // Event listeners for radio buttons in Step 4 to determine next step
+    ['monthly', 'one-time'].forEach(id => {
+        document.getElementById(id).addEventListener('change', () => {
+            enableButton('next-4');
+            document.getElementById('next-4').onclick = () => showStep('step-6');
         });
-    }
+    });
+
+    document.getElementById('referral').addEventListener('change', () => {
+        enableButton('next-4');
+        document.getElementById('next-4').onclick = () => showStep('step-5');
+    });
+
+    // Check fields in Step 5 for enabling the next button
+    ['referee-fn', 'referee-ln', 'referee-email', 'referee-phone'].forEach(id => {
+        document.getElementById(id).addEventListener('input', checkStep5Fields);
+    });
+
+    // Time Picker Logic for Step 2
+    document.querySelectorAll('.time-slot').forEach(slot => {
+        slot.addEventListener('click', function() {
+            document.querySelectorAll('.time-slot').forEach(slot => slot.classList.remove('is-active-inputactive')); // Remove active class from all slots
+            slot.classList.add('is-active-inputactive'); // Add active class to the clicked slot
+            enableButton('next-2'); // Enable the "Next" button when a time slot is selected
+        });
+    });
+
+    // Add any other initialization code here, such as attaching event listeners for other steps if necessary.
 });
