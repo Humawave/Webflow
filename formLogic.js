@@ -37,6 +37,9 @@ document.addEventListener("DOMContentLoaded", function() {
     // Attach event listener to the "Back" button in Step 2 to show Step 1
     document.getElementById('back-2').addEventListener('click', () => showStep('step-1'));
 
+    // Attach event listener to the "Next" button in Step 2 to show Step 3
+    document.getElementById('next-2').addEventListener('click', () => showStep('step-3'));
+
     // Logic for Steps 3 to 5
     document.querySelectorAll('#step-3 input[type="radio"]').forEach(radio => {
         radio.addEventListener('change', () => enableButton('next-3'));
