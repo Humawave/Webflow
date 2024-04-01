@@ -95,4 +95,14 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById(id).addEventListener('input', checkStep5Fields);
     });
 
+    // Time Picker Logic for Step 2
+    document.querySelectorAll('.time-slot').forEach(slot => {
+        slot.addEventListener('click', function() {
+            document.querySelectorAll('.time-slot').forEach(slot => slot.classList.remove('is-active-inputactive')); // Remove active class from all slots
+            slot.classList.add('is-active-inputactive'); // Add active class to the clicked slot
+            enableButton('next-2'); // Enable the "Next" button when a time slot is selected
+        });
+    });
+
+    // Add any other initialization code here, such as attaching event listeners for other steps if necessary.
 });
