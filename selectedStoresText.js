@@ -38,6 +38,7 @@ const storeNames = {
     'H10':  'Hudson\'s Bay',
     'I1':  'IKEA',
     'I2':  'Indigo',
+    'J2':  'Jo Malone London',
     'L14': 'Loblaws',
     'L15': 'Lululemon',
     'S4':  'Sephora',
