@@ -16,50 +16,60 @@ document.addEventListener('DOMContentLoaded', function() {
         locale: enLocale,
         minDate: new Date(),
         onSelect: function({date, formattedDate, datepicker}) {
-            // Enable the "Next" button when a date is selected
             var nextButton = document.getElementById('next-1');
             nextButton.style.opacity = '1';
             nextButton.style.pointerEvents = 'auto';
             nextButton.style.cursor = 'pointer';
 
-            // Update the hidden input field with the selected date
             document.getElementById('selectedDate').value = formattedDate;
             
-            // Update the availability of time slots based on the selected date
-            updateTimeSlotsAvailability(formattedDate); // Pass the selected date directly
+            updateTimeSlotsAvailability(formattedDate);
         }
     });
 
     function updateTimeSlotsAvailability(selectedDateString) {
+        // Create a new date object for the current moment
         var now = new Date();
-        now = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes());
 
-        // Convert the dd/MM/yyyy format to MM/dd/yyyy format for correct parsing
+        // Parse the selected date from the picker
         var [day, month, year] = selectedDateString.split('/');
-        var selectedDateObj = new Date(`${month}/${day}/${year}`);
+        var selectedDate = new Date(year, month - 1, day, now.getHours(), now.getMinutes(), now.getSeconds());
 
-        var isSelectedDateToday = selectedDateObj.toDateString() === now.toDateString();
+        // Determine if the selected date is today
+        var isSelectedDateToday = selectedDate.toDateString() === now.toDateString();
 
         document.querySelectorAll('.time-slot').forEach(function(slot) {
             var slotHour = parseInt(slot.getAttribute('data-hour'), 10);
-            var slotMinute = parseInt(slot.getAttribute('data-minute'), 10 || '0', 10);
-            var slotTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), slotHour, slotMinute);
+            var slotMinute = parseInt(slot.getAttribute('data-minute'), 10 || 0);
+            var slotDateTime = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate(), slotHour, slotMinute);
 
-            if (isSelectedDateToday && slotTime <= now) {
-                slot.style.opacity = '0.5';
-                slot.style.pointerEvents = 'none';
+            // Clear any previously added event listeners by cloning the slot node
+            var slotClone = slot.cloneNode(true);
+            slot.parentNode.replaceChild(slotClone, slot);
+
+            if (isSelectedDateToday && slotDateTime < now) {
+                // If it's today and time is past, disable the slot
+                slotClone.style.opacity = '0.5';
+                slotClone.style.pointerEvents = 'none';
             } else {
-                slot.style.opacity = '';
-                slot.style.pointerEvents = '';
-                slot.removeEventListener('click'); // First, remove any previous click listener to avoid duplicates
-                slot.addEventListener('click', function() {
-                    document.querySelectorAll('.time-slot').forEach(function(slot) {
-                        slot.classList.remove('is-active-inputactive');
+                // Otherwise, make sure the slot is enabled
+                slotClone.style.opacity = '';
+                slotClone.style.pointerEvents = '';
+                slotClone.addEventListener('click', function() {
+                    document.querySelectorAll('.time-slot').forEach(function(innerSlot) {
+                        innerSlot.classList.remove('is-active-inputactive');
                     });
-                    slot.classList.add('is-active-inputactive');
-                    enableButton('next-2'); // Ensure this function correctly enables the 'next-2' button
+                    slotClone.classList.add('is-active-inputactive');
+                    enableButton('next-2');
                 });
             }
         });
+    }
+
+    function enableButton(buttonId) {
+        var button = document.getElementById(buttonId);
+        button.style.opacity = '1';
+        button.style.pointerEvents = 'auto';
+        button.style.cursor = 'pointer';
     }
 });
