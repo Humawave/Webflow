@@ -40,6 +40,7 @@ const storeNames = {
     'I2':  'Indigo',
     'J1':  'Jack & Jones',
     'J2':  'Jo Malone London',
+    'K1':  'Kate Spade',
     'L14': 'Loblaws',
     'L15': 'Lululemon',
     'S4':  'Sephora',
