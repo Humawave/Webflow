@@ -42,6 +42,7 @@ const storeNames = {
     'J2':  'Jo Malone London',
     'K1':  'Kate Spade',
     'K2':  'Kiehl\'s',
+    'K3':  'Kiokii and...',
     'L14': 'Loblaws',
     'L15': 'Lululemon',
     'S4':  'Sephora',
