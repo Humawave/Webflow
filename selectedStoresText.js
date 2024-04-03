@@ -44,6 +44,7 @@ const storeNames = {
     'K2':  'Kiehl\'s',
     'K3':  'Kiokii and...',
     'K4':  'Kit and Ace',
+    'L2': 'L\'Occitane',
     'L14': 'Loblaws',
     'L15': 'Lululemon',
     'S4':  'Sephora',
