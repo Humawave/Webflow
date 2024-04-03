@@ -21,10 +21,10 @@ document.addEventListener("DOMContentLoaded", function() {
         button.style.cursor = 'default';
     }
 
-    // Check if all fields in step-5 are filled
-    function checkStep5Fields() {
-        let fieldsFilled = Array.from(document.querySelectorAll('#step-5 input')).every(input => input.value.trim() !== '');
-        fieldsFilled ? enableButton('next-5') : disableButton('next-5');
+    // Check if all fields in a step are filled
+    function checkFieldsAndEnableButton(stepId, buttonId) {
+        let fieldsFilled = Array.from(document.querySelectorAll(`${stepId} input`)).every(input => input.value.trim() !== '');
+        fieldsFilled ? enableButton(buttonId) : disableButton(buttonId);
     }
 
     // Initialize the form by showing Step 1 and disabling "next" buttons
@@ -36,32 +36,41 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById('back-2').addEventListener('click', () => showStep('step-1'));
     document.getElementById('next-2').addEventListener('click', () => showStep('step-3'));
 
-    // Event listeners for Steps 3 to 6
+    // Logic for Steps 3
     document.querySelectorAll('#step-3 input[type="radio"]').forEach(radio => {
-        radio.addEventListener('change', () => enableButton('next-3'));
-    });
-
-    document.querySelectorAll('#step-4 input[type="radio"]').forEach(radio => {
         radio.addEventListener('change', function() {
+            enableButton('next-3');
             if (this.id === "referral") {
-                document.getElementById('next-4').addEventListener('click', () => showStep('step-5'));
-            } else {
-                document.getElementById('next-4').addEventListener('click', () => showStep('step-6'));
+                document.getElementById('next-3').onclick = () => showStep('step-4');
+            } else if (this.id === "one-time") {
+                document.getElementById('next-3').onclick = () => showStep('step-5');
             }
-            enableButton('next-4');
         });
     });
 
-    document.getElementById('next-3').addEventListener('click', () => showStep('step-4'));
+    // Event listeners for Step 4 fields to enable next button
+    document.querySelectorAll('#step-4 input').forEach(input => {
+        input.addEventListener('input', () => checkFieldsAndEnableButton('#step-4', 'next-4'));
+    });
 
-    document.querySelectorAll('#step-5 input').forEach(input => input.addEventListener('input', checkStep5Fields));
-    document.getElementById('next-5').addEventListener('click', () => showStep('step-6'));
+    // Logic for Step 5 navigation
+    document.getElementById('next-4').addEventListener('click', () => showStep('step-5'));
+    document.querySelectorAll('#step-5 input').forEach(input => input.addEventListener('input', () => checkFieldsAndEnableButton('#step-5', 'next-5')));
 
-    document.getElementById('back-5').addEventListener('click', () => showStep('step-4'));
+    document.getElementById('back-5').addEventListener('click', () => {
+        let previousStep = document.getElementById('referral').checked ? 'step-4' : 'step-3';
+        showStep(previousStep);
+    });
+
     document.getElementById('back-4').addEventListener('click', () => showStep('step-3'));
     document.getElementById('back-3').addEventListener('click', () => showStep('step-2'));
 
-    // Back button logic for Step 6 based on the previous selection
+    // Logic for Step 6 fields and navigation
+    document.querySelectorAll('#step-6 input').forEach(input => {
+        input.addEventListener('input', () => checkFieldsAndEnableButton('#step-6', 'next-6'));
+    });
+
+    document.getElementById('next-5').addEventListener('click', () => showStep('step-6'));
     document.getElementById('back-6').addEventListener('click', () => {
         let previousStep = document.getElementById('referral').checked ? 'step-5' : 'step-4';
         showStep(previousStep);
@@ -71,29 +80,7 @@ document.addEventListener("DOMContentLoaded", function() {
     disableButton('next-3');
     disableButton('next-4');
     disableButton('next-5');
-
-    // Event listeners for radio buttons in Step 3 to enable next button
-    ['one-time', 'monthly', 'referral'].forEach(id => {
-        document.getElementById(id).addEventListener('change', () => enableButton('next-3'));
-    });
-
-    // Event listeners for radio buttons in Step 4 to determine next step
-    ['monthly', 'one-time'].forEach(id => {
-        document.getElementById(id).addEventListener('change', () => {
-            enableButton('next-4');
-            document.getElementById('next-4').onclick = () => showStep('step-6');
-        });
-    });
-
-    document.getElementById('referral').addEventListener('change', () => {
-        enableButton('next-4');
-        document.getElementById('next-4').onclick = () => showStep('step-5');
-    });
-
-    // Check fields in Step 5 for enabling the next button
-    ['referee-fn', 'referee-ln', 'referee-email', 'referee-phone'].forEach(id => {
-        document.getElementById(id).addEventListener('input', checkStep5Fields);
-    });
+    disableButton('next-6');
 
     // Time Picker Logic for Step 2
     document.querySelectorAll('.time-slot').forEach(slot => {
@@ -103,6 +90,4 @@ document.addEventListener("DOMContentLoaded", function() {
             enableButton('next-2'); // Enable the "Next" button when a time slot is selected
         });
     });
-
-    // Add any other initialization code here, such as attaching event listeners for other steps if necessary.
 });
