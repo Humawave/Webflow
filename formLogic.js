@@ -10,9 +10,13 @@ document.addEventListener("DOMContentLoaded", function() {
             navigationPath.push(stepId);
         }
 
-        // Automatically enable the next button on steps 4 and 5
-        if (stepId === 'step-4' || stepId === 'step-5') {
-            enableButton(`next-${stepId.charAt(stepId.length - 1)}`);
+        // Automatically enable the next button on step 4
+        if (stepId === 'step-4') {
+            enableButton('next-4');
+        }
+        // For step 5, ensure the next button is managed based on radio button selection
+        if (stepId === 'step-5') {
+            checkStep5RadioAndEnableButton();
         }
     }
 
@@ -38,9 +42,22 @@ document.addEventListener("DOMContentLoaded", function() {
         button.style.cursor = 'default';
     }
 
-    // Initial setup
-    showStep('step-1');
+    function checkStep5RadioAndEnableButton() {
+        // Initially disable the next-5 button until a radio button is selected
+        disableButton('next-5');
+
+        // Add event listener to each radio button in step 5
+        document.querySelectorAll('#step-5 input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.checked) {
+                    enableButton('next-5');
+                }
+            });
+        });
+    }
+
     document.querySelectorAll('[id^="next-"]').forEach(button => disableButton(button.id));
+    showStep('step-1');
 
     // Setup next and back buttons
     document.getElementById('next-1').addEventListener('click', () => showStep('step-2'));
@@ -60,7 +77,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     document.getElementById('next-4').addEventListener('click', () => showStep('step-5'));
-    document.getElementById('next-5').addEventListener('click', () => showStep('step-6'));
 
     // Back navigation setup
     document.getElementById('back-5').addEventListener('click', navigateBack);
@@ -69,11 +85,9 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById('back-6').addEventListener('click', navigateBack);
 
     // Time slot selection for step 2
-    document.querySelectorAll('.time-slot').forEach(slot => {
-        slot.addEventListener('click', function() {
-            document.querySelectorAll('.time-slot').forEach(slot => slot.classList.remove('is-active-inputactive'));
-            slot.classList.add('is-active-inputactive');
-            enableButton('next-2');
-        });
-    });
+    document.querySelectorAll('.time-slot').forEach(slot => slot.addEventListener('click', function() {
+        document.querySelectorAll('.time-slot').forEach(slot => slot.classList.remove('is-active-inputactive'));
+        slot.classList.add('is-active-inputactive');
+        enableButton('next-2');
+    }));
 });
