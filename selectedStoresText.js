@@ -48,9 +48,11 @@ const storeNames = {
     'L6': 'Lacoste',
     'L7': 'Läderach',
     'L10': 'Levi\'s',
+    'L11': 'Lids',
     'L14': 'Loblaws',
     'L15': 'Lululemon',
     'L16': 'Lush',
+    'N1': 'Nike',
     'S4':  'Sephora',
     'U1':  'UGG',
     'Z1':  'Zara'
