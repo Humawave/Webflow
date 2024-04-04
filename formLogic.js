@@ -1,6 +1,4 @@
 document.addEventListener("DOMContentLoaded", function() {
-    let lastNavigatedFromStep = 'step-4'; // Default to step-4 to prevent empty screen
-
     function showStep(stepId) {
         document.querySelectorAll('[id^="step-"]').forEach(step => step.style.display = 'none');
         document.getElementById(stepId).style.display = 'flex';
@@ -8,7 +6,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function enableButton(buttonId) {
         let button = document.getElementById(buttonId);
-        button.disabled = false;
         button.style.opacity = '1';
         button.style.pointerEvents = 'auto';
         button.style.cursor = 'pointer';
@@ -16,7 +13,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function disableButton(buttonId) {
         let button = document.getElementById(buttonId);
-        button.disabled = true;
         button.style.opacity = '0.5';
         button.style.pointerEvents = 'none';
         button.style.cursor = 'default';
@@ -30,7 +26,6 @@ document.addEventListener("DOMContentLoaded", function() {
     showStep('step-1');
     document.querySelectorAll('[id^="next-"]').forEach(button => disableButton(button.id));
 
-    // Step navigation
     document.getElementById('next-1').addEventListener('click', () => showStep('step-2'));
     document.getElementById('back-2').addEventListener('click', () => showStep('step-1'));
     document.getElementById('next-2').addEventListener('click', () => showStep('step-3'));
@@ -42,11 +37,11 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     document.getElementById('next-3').addEventListener('click', () => {
-        if (document.getElementById('referral').checked) {
-            lastNavigatedFromStep = 'step-3';
+        let referral = document.getElementById('referral').checked;
+        let oneTime = document.getElementById('one-time').checked;
+        if (referral) {
             showStep('step-4');
-        } else {
-            lastNavigatedFromStep = 'step-3';
+        } else if (oneTime) {
             showStep('step-5');
         }
     });
@@ -55,31 +50,21 @@ document.addEventListener("DOMContentLoaded", function() {
         input.addEventListener('input', () => checkFieldsAndEnableButton('#step-4', 'next-4'));
     });
 
-    document.getElementById('next-4').addEventListener('click', () => {
-        lastNavigatedFromStep = 'step-4';
-        showStep('step-5');
-    });
+    document.getElementById('next-4').addEventListener('click', () => showStep('step-5'));
 
     document.querySelectorAll('#step-5 input').forEach(input => {
         input.addEventListener('input', () => checkFieldsAndEnableButton('#step-5', 'next-5'));
     });
 
     document.getElementById('next-5').addEventListener('click', () => showStep('step-6'));
-
-    document.getElementById('back-5').addEventListener('click', () => showStep(lastNavigatedFromStep));
+    document.getElementById('back-5').addEventListener('click', () => showStep('step-4'));
     document.getElementById('back-4').addEventListener('click', () => showStep('step-3'));
     document.getElementById('back-3').addEventListener('click', () => showStep('step-2'));
 
     document.getElementById('back-6').addEventListener('click', () => {
-        if (!lastNavigatedFromStep) {
-            // Fallback to step-4 if lastNavigatedFromStep is not set
-            showStep('step-4');
-        } else {
-            showStep(lastNavigatedFromStep);
-        }
+        showStep('step-5'); // Always returns to step-5 based on your scenarios
     });
 
-    // Initial step setup
     disableButton('next-3');
     disableButton('next-4');
     disableButton('next-5');
