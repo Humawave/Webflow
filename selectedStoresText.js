@@ -46,6 +46,7 @@ const storeNames = {
     'K4':  'Kit and Ace',
     'L2': 'L\'Occitane',
     'L6': 'Lacoste',
+    'L7': 'Läderach',
     'L14': 'Loblaws',
     'L15': 'Lululemon',
     'L16': 'Lush',
