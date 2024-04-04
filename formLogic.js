@@ -9,11 +9,16 @@ document.addEventListener("DOMContentLoaded", function() {
         if (!navigationPath.includes(stepId)) {
             navigationPath.push(stepId);
         }
+
+        // Automatically enable the next button on steps 4 and 5
+        if (stepId === 'step-4' || stepId === 'step-5') {
+            enableButton(`next-${stepId.charAt(stepId.length - 1)}`);
+        }
     }
 
     function navigateBack() {
-        if (navigationPath.length > 1) { // Ensure there's a previous step to navigate back to
-            navigationPath.pop(); // Remove the current step from the path
+        if (navigationPath.length > 1) {
+            navigationPath.pop();
             const lastStep = navigationPath[navigationPath.length - 1];
             showStep(lastStep);
         }
@@ -33,6 +38,7 @@ document.addEventListener("DOMContentLoaded", function() {
         button.style.cursor = 'default';
     }
 
+    // Initial setup
     showStep('step-1');
     document.querySelectorAll('[id^="next-"]').forEach(button => disableButton(button.id));
 
@@ -63,9 +69,11 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById('back-6').addEventListener('click', navigateBack);
 
     // Time slot selection for step 2
-    document.querySelectorAll('.time-slot').forEach(slot => slot.addEventListener('click', function() {
-        document.querySelectorAll('.time-slot').forEach(slot => slot.classList.remove('is-active-inputactive'));
-        slot.classList.add('is-active-inputactive');
-        enableButton('next-2');
-    }));
+    document.querySelectorAll('.time-slot').forEach(slot => {
+        slot.addEventListener('click', function() {
+            document.querySelectorAll('.time-slot').forEach(slot => slot.classList.remove('is-active-inputactive'));
+            slot.classList.add('is-active-inputactive');
+            enableButton('next-2');
+        });
+    });
 });
