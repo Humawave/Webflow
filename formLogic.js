@@ -78,6 +78,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.getElementById('next-4').addEventListener('click', () => showStep('step-5'));
 
+    // Setup event listener for next-5 to navigate to step-6 when clicked
+    document.getElementById('next-5').addEventListener('click', () => showStep('step-6'));
+
     // Back navigation setup
     document.getElementById('back-5').addEventListener('click', navigateBack);
     document.getElementById('back-4').addEventListener('click', navigateBack);
