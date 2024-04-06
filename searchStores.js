@@ -8,19 +8,25 @@ document.addEventListener('DOMContentLoaded', function() {
     // Function to show items based on visibility count and search term
     function updateVisibleItems() {
         let visibleCount = 0;
-        cmsItems.forEach((item, index) => {
+        let totalMatchedItems = 0; // Count total items that match the search term
+
+        cmsItems.forEach(item => {
             const storeName = item.getAttribute('data-store-name').toLowerCase();
-            if (storeName.startsWith(searchTerm) && visibleCount < visibleItemsCount) {
-                item.style.display = 'block'; // Show item
-                visibleCount++;
+            if (storeName.startsWith(searchTerm)) {
+                totalMatchedItems++; // Increment total matched items if search term matches
+                if (visibleCount < visibleItemsCount) {
+                    item.style.display = 'block'; // Show item if within visible count limit
+                    visibleCount++;
+                } else {
+                    item.style.display = 'none'; // Hide item if beyond visible count limit
+                }
             } else {
-                item.style.display = 'none'; // Hide item
+                item.style.display = 'none'; // Hide item if not matching the search term
             }
         });
 
-        // Adjust the load more button visibility
-        const isAnyHiddenItem = cmsItems.length > visibleCount;
-        loadButton.style.display = isAnyHiddenItem ? 'block' : 'none';
+        // Adjust the load more button visibility based on total matched items and visible count
+        loadButton.style.display = (totalMatchedItems > visibleItemsCount) ? 'block' : 'none';
 
         // Optionally update results count or other UI elements
         if (window.updateResultsCount) window.updateResultsCount();
