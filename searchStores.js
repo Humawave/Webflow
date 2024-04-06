@@ -2,30 +2,37 @@ document.addEventListener('DOMContentLoaded', function() {
     const cmsItems = document.querySelectorAll('.cms_item');
     const loadButton = document.getElementById('load');
     const searchInput = document.getElementById('searchInput');
-    let visibleItemsCount = 8; // Set initial count of items to be shown
+    let visibleItemsCount = 8; // Initial count of items to be shown
+    let searchTerm = ''; // Initialize search term as empty
 
-    // Function to initially display a limited number of CMS items
-    function initialDisplay() {
+    // Function to show items based on visibility count and search term
+    function updateVisibleItems() {
+        let visibleCount = 0;
         cmsItems.forEach((item, index) => {
-            item.style.display = index < visibleItemsCount ? 'block' : 'none';
+            const storeName = item.getAttribute('data-store-name').toLowerCase();
+            if (storeName.startsWith(searchTerm) && visibleCount < visibleItemsCount) {
+                item.style.display = 'block'; // Show item
+                visibleCount++;
+            } else {
+                item.style.display = 'none'; // Hide item
+            }
         });
-        updateLoadButtonVisibility();
-    }
 
-    // Update the visibility of the load button
-    function updateLoadButtonVisibility() {
-        const isAnyHiddenItem = Array.from(cmsItems).some(item => item.style.display === 'none');
+        // Adjust the load more button visibility
+        const isAnyHiddenItem = cmsItems.length > visibleCount;
         loadButton.style.display = isAnyHiddenItem ? 'block' : 'none';
-    }
 
-    // Function to show all items and update UI accordingly
-    function showAllItems() {
-        cmsItems.forEach(item => item.style.display = 'block');
-        loadButton.style.display = 'none'; // Hide load button
+        // Optionally update results count or other UI elements
         if (window.updateResultsCount) window.updateResultsCount();
     }
 
-    // Function to debounce to optimize search performance
+    // Function to show all items when "load more" is clicked
+    function showAllItems() {
+        visibleItemsCount = cmsItems.length; // Adjust visibleItemsCount to show all items
+        updateVisibleItems(); // Update visible items based on the new count
+    }
+
+    // Debounce function to optimize search performance
     function debounce(func, wait) {
         let timeout;
         return function executedFunction(...args) {
@@ -38,32 +45,16 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     }
 
-    // Handle the search functionality with debounce
-    var handleSearch = debounce(function() {
-        const searchTerm = searchInput.value.toLowerCase();
-        let anyItemVisible = false;
+    // Handle search functionality with debounce
+    const handleSearch = debounce(function() {
+        searchTerm = searchInput.value.toLowerCase();
+        visibleItemsCount = 8; // Reset visible items count to initial value on search
+        updateVisibleItems(); // Update visible items based on search term
+    }, 200);
 
-        cmsItems.forEach(function(item, index) {
-            const storeName = item.getAttribute('data-store-name').toLowerCase();
-
-            if (storeName.startsWith(searchTerm)) {
-                item.style.display = index < visibleItemsCount ? 'block' : 'none'; // Show items based on search and visibility count
-                anyItemVisible = true;
-            } else {
-                item.style.display = 'none';
-            }
-        });
-
-        // Update UI based on search results
-        document.querySelector('.cms_list-empty').style.display = anyItemVisible ? 'none' : 'flex';
-        updateLoadButtonVisibility();
-        if (window.updateResultsCount) window.updateResultsCount();
-    }, 100);
-
-    searchInput.addEventListener('input', handleSearch);
-    loadButton.addEventListener('click', showAllItems);
+    searchInput.addEventListener('input', handleSearch); // Attach search handler
+    loadButton.addEventListener('click', showAllItems); // Attach show all items handler
 
     // Initial setup
-    initialDisplay();
-    updateLoadButtonVisibility();
+    updateVisibleItems(); // Initial display based on visibility count and search term
 });
