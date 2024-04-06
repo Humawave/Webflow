@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             if (belongsToCategory || selectedCategory === 'all-stores') {
-                // For "all-stores" category, respect the loadClicked flag and visibleItemCountInitial limit
                 if (selectedCategory === 'all-stores' && !loadClicked && index >= visibleItemCountInitial) {
                     item.style.display = 'none';
                 } else {
@@ -32,10 +31,13 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // Show the "load" button only if "all-stores" is selected, not all items are visible, and the button has not been clicked
-        loadButton.style.display = (selectedCategory === 'all-stores' && !loadClicked && visibleCount > visibleItemCountInitial) ? '' : 'none';
+        // Adjust visibility of the load button when switching back to "all-stores"
+        if (selectedCategory === 'all-stores' && !loadClicked && visibleCount > visibleItemCountInitial) {
+            loadButton.style.display = 'flex'; // Show with flex if more items are available to load
+        } else {
+            loadButton.style.display = 'none'; // Otherwise, hide it
+        }
 
-        // Check if any item is visible to manage the emptyListDiv visibility
         const emptyListDiv = document.querySelector('.cms_list-empty');
         emptyListDiv.style.display = visibleCount > 0 ? 'none' : 'block';
 
@@ -71,8 +73,7 @@ document.addEventListener('DOMContentLoaded', function() {
     categoryButtons.forEach(button => {
         button.addEventListener('change', () => {
             if (button.checked) {
-                // Reset loadClicked flag when switching categories
-                loadClicked = false;
+                loadClicked = false; // Reset when changing categories
                 filterItemsByCategory(button.id, true);
             }
         });
