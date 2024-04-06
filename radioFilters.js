@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     let isFirstLoad = true; // Flag to check if it's the initial page load
+    const loadButton = document.getElementById('load'); // Get the "load" button
 
     // Function for filtering items by category and potentially scrolling
     function filterItemsByCategory(selectedCategory, isUserInitiated = false) {
@@ -21,6 +22,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 anyVisible = true;
             }
         });
+
+        // Show all items and hide "load" button for categories other than "all-stores"
+        if (selectedCategory !== 'all-stores') {
+            cmsItems.forEach(item => item.style.display = ''); // Remove any display limitations
+            if (loadButton) loadButton.style.display = 'none'; // Hide load button
+        } else {
+            // Logic for "all-stores" category
+            // Here you can define how many items you want to show by default and when to show the load button
+            // This example assumes you want to revert to the initial behavior where the load button can be shown
+            // Adjust according to your specific needs
+            if (loadButton) loadButton.style.display = ''; // Show load button
+        }
 
         const emptyListDiv = document.querySelector('.cms_list-empty');
         if (emptyListDiv) {
