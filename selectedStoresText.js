@@ -56,6 +56,7 @@ const storeNames = {
     'M1': 'MAC Cosmetics',
     'M3': 'Mango',
     'M5': 'Mark\'s',
+    'M6': 'Michael Kors',
     'N1': 'Nike',
     'S4':  'Sephora',
     'U1':  'UGG',
