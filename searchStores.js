@@ -13,7 +13,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
         cmsItems.forEach(item => {
             const storeName = item.getAttribute('data-store-name').toLowerCase();
-            if (storeName.includes(searchTerm)) { // Changed to includes for broader matching
+            // Changed to check for an exact match
+            const isMatch = storeName.split(" ").some(word => word.startsWith(searchTerm));
+            if (isMatch) {
                 totalMatchedItems++; // Increment total matched items if search term matches
                 if (visibleCount < visibleItemsCount) {
                     item.style.display = 'block'; // Show item if within visible count limit
@@ -30,11 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
         loadButton.style.display = (totalMatchedItems > visibleItemsCount) ? 'block' : 'none';
 
         // Show the "empty" div if no items match the search term
-        if (totalMatchedItems === 0) {
-            emptyDiv.style.display = 'flex'; // Show as flex
-        } else {
-            emptyDiv.style.display = 'none';
-        }
+        emptyDiv.style.display = (totalMatchedItems === 0) ? 'flex' : 'none';
 
         // Optionally update results count or other UI elements
         if (window.updateResultsCount) window.updateResultsCount();
