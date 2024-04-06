@@ -54,6 +54,7 @@ const storeNames = {
     'L15': 'Lululemon',
     'L16': 'Lush',
     'M1': 'MAC Cosmetics',
+    'M3': 'Mango',
     'N1': 'Nike',
     'S4':  'Sephora',
     'U1':  'UGG',
