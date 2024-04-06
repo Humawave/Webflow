@@ -13,8 +13,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         cmsItems.forEach(item => {
             const storeName = item.getAttribute('data-store-name').toLowerCase();
-            // Changed to check for an exact match
-            const isMatch = storeName.split(" ").some(word => word.startsWith(searchTerm));
+            // Adjusted to check for a match that considers the full input value
+            const isMatch = storeName.toLowerCase().includes(searchTerm.toLowerCase());
             if (isMatch) {
                 totalMatchedItems++; // Increment total matched items if search term matches
                 if (visibleCount < visibleItemsCount) {
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Handle search functionality with debounce
     const handleSearch = debounce(function() {
-        searchTerm = searchInput.value.toLowerCase();
+        searchTerm = searchInput.value.trim();
         visibleItemsCount = 8; // Reset visible items count to initial value on search
         updateVisibleItems(); // Update visible items based on search term
     }, 200);
