@@ -34,12 +34,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // Update load button visibility based on category and whether it has been clicked
-        if (selectedCategory === 'all-stores' && !loadClicked && cmsItems.length > 8) {
-            loadButton.style.display = '';
-        } else {
-            loadButton.style.display = 'none';
-        }
+        // Adjust visibility of the load button when switching back to "all-stores"
+        loadButton.style.display = selectedCategory === 'all-stores' && !loadClicked && cmsItems.length > 8 ? '' : 'none';
 
         const emptyListDiv = document.querySelector('.cms_list-empty');
         emptyListDiv.style.display = anyVisible ? 'none' : 'block';
