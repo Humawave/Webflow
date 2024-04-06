@@ -1,8 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
     let isFirstLoad = true; // Flag to check if it's the initial page load
-    let loadClicked = false; // Track whether the "load more" button has been clicked
     const loadButton = document.getElementById('load'); // Get the "load" button
     const cmsItems = document.querySelectorAll('.cms_item'); // All CMS items
+
+    // Set the initial number of items to show and adjust based on interaction
+    let initialVisibleItemsCount = 8;
 
     function smoothScrollToAnchor() {
         const anchorElement = document.getElementById('anchor');
@@ -15,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let anyVisible = false;
         let visibleCount = 0;
 
-        cmsItems.forEach(item => {
+        cmsItems.forEach((item, index) => {
             let belongsToCategory = false;
             for (let i = 1; i <= 5; i++) {
                 const categoryDiv = item.querySelector(`.cms_categories .cms_title-category-${i}`);
@@ -25,7 +27,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
 
-            if (belongsToCategory || selectedCategory === 'all-stores') {
+            // Adjust display based on category and index for "all-stores"
+            if ((belongsToCategory || selectedCategory === 'all-stores') && (selectedCategory === 'all-stores' ? index < initialVisibleItemsCount : true)) {
                 item.style.display = '';
                 anyVisible = true;
                 visibleCount++;
@@ -34,18 +37,11 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // Adjust visibility of the load button when switching back to "all-stores"
+        // Manage the load button for "all-stores"
         if (selectedCategory === 'all-stores') {
-            if (!loadClicked && visibleCount > 8) {
-                // Show load button only if there are more than 8 items and it hasn't been clicked
-                loadButton.style.display = 'block';
-            } else {
-                loadButton.style.display = 'none';
-            }
+            loadButton.style.display = visibleCount > initialVisibleItemsCount ? 'block' : 'none';
         } else {
-            // Hide load button for specific categories
-            loadButton.style.display = 'none';
-            loadClicked = false; // Reset loadClicked when switching categories
+            loadButton.style.display = 'none'; // Hide load button for specific categories
         }
 
         const emptyListDiv = document.querySelector('.cms_list-empty');
@@ -56,7 +52,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     loadButton.addEventListener('click', function() {
-        loadClicked = true; // Mark that the button has been clicked
         cmsItems.forEach(item => item.style.display = ''); // Show all items
         this.style.display = 'none'; // Hide the "load" button
         if (window.updateResultsCount) window.updateResultsCount();
@@ -72,6 +67,8 @@ document.addEventListener('DOMContentLoaded', function() {
     categoryButtons.forEach(button => {
         button.addEventListener('change', () => {
             if (button.checked) {
+                // Reset initial visible count when switching categories
+                initialVisibleItemsCount = 8;
                 filterItemsByCategory(button.id, true);
             }
         });
