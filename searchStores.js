@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const cmsItems = document.querySelectorAll('.cms_item');
     const loadButton = document.getElementById('load');
     const searchInput = document.getElementById('searchInput');
+    const emptyDiv = document.getElementById('empty'); // Get the "empty" div
     let visibleItemsCount = 8; // Initial count of items to be shown
     let searchTerm = ''; // Initialize search term as empty
 
@@ -27,6 +28,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Adjust the load more button visibility based on total matched items and visible count
         loadButton.style.display = (totalMatchedItems > visibleItemsCount) ? 'block' : 'none';
+
+        // Show the "empty" div if no items match the search term
+        emptyDiv.style.display = (totalMatchedItems === 0) ? 'block' : 'none';
 
         // Optionally update results count or other UI elements
         if (window.updateResultsCount) window.updateResultsCount();
