@@ -38,6 +38,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Optionally update results count or other UI elements
         if (window.updateResultsCount) window.updateResultsCount();
+        
+        // Scroll to the anchor div if there's at least one character in the search input
+        if (searchTerm.length > 0) {
+            document.getElementById('anchor').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
     }
 
     // Function to show all items when "load more" is clicked
