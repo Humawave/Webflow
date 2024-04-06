@@ -1,66 +1,59 @@
 document.addEventListener('DOMContentLoaded', function() {
-    let isFirstLoad = true; // Indicates the initial page load
-    let loadClicked = false; // Tracks if the "load more" button has been clicked
-    const loadButton = document.getElementById('load'); // "Load more" button
-    const cmsItems = document.querySelectorAll('.cms_item'); // All CMS items
-    const emptyListDiv = document.querySelector('.cms_list-empty'); // "Empty list" div
+    let isFirstLoad = true;
+    let loadClicked = false;
+    const loadButton = document.getElementById('load');
+    const cmsItems = document.querySelectorAll('.cms_item');
+    const emptyListDiv = document.querySelector('.cms_list-empty');
 
-    function smoothScrollToAnchor() {
-        const anchorElement = document.getElementById('anchor');
-        if (anchorElement) {
-            anchorElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+    function updateVisibilityForAllStores() {
+        let visibleCount = 0;
+        cmsItems.forEach((item, index) => {
+            item.style.display = (index < 8 && !loadClicked) ? '' : 'none'; // Show first 8 items by default or hide if beyond the limit and load hasn't been clicked
+            if (item.style.display !== 'none') visibleCount++;
+        });
+
+        loadButton.style.display = (visibleCount < cmsItems.length && !loadClicked) ? '' : 'none'; // Show load button if more items are available and load hasn't been clicked
+        emptyListDiv.style.display = 'none'; // There are always items in "all-stores", so never show the empty div here
     }
 
-    function filterItemsByCategory(selectedCategory, isUserInitiated = false) {
+    function filterItemsByCategory(category) {
         let anyVisible = false;
+        cmsItems.forEach(item => {
+            const isVisible = item.dataset.category.split(',').includes(category); // Assuming each item has a data-category attribute listing all categories it belongs to
+            item.style.display = isVisible ? '' : 'none';
+            if (isVisible) anyVisible = true;
+        });
 
-        cmsItems.forEach((item, index) => {
-            const belongsToCategory = Array.from(item.classList).includes(selectedCategory) || selectedCategory === 'all-stores';
-            if (belongsToCategory) {
-                if (selectedCategory === 'all-stores' && !loadClicked && index < 8) {
-                    item.style.display = ''; // Show first 8 items
-                    anyVisible = true;
-                } else if (selectedCategory !== 'all-stores' || loadClicked) {
-                    item.style.display = ''; // Show all items if another category is selected or load more was clicked
-                    anyVisible = true;
-                } else {
-                    item.style.display = 'none'; // Hide other items initially under "all-stores"
-                }
+        loadButton.style.display = 'none'; // Always hide load button when filtering by specific categories
+        emptyListDiv.style.display = anyVisible ? 'none' : 'flex'; // Show or hide empty div based on if any items are visible
+
+        if (window.updateResultsCount) window.updateResultsCount();
+    }
+
+    document.querySelectorAll('input[type="radio"][name="category"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            if (this.id === 'all-stores') {
+                loadClicked = false; // Reset loadClicked when going back to all-stores
+                updateVisibilityForAllStores();
             } else {
-                item.style.display = 'none'; // Hide items not belonging to the selected category
+                filterItemsByCategory(this.id);
             }
         });
+    });
 
-        // Adjust the "load" button's visibility
-        loadButton.style.display = (selectedCategory === 'all-stores' && !loadClicked && cmsItems.length > 8) ? '' : 'none';
-
-        // Show or hide the "empty" message based on anyVisible flag
-        emptyListDiv.style.display = anyVisible ? 'none' : '';
-
-        if (window.updateResultsCount) window.updateResultsCount();
-        if (isUserInitiated) smoothScrollToAnchor();
-    }
-
-    loadButton.addEventListener('click', function() {
-        loadClicked = true; // Mark that the button has been clicked
-        cmsItems.forEach(item => item.style.display = ''); // Show all items
-        this.style.display = 'none'; // Hide the "load" button
+    loadButton.addEventListener('click', () => {
+        loadClicked = true;
+        cmsItems.forEach(item => item.style.display = ''); // Show all items when load more is clicked
+        loadButton.style.display = 'none'; // Hide load button after it's clicked
         if (window.updateResultsCount) window.updateResultsCount();
     });
 
-    const allStoresButton = document.getElementById('all-stores');
-    if (allStoresButton) {
-        allStoresButton.checked = true;
-        filterItemsByCategory('all-stores', !isFirstLoad);
+    if (isFirstLoad) {
+        const allStoresRadio = document.getElementById('all-stores');
+        if (allStoresRadio) {
+            allStoresRadio.checked = true;
+            updateVisibilityForAllStores();
+        }
+        isFirstLoad = false;
     }
-
-    document.querySelectorAll('.radio_field input[type="radio"][name="category"]').forEach(button => {
-        button.addEventListener('change', function() {
-            loadClicked = false; // Reset loadClicked status on category change
-            filterItemsByCategory(this.id, true);
-        });
-    });
-
-    isFirstLoad = false;
 });
