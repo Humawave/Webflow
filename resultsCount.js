@@ -1,22 +1,25 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Function to update the count of visible CMS items
+    // Function to check if the device is mobile
+    function isMobileDevice() {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    }
+
+    // Function to update the count of visible CMS items and adjust text based on device type
     function updateResultsCount() {
         const cmsItems = document.querySelectorAll('.cms_item');
         const resultsTextBlock = document.getElementById('cms-results');
         
         const visibleItemCount = Array.from(cmsItems).filter(item => item.style.display !== 'none').length;
-        
-        if(visibleItemCount > 1) {
-            // If there are multiple stores, show the number of stores available
-            resultsTextBlock.textContent = `${visibleItemCount} stores available`;
+        const actionWord = isMobileDevice() ? 'Tap' : 'Click'; // Adjust based on device type
+
+        if (visibleItemCount > 1) {
+            resultsTextBlock.textContent = `${actionWord} to choose stores`;
             resultsTextBlock.style.display = 'block'; // Ensure the text block is visible
-        } else if(visibleItemCount === 1) {
-            // If there's only one store, adjust the text accordingly
-            resultsTextBlock.textContent = '1 store available';
+        } else if (visibleItemCount === 1) {
+            resultsTextBlock.textContent = `${actionWord} to choose a store`;
             resultsTextBlock.style.display = 'block'; // Ensure the text block is visible
         } else {
-            // If no matches are found, hide the text block
-            resultsTextBlock.style.display = 'none';
+            resultsTextBlock.style.display = 'none'; // Hide the text block if no matches are found
         }
     }
 
