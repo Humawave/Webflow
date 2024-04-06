@@ -6,13 +6,17 @@ document.addEventListener('DOMContentLoaded', function() {
         
         const visibleItemCount = Array.from(cmsItems).filter(item => item.style.display !== 'none').length;
         
-        // Check the number of items and update the text accordingly
-        if(visibleItemCount === 1) {
-            resultsTextBlock.textContent = 'Select your store below ⬇️'; // If there's only one store
-        } else if(visibleItemCount > 1) {
-            resultsTextBlock.textContent = `Select any of ${visibleItemCount} stores below ⬇️`; // If there are multiple stores
+        if(visibleItemCount > 1) {
+            // If there are multiple stores, show the number of stores available
+            resultsTextBlock.textContent = `${visibleItemCount} stores available`;
+            resultsTextBlock.style.display = 'block'; // Ensure the text block is visible
+        } else if(visibleItemCount === 1) {
+            // If there's only one store, adjust the text accordingly
+            resultsTextBlock.textContent = '1 store available';
+            resultsTextBlock.style.display = 'block'; // Ensure the text block is visible
         } else {
-            resultsTextBlock.textContent = `${visibleItemCount} stores available`; // Default message
+            // If no matches are found, hide the text block
+            resultsTextBlock.style.display = 'none';
         }
     }
 
