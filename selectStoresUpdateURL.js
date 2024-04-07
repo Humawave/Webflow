@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
         sectionContinue.style.display = selectedIds.length > 0 ? 'block' : 'none';
 
         const linkContinue = document.getElementById('link-continue');
-        const baseURL = 'https://humawave.webflow.io/onboarding';
+        const baseURL = 'https://humawave.com/onboarding';
         linkContinue.setAttribute('href', `${baseURL}?${queryParams.toString()}`);
         
         // Update the quantity text
