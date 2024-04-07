@@ -13,8 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         cmsItems.forEach(item => {
             const storeName = item.getAttribute('data-store-name').toLowerCase();
-            // Adjusted to check for a match that considers the full input value
-            const isMatch = storeName.toLowerCase().includes(searchTerm.toLowerCase());
+            const isMatch = storeName.startsWith(searchTerm.toLowerCase());
             if (isMatch) {
                 totalMatchedItems++; // Increment total matched items if search term matches
                 if (visibleCount < visibleItemsCount) {
@@ -36,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Optionally update results count or other UI elements
         if (window.updateResultsCount) window.updateResultsCount();
-        
+
         // Scroll to the anchor div if there's at least one character in the search input
         if (searchTerm.length > 0) {
             document.getElementById('anchor').scrollIntoView({ behavior: 'smooth', block: 'start' });
