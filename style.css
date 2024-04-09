@@ -27,7 +27,7 @@
 #autocompleteResults {
   position: absolute;
   width: 100%;
-  padding-top: 0.25rem; /* Added padding on top */
+  top: calc(100% - 0.25rem);
   background-color: #fff;
   box-shadow: 
     0px 0.1px 0.2px rgba(0, 0, 0, 0.1), 
