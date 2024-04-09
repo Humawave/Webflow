@@ -25,7 +25,7 @@
 
 /* Styles for the autocomplete container */
 #autocompleteResults {
-  position: flex;
+  position: absolute;
   top: calc(100% - 0.25rem);
   left: 1rem; /* Add space on the left */
   right: 1rem; /* Add space on the right */
