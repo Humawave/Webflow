@@ -33,7 +33,7 @@
     0px 0.1px 0.2px rgba(0, 0, 0, 0.1), 
     0px 0.9px 1.9px rgba(0, 0, 0, 0.11), 
     0px 5.1px 10.9px rgba(0, 0, 0, 0.13);
-  border-radius: 0 0 1rem 1rem;
+  border-radius: 1rem 1rem 1rem 1rem;
   overflow: hidden;
   z-index: 1000;
   border: 1px solid #143723;
