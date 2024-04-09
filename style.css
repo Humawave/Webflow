@@ -27,17 +27,19 @@
 #autocompleteResults {
   position: absolute;
   top: calc(100% - 0.1rem);
-  left: 1rem; /* Add space on the left */
-  right: 1rem; /* Add space on the right */
+  left: 0; /* Adjusted to allow full width */
+  right: 0; /* Adjusted to allow full width */
+  width: calc(100% - 2rem); /* 100% width - left and right spaces */
+  padding-top: 0.25rem; /* Added padding on top */
   background-color: #fff;
   box-shadow: 
-    0px 0.1px 0.2px rgba(0, 0, 0, 0.1), /* Second shadow */
-    0px 0.9px 1.9px rgba(0, 0, 0, 0.11), /* Third shadow */
-    0px 5.1px 10.9px rgba(0, 0, 0, 0.13); /* Fourth shadow */
-  border-radius: 0 0 1rem 1rem; /* Adjusted border-radius */
+    0px 0.1px 0.2px rgba(0, 0, 0, 0.1), 
+    0px 0.9px 1.9px rgba(0, 0, 0, 0.11), 
+    0px 5.1px 10.9px rgba(0, 0, 0, 0.13);
+  border-radius: 0 0 1rem 1rem;
   overflow: hidden;
   z-index: 1000;
-  border: 1px solid #143723; /* Border color */
+  border: 1px solid #143723;
 }
 
 /* Styles for each autocomplete suggestion */
