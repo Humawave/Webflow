@@ -26,10 +26,7 @@
 /* Styles for the autocomplete container */
 #autocompleteResults {
   position: absolute;
-  top: calc(100% - 0.1rem);
-  left: 0; /* Adjusted to allow full width */
-  right: 0; /* Adjusted to allow full width */
-  width: calc(100% - 2rem); /* 100% width - left and right spaces */
+  width: 50%;
   padding-top: 0.25rem; /* Added padding on top */
   background-color: #fff;
   box-shadow: 
