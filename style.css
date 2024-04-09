@@ -39,6 +39,15 @@
   border: 1px solid #143723;
 }
 
+/* Adjusting margin for mobile devices (991px and down) */
+@media (max-width: 991px) {
+  #autocompleteResults {
+    margin-left: 1rem;
+    margin-right: 1rem;
+    width: calc(100% - 2rem); /* Adjust the width to account for the added margins */
+  }
+}
+
 /* Styles for each autocomplete suggestion */
 #autocompleteResults div {
   padding: 0.75rem 1rem; /* Top and bottom padding of 0.75rem, left and right padding of 1rem */
