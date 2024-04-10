@@ -4,6 +4,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const resultsContainer = document.getElementById('autocompleteResults');
     const clearButton = document.getElementById('clearSearch');
 
+    // Immediately hide the clear button on page load, then control its visibility through JS
+    clearButton.style.display = 'none';
+
     searchInput.addEventListener('input', function() {
         const inputVal = this.value.toLowerCase();
 
@@ -20,13 +23,14 @@ document.addEventListener('DOMContentLoaded', function() {
             filteredItems.forEach(item => {
                 const div = document.createElement('div');
                 div.textContent = item;
+                div.className = 'autocomplete-item'; // Optional: Add a class for styling
                 div.addEventListener('click', function() {
                     searchInput.value = item; // Populate input with selected item
                     resultsContainer.style.display = 'none'; // Hide results container
-                    
+                    clearButton.style.display = 'none'; // Optionally hide the clear button
+
                     // Manually dispatch an input event to update clear button and potentially other bindings
-                    const event = new Event('input', { bubbles: true });
-                    searchInput.dispatchEvent(event);
+                    searchInput.dispatchEvent(new Event('input', {bubbles: true}));
                 });
                 resultsContainer.appendChild(div);
             });
@@ -38,18 +42,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Adds a 'click' event listener to the clear button
     clearButton.addEventListener('click', function() {
-        // Clears the input field, hides the clear button, and hides the results container when clicked
         searchInput.value = '';
         clearButton.style.display = 'none';
         resultsContainer.style.display = 'none';
+        searchInput.focus(); // Optionally refocus on the search input
 
         // Manually dispatch an input event to trigger any attached input event listeners
-        searchInput.dispatchEvent(new Event('input', { bubbles: true, cancelable: true }));
+        searchInput.dispatchEvent(new Event('input', {bubbles: true, cancelable: true}));
     });
 
     // Optionally, hide autocomplete results when clicking outside
     document.addEventListener('click', function(event) {
-        if (!searchInput.contains(event.target) && event.target !== searchInput) {
+        if (!searchInput.contains(event.target) && event.target !== searchInput && !event.target.matches('.autocomplete-item')) {
             resultsContainer.style.display = 'none';
         }
     });
