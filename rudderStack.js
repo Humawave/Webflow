@@ -7,18 +7,21 @@
     });
   }
 
-  // User's unique session identifier
   var userSessionId = generateUUID();
 
-  // Initialize RudderStack
+  // Load RudderStack SDK and initialize analytics
   !function(){
+    var sdkBaseUrl="https://cdn.rudderlabs.com/v3";
+    var sdkName="rsa.min.js";
+    var asyncScript=true;
+
     var analytics = window.rudderanalytics = window.rudderanalytics || [];
     if (!analytics.initialize) {
       if (analytics.invoked) {
         window.console && console.error && console.error("Rudder snippet included twice.");
       } else {
         analytics.invoked = true;
-        analytics.methods = ["load","page","track","identify","alias","group","reset","getAnonymousId","setAnonymousId"];
+        analytics.methods = ["load", "page", "track", "identify", "alias", "group", "reset", "getAnonymousId", "setAnonymousId"];
         analytics.factory = function(method){
           return function(){
             var args = Array.prototype.slice.call(arguments);
@@ -31,6 +34,13 @@
           var key = analytics.methods[i];
           analytics[key] = analytics.factory(key);
         }
+
+        // Load the SDK
+        var e = document.createElement("script");
+        e.src = sdkBaseUrl + "/" + sdkName;
+        e.async = asyncScript;
+        document.head.appendChild(e);
+
         analytics.load("2ekYwbGNs81riCmMq0mDILYaZdc", "https://humawaveawapkr.dataplane.rudderstack.com");
       }
     }
