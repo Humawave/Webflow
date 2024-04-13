@@ -1,56 +1,35 @@
 (function() {
-  // Generates a UUID (Universally Unique Identifier)
-  function generateUUID() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-      var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
-      return v.toString(16);
-    });
-  }
-
-  var userSessionId = generateUUID();
-
-  // Load RudderStack SDK and initialize analytics
-  !function(){
-    var sdkBaseUrl="https://cdn.rudderlabs.com/v3";
-    var sdkName="rsa.min.js";
-    var asyncScript=true;
-
-    var analytics = window.rudderanalytics = window.rudderanalytics || [];
-    if (!analytics.initialize) {
-      if (analytics.invoked) {
-        window.console && console.error && console.error("Rudder snippet included twice.");
-      } else {
-        analytics.invoked = true;
-        analytics.methods = ["load", "page", "track", "identify", "alias", "group", "reset", "getAnonymousId", "setAnonymousId"];
-        analytics.factory = function(method){
-          return function(){
-            var args = Array.prototype.slice.call(arguments);
-            args.unshift(method);
-            analytics.push(args);
-            return analytics;
-          };
-        };
-        for (var i = 0; i < analytics.methods.length; i++) {
-          var key = analytics.methods[i];
-          analytics[key] = analytics.factory(key);
-        }
-
-        // Load the SDK
-        var e = document.createElement("script");
-        e.src = sdkBaseUrl + "/" + sdkName;
-        e.async = asyncScript;
-        document.head.appendChild(e);
-
-        analytics.load("2ekYwbGNs81riCmMq0mDILYaZdc", "https://humawaveawapkr.dataplane.rudderstack.com");
-      }
+    // Generates a UUID (Universally Unique Identifier)
+    function generateUUID() {
+        var d = new Date().getTime();
+        var d2 = (performance && performance.now && (performance.now() * 1000)) || 0;
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = Math.random() * 16;
+            if (d > 0) {
+                r = (d + r) % 16 | 0;
+                d = Math.floor(d / 16);
+            } else {
+                r = (d2 + r) % 16 | 0;
+                d2 = Math.floor(d2 / 16);
+            }
+            return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+        });
     }
 
+    // Retrieve or generate the user's unique session identifier
+    var userUUID = localStorage.getItem('userUUID');
+    if (!userUUID) {
+        userUUID = generateUUID();
+        localStorage.setItem('userUUID', userUUID);
+    }
+
+    // Assuming RudderStack's analytics.js is already loaded and `rudderanalytics` is available
     // Identify the user with the generated UUID
-    analytics.identify(userSessionId, { sessionId: userSessionId });
+    rudderanalytics.identify(userUUID, {
+        // Any additional user properties can go here
+        // For example: name, email, etc. (if known/applicable)
+    });
 
-    // Automatically track page views
-    analytics.page();
-  }();
-
-  // Additional tracking events can be added here
+    // You could also include a page tracking call if you want to track page views here
+    // rudderanalytics.page();
 })();
