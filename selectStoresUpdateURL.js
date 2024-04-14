@@ -29,15 +29,27 @@ document.addEventListener('DOMContentLoaded', function() {
         // Update the quantity text
         const quantityText = document.getElementById('quantity');
         quantityText.textContent = `(${selectedIds.length})`; // Sets the count in the button
+
+        // Track the selected stores
+        selectedIds.forEach(function(storeId) {
+            var storeElement = document.querySelector(`[id="${storeId}"]`);
+            var storeName = storeElement ? storeElement.getAttribute('data-store-name') : 'Unknown';
+
+            rudderanalytics.track('Store Selected', {
+                storeName: storeName,
+                userUUID: localStorage.getItem('userUUID') // Retrieve the UUID from localStorage
+            });
+        });
     }
 
     // Attach event listeners to checkboxes
     function attachChangeEventListeners() {
         document.querySelectorAll('.cms_list input[type="checkbox"]').forEach(checkbox => {
-            checkbox.removeEventListener('change', updateURLToggleDivAndUpdateLinkAndUpdateCount); // Prevent duplicate listeners
+            checkbox.removeEventListener('change', updateURLToggleDivAndUpdateLinkAndUpdateCount);
             checkbox.addEventListener('change', updateURLToggleDivAndUpdateLinkAndUpdateCount);
         });
     }
 
+    // Initial invocation to attach listeners
     attachChangeEventListeners();
 });
