@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // List of items for the autocomplete
     const cmsItems = [
         'Aldo', 'Abercrombie & Fitch', 'Adidas', 'Aesop', 'AllSaints', 'Alo Yoga', 'American Eagle Outfitters', 
         'Arc\'teryx', 'Aritzia', 'Athleta', 'Aveda', 'Banana Republic', 'Bath & Body Works', 'Best Buy', 
@@ -9,18 +10,29 @@ document.addEventListener('DOMContentLoaded', function() {
         'L\'Occitane', 'Lacoste', 'Läderach', 'Levi\'s', 'Lids', 'Lindt', 'Loblaws', 'Lululemon', 'Lush', 
         'MAC Cosmetics', 'Mango', 'Mark\'s', 'Michael Kors', 'Nike', 'Sephora', 'UGG', 'Zara'
     ];
+
+    // DOM elements
     const searchInput = document.getElementById('searchInput');
     const resultsContainer = document.getElementById('autocompleteResults');
     const clearButton = document.getElementById('clearSearch');
+    const clearEmptyButton = document.getElementById('clearSearchEmpty'); // Assuming this is your new button
 
-    clearButton.style.display = 'none'; // Initially hide the clear button
+    // Initially hide both clear buttons
+    clearButton.style.display = 'none';
+    clearEmptyButton.style.display = 'none';
 
+    // Event listener for input on the search field
     searchInput.addEventListener('input', function() {
         const inputVal = this.value.toLowerCase();
-        clearButton.style.display = inputVal.length > 0 ? 'block' : 'none';
 
+        // Show or hide clear buttons based on input
+        clearButton.style.display = inputVal.length > 0 ? 'block' : 'none';
+        clearEmptyButton.style.display = inputVal.length === 0 ? 'block' : 'none';
+
+        // Filtering the items based on the input
         const filteredItems = cmsItems.filter(item => item.toLowerCase().startsWith(inputVal));
 
+        // Clear previous results and manage display based on input
         resultsContainer.innerHTML = '';
         if (inputVal !== '' && filteredItems.length) {
             filteredItems.forEach(item => {
@@ -29,30 +41,44 @@ document.addEventListener('DOMContentLoaded', function() {
                 div.className = 'autocomplete-item';
                 div.addEventListener('click', function() {
                     searchInput.value = item;
-                    resultsContainer.style.display = 'none'; // Hide results container upon selection
-                    clearButton.style.display = 'none'; // Optionally hide the clear button
-                    searchInput.dispatchEvent(new Event('input', {bubbles: true})); // Update bindings
+                    resultsContainer.style.display = 'none';
+                    clearButton.style.display = 'none';
+                    clearEmptyButton.style.display = 'none';
+                    searchInput.dispatchEvent(new Event('input', {bubbles: true}));
                 });
                 resultsContainer.appendChild(div);
             });
             resultsContainer.style.display = 'block';
         } else {
             resultsContainer.style.display = 'none';
+            clearEmptyButton.style.display = inputVal.length === 0 ? 'block' : 'none';
         }
     });
 
+    // Clear input and hide elements when the clear button is clicked
     clearButton.addEventListener('click', function() {
         searchInput.value = '';
         clearButton.style.display = 'none';
+        clearEmptyButton.style.display = 'none';
         resultsContainer.style.display = 'none';
-        searchInput.focus(); // Refocus on the search input
+        searchInput.focus();
         searchInput.dispatchEvent(new Event('input', {bubbles: true, cancelable: true}));
     });
 
+    // Clear input and hide elements when the clear empty button is clicked
+    clearEmptyButton.addEventListener('click', function() {
+        searchInput.value = '';
+        clearButton.style.display = 'none';
+        clearEmptyButton.style.display = 'none';
+        resultsContainer.style.display = 'none';
+        searchInput.focus();
+        searchInput.dispatchEvent(new Event('input', {bubbles: true, cancelable: true}));
+    });
+
+    // Hide results container when clicking outside of the search input or results container
     document.addEventListener('click', function(event) {
-        // Check if the clicked area is outside the searchInput and resultsContainer
         if (!searchInput.contains(event.target) && !resultsContainer.contains(event.target)) {
-            resultsContainer.style.display = 'none'; // Hide results container
+            resultsContainer.style.display = 'none';
         }
     });
 });
