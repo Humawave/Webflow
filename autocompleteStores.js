@@ -15,18 +15,19 @@ document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('searchInput');
     const resultsContainer = document.getElementById('autocompleteResults');
     const clearButton = document.getElementById('clearSearch');
-    const clearEmptyButton = document.getElementById('clearSearchEmpty'); // Assuming this is your new button
+    const clearEmptyButton = document.getElementById('clearSearchEmpty'); // Reset button
+    const emptyElement = document.getElementById('empty'); // Element to be hidden
 
-    // Initially hide both clear buttons
+    // Initially hide the clear button and the empty element
     clearButton.style.display = 'none';
-    
+    emptyElement.style.display = 'none'; // Assuming you want this hidden initially
+
     // Event listener for input on the search field
     searchInput.addEventListener('input', function() {
         const inputVal = this.value.toLowerCase();
 
-        // Show or hide clear buttons based on input
+        // Show or hide clear button based on input
         clearButton.style.display = inputVal.length > 0 ? 'block' : 'none';
-        clearEmptyButton.style.display = inputVal.length === 0 ? 'block' : 'none';
 
         // Filtering the items based on the input
         const filteredItems = cmsItems.filter(item => item.toLowerCase().startsWith(inputVal));
@@ -42,7 +43,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     searchInput.value = item;
                     resultsContainer.style.display = 'none';
                     clearButton.style.display = 'none';
-                    clearEmptyButton.style.display = 'none';
                     searchInput.dispatchEvent(new Event('input', {bubbles: true}));
                 });
                 resultsContainer.appendChild(div);
@@ -50,7 +50,6 @@ document.addEventListener('DOMContentLoaded', function() {
             resultsContainer.style.display = 'block';
         } else {
             resultsContainer.style.display = 'none';
-            clearEmptyButton.style.display = inputVal.length === 0 ? 'block' : 'none';
         }
     });
 
@@ -58,20 +57,25 @@ document.addEventListener('DOMContentLoaded', function() {
     clearButton.addEventListener('click', function() {
         searchInput.value = '';
         clearButton.style.display = 'none';
-        clearEmptyButton.style.display = 'none';
         resultsContainer.style.display = 'none';
         searchInput.focus();
         searchInput.dispatchEvent(new Event('input', {bubbles: true, cancelable: true}));
     });
 
-    // Clear input and hide elements when the clear empty button is clicked
+    // Functionality for the clearEmptyButton
     clearEmptyButton.addEventListener('click', function() {
         searchInput.value = '';
+        resultsContainer.innerHTML = ''; // Clear current results
+        cmsItems.forEach(item => { // Display all items again
+            const div = document.createElement('div');
+            div.textContent = item;
+            div.className = 'autocomplete-item';
+            resultsContainer.appendChild(div);
+        });
+        resultsContainer.style.display = 'block';
         clearButton.style.display = 'none';
-        clearEmptyButton.style.display = 'none';
-        resultsContainer.style.display = 'none';
+        emptyElement.style.display = 'none'; // Hide the empty element
         searchInput.focus();
-        searchInput.dispatchEvent(new Event('input', {bubbles: true, cancelable: true}));
     });
 
     // Hide results container when clicking outside of the search input or results container
