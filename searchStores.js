@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         // Adjust the load more button visibility based on total matched items and visible count
-        loadButton.style.display = (totalMatchedItems > visibleItemsCount) ? 'block' : 'none';
+        loadButton.style.display = (totalMatchedItems > visibleItemsCount) ? 'flex' : 'none';
 
         // Show the "empty" div if no items match the search term
         emptyDiv.style.display = (totalMatchedItems === 0) ? 'flex' : 'none';
