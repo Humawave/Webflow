@@ -12,24 +12,27 @@ document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('searchInput');
     const resultsContainer = document.getElementById('autocompleteResults');
     const clearButton = document.getElementById('clearSearch');
-    const clearEmptyButton = document.getElementById('clearSearchEmpty');
-    const emptyElement = document.getElementById('empty');
 
-    clearButton.style.display = 'none';
-    emptyElement.style.display = 'none';
+    clearButton.style.display = 'none'; // Initially hide the clear button
 
     searchInput.addEventListener('input', function() {
         const inputVal = this.value.toLowerCase();
         clearButton.style.display = inputVal.length > 0 ? 'block' : 'none';
 
         const filteredItems = cmsItems.filter(item => item.toLowerCase().startsWith(inputVal));
-        resultsContainer.innerHTML = '';
 
+        resultsContainer.innerHTML = '';
         if (inputVal !== '' && filteredItems.length) {
             filteredItems.forEach(item => {
                 const div = document.createElement('div');
                 div.textContent = item;
                 div.className = 'autocomplete-item';
+                div.addEventListener('click', function() {
+                    searchInput.value = item;
+                    resultsContainer.style.display = 'none'; // Hide results container upon selection
+                    clearButton.style.display = 'none'; // Optionally hide the clear button
+                    searchInput.dispatchEvent(new Event('input', {bubbles: true})); // Update bindings
+                });
                 resultsContainer.appendChild(div);
             });
             resultsContainer.style.display = 'block';
@@ -40,30 +43,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     clearButton.addEventListener('click', function() {
         searchInput.value = '';
-        resultsContainer.innerHTML = '';
         clearButton.style.display = 'none';
         resultsContainer.style.display = 'none';
-        searchInput.focus();
-    });
-
-    clearEmptyButton.addEventListener('click', function() {
-        searchInput.value = '';
-        resultsContainer.innerHTML = ''; // Clear current results
-        cmsItems.forEach(item => { // Repopulate the results with all CMS items
-            const div = document.createElement('div');
-            div.textContent = item;
-            div.className = 'autocomplete-item';
-            resultsContainer.appendChild(div);
-        });
-        resultsContainer.style.display = 'block';
-        clearButton.style.display = 'none';
-        emptyElement.style.display = 'none';
-        searchInput.focus();
+        searchInput.focus(); // Refocus on the search input
+        searchInput.dispatchEvent(new Event('input', {bubbles: true, cancelable: true}));
     });
 
     document.addEventListener('click', function(event) {
+        // Check if the clicked area is outside the searchInput and resultsContainer
         if (!searchInput.contains(event.target) && !resultsContainer.contains(event.target)) {
-            resultsContainer.style.display = 'none';
+            resultsContainer.style.display = 'none'; // Hide results container
         }
     });
 });
