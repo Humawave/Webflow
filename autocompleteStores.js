@@ -19,8 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initially hide both clear buttons
     clearButton.style.display = 'none';
-    clearEmptyButton.style.display = 'none';
-
+    
     // Event listener for input on the search field
     searchInput.addEventListener('input', function() {
         const inputVal = this.value.toLowerCase();
