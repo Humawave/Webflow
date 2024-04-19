@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
       .then(data => {
         console.log('Success:', data);
         // Replace with your desired redirect URL
-        window.location.href = 'https://www.yourredirecturl.com'; 
+        window.location.href = 'https://www.humawave.com/shopping'; 
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -28,6 +28,6 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     });
   } else {
-    console.error('Form element with ID "onboarding" not found');
+    console.error('Form element with ID "onboarding-form" not found');
   }
 });
