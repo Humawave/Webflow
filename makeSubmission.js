@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-  var wfForm = document.getElementById('onboarding');
+  var wfForm = document.getElementById('onboarding-form');
   if (wfForm) {
     wfForm.addEventListener('submit', function (event) {
       event.preventDefault(); // Prevent the default form submission
