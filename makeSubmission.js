@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-  var wfForm = document.getElementById('onboarding');
+  var wfForm = document.getElementById('onboarding-form');
 
   // Log the element and its tag name to ensure it's the correct form element
   console.log('Element:', wfForm);
