@@ -1,24 +1,33 @@
-document.addEventListener("DOMContentLoaded", function() {
-    var wfForm = document.getElementById('onboarding'); // Replace 'yourFormId' with your actual form ID
-    wfForm.addEventListener('submit', function(event) {
-        event.preventDefault(); // This prevents the default form submission handled by Webflow
+document.addEventListener('DOMContentLoaded', function () {
+  var wfForm = document.getElementById('onboarding');
+  if (wfForm) {
+    wfForm.addEventListener('submit', function (event) {
+      event.preventDefault(); // Prevent the default form submission
 
-        // Serialize the form data.
-        var formData = new FormData(wfForm);
+      var formData = new FormData(wfForm); // Assuming wfForm is the form element
 
-        // Using Fetch API to submit the form data to Webflow (replace 'yourWebflowWebhookURL' with your actual Webflow webhook URL from Make.com)
-        fetch('yourWebflowWebhookURL', { 
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json()) // assuming server responds with JSON
-        .then(data => {
-            console.log('Success:', data);
-            window.location.href = 'https://www.humawave.com/shopping'; // Redirect to the desired URL on success
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-            alert('An error occurred!');
-        });
+      // Replace 'yourWebflowWebhookURL' with the actual URL you're posting to
+      fetch('https://hook.us1.make.com/aj3oy0sjjfpj4xz6ck47ch9n9njlbxbg', { 
+        method: 'POST',
+        body: formData
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json(); // or response.text() if the server doesn't send JSON
+      })
+      .then(data => {
+        console.log('Success:', data);
+        // Replace with your desired redirect URL
+        window.location.href = 'https://www.yourredirecturl.com'; 
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        alert('An error occurred!');
+      });
     });
+  } else {
+    console.error('Form element with ID "onboarding" not found');
+  }
 });
