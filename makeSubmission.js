@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
       .then(data => {
         console.log('Success:', data);
         // Redirect to the desired URL
-        window.location.href = 'https://www.yourredirecturl.com'; 
+        window.location.href = 'https://www.humawave.com/shopping'; 
       })
       .catch((error) => {
         console.error('Error:', error);
