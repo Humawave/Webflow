@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function() {
       })
       .then(response => {
         if (response.ok) {
-          window.location.href = 'https://your-redirection-url.com'; // Redirect URL
+          window.location.href = 'https://www.humawave.com/shopping'; // Redirect URL
         } else {
           alert('Form submission failed!');
         }
