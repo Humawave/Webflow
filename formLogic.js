@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function() {
             enableButton('next-3');
             if (this.id === "referral") {
                 document.getElementById('next-3').onclick = () => showStep('step-4');
-            } else if (this.id === "one-time") {
+            } else if (this.id === "one-time" || this.id === "monthly") {
                 document.getElementById('next-3').onclick = () => showStep('step-5');
             }
         });
