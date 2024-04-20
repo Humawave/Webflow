@@ -1,47 +1,43 @@
 document.addEventListener('DOMContentLoaded', function () {
-  var wfForm = document.getElementById('onboarding-form');
+  var wfForm = document.getElementById('onboarding-form'); // Ensure this matches the form's ID
 
-  // Log the element and its tag name to ensure it's the correct form element
-  console.log('Element:', wfForm);
-  if (wfForm) console.log('Tag Name:', wfForm.tagName);
+  if (wfForm) {
+    console.log('Tag Name:', wfForm.tagName); // Should log 'FORM'
 
-  if (wfForm && wfForm.tagName === 'FORM') {
     wfForm.addEventListener('submit', function (event) {
       event.preventDefault(); // Prevent the default form submission
-      
-      // Additional logging to check the form before creating FormData
-      console.log('Form element before FormData creation:', wfForm);
 
+      console.log('Form element before FormData creation:', wfForm);
       try {
-        var formData = new FormData(wfForm); // Assuming wfForm is the form element
+        var formData = new FormData(wfForm); // Create FormData from the form element
       } catch (e) {
         console.error('Error creating FormData:', e);
         return; // Exit the function if FormData cannot be created
       }
 
-      // Fetch call to send the FormData to the Make.com webhook URL
-      fetch('https://hook.us1.make.com/aj3oy0sjjfpj4xz6ck47ch9n9njlbxbg', { 
+      // Replace with your Make.com webhook URL
+      fetch('https://hook.us1.make.com/aj3oy0sjjfpj4xz6ck47ch9n9njlbxbg', {
         method: 'POST',
         body: formData
       })
       .then(response => {
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          console.error('Bad response from server:', response.status);
+          throw new Error('Network response was not ok. Status: ' + response.status);
         }
-        return response.json(); // or response.text() if the server doesn't send JSON
+        return response.json(); // Or response.text() if the response is not JSON
       })
       .then(data => {
         console.log('Success:', data);
-        // Redirect to the desired URL
-        window.location.href = 'https://www.humawave.com/shopping'; 
+        // Redirect to your desired URL upon success
+        window.location.href = 'https://www.yourredirecturl.com';
       })
       .catch((error) => {
-        console.error('Error:', error);
-        alert('An error occurred!');
+        // This will catch any error that occurs during the fetch process
+        console.error('Error during fetch:', error);
       });
-
     });
   } else {
-    console.error('Form element with ID "onboarding" not found or is not a form');
+    console.error('Form element with ID "onboarding-form" not found');
   }
 });
