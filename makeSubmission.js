@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
       })
       .then(data => {
         console.log('Success:', data);
-        // Redirect to your desired URL upon success
+        // Redirect to the specified URL upon success
         window.location.href = 'https://www.humawave.com/shopping';
       })
       .catch((error) => {
