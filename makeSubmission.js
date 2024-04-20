@@ -25,12 +25,19 @@ document.addEventListener('DOMContentLoaded', function () {
           console.error('Bad response from server:', response.status);
           throw new Error('Network response was not ok. Status: ' + response.status);
         }
-        return response.json(); // Or response.text() if the response is not JSON
+
+        // Check the response header to determine if the response is JSON or plain text
+        const contentType = response.headers.get('content-type');
+        if (contentType && contentType.includes('application/json')) {
+          return response.json();
+        } else {
+          return response.text(); // If not JSON, parse it as plain text
+        }
       })
       .then(data => {
         console.log('Success:', data);
         // Redirect to your desired URL upon success
-        window.location.href = 'https://www.yourredirecturl.com';
+        window.location.href = 'https://www.humawave.com/shopping';
       })
       .catch((error) => {
         // This will catch any error that occurs during the fetch process
