@@ -23,6 +23,12 @@
         localStorage.setItem('userUUID', userUUID);
     }
 
+    // Set the UUID to the hidden field in the form if the field exists
+    var uuidField = document.getElementById('uuidField'); // Ensure you have <input type="hidden" id="uuidField" name="uuid"> in your form
+    if (uuidField) {
+        uuidField.value = userUUID;
+    }
+
     // Assuming RudderStack's analytics.js is already loaded and `rudderanalytics` is available
     // Identify the user with the generated UUID
     rudderanalytics.identify(userUUID, {
@@ -30,6 +36,6 @@
         // For example: name, email, etc. (if known/applicable)
     });
 
-    // You could also include a page tracking call if you want to track page views here
+    // Optionally, include a page tracking call
     // rudderanalytics.page();
 })();
