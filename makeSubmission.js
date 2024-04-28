@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       var formData = new FormData(wfForm);
 
-      fetch('https://hook.us1.make.com/aj3oy0sjjfpj4xz6ck47ch9n9njlbxbg', {
+      fetch('https://hook.us1.make.com/56u9440uri398z7rk34egbu1s3tyh9ra', {
         method: 'POST',
         body: formData
       })
