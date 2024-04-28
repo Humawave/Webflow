@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // Start the countdown on form submission
       var countdownElement = document.getElementById('countdown');
-      var timeLeft = 5; // seconds
+      var timeLeft = 6; // seconds
       countdownElement.textContent = "Magic will happen in " + timeLeft + " seconds";
 
       var countdownTimer = setInterval(function() {
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Adjust delay if necessary to sync with the countdown
         setTimeout(() => {
           window.location.href = `https://www.humawave.com/session/${data.slug}`;
-        }, 5000); // This delay should match the initial timeLeft * 1000
+        }, 6000); // This delay should match the initial timeLeft * 1000
       })
       .catch(() => {
         window.location.href = '/error'; // Replace with your error page URL
