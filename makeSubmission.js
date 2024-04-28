@@ -18,8 +18,8 @@ document.addEventListener('DOMContentLoaded', function () {
         return response.json();
       })
       .then(data => {
-        // Replace 'slugField' with the actual field name for the slug in the response
-        window.location.href = `https://www.humawave.com/session/${data.slugField}`;
+        // Use 'slug' as it is the key used in the Make.com webhook response
+        window.location.href = `https://www.humawave.com/session/${data.slug}`;
       })
       .catch(() => {
         window.location.href = '/error'; // Replace with your error page URL
