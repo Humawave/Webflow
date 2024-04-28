@@ -15,20 +15,14 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
-
-        const contentType = response.headers.get('content-type');
-        if (contentType && contentType.includes('application/json')) {
-          return response.json();
-        } else {
-          return response.text();
-        }
+        return response.json();
       })
-      .then(() => {
-        window.location.href = 'https://www.humawave.com/shopping';
+      .then(data => {
+        // Replace 'slugField' with the actual field name for the slug in the response
+        window.location.href = `https://www.humawave.com/session/${data.slugField}`;
       })
       .catch(() => {
-        // Redirect or handle error quietly
-        window.location.href = '/error'; // Replace '/error' with your error page URL
+        window.location.href = '/error'; // Replace with your error page URL
       });
     });
   }
