@@ -5,6 +5,21 @@ document.addEventListener('DOMContentLoaded', function () {
     wfForm.addEventListener('submit', function (event) {
       event.preventDefault();
 
+      // Start the countdown on form submission
+      var countdownElement = document.getElementById('countdown');
+      var timeLeft = 5; // seconds
+      countdownElement.textContent = "Magic will happen in " + timeLeft + " seconds";
+
+      var countdownTimer = setInterval(function() {
+        timeLeft--;
+        if (timeLeft > 0) {
+          countdownElement.textContent = "Magic will happen in " + timeLeft + " seconds";
+        } else if (timeLeft === 0) {
+          countdownElement.textContent = "🎉";
+          clearInterval(countdownTimer);
+        }
+      }, 1000);
+
       var formData = new FormData(wfForm);
 
       fetch('https://hook.us1.make.com/56u9440uri398z7rk34egbu1s3tyh9ra', {
@@ -18,10 +33,10 @@ document.addEventListener('DOMContentLoaded', function () {
         return response.json();
       })
       .then(data => {
-        // Delay redirection for 5-7 seconds
+        // Adjust delay if necessary to sync with the countdown
         setTimeout(() => {
           window.location.href = `https://www.humawave.com/session/${data.slug}`;
-        }, 5000); // Delay in milliseconds (7000ms = 7 seconds)
+        }, 5000); // This delay should match the initial timeLeft * 1000
       })
       .catch(() => {
         window.location.href = '/error'; // Replace with your error page URL
