@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Delay redirection for 5-7 seconds
         setTimeout(() => {
           window.location.href = `https://www.humawave.com/session/${data.slug}`;
-        }, 7000); // Delay in milliseconds (7000ms = 7 seconds)
+        }, 5000); // Delay in milliseconds (7000ms = 7 seconds)
       })
       .catch(() => {
         window.location.href = '/error'; // Replace with your error page URL
