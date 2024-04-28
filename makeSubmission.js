@@ -18,8 +18,10 @@ document.addEventListener('DOMContentLoaded', function () {
         return response.json();
       })
       .then(data => {
-        // Use 'slug' as it is the key used in the Make.com webhook response
-        window.location.href = `https://www.humawave.com/session/${data.slug}`;
+        // Delay redirection for 5-7 seconds
+        setTimeout(() => {
+          window.location.href = `https://www.humawave.com/session/${data.slug}`;
+        }, 7000); // Delay in milliseconds (7000ms = 7 seconds)
       })
       .catch(() => {
         window.location.href = '/error'; // Replace with your error page URL
