@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
         history.pushState(null, '', '?' + queryParams.toString());
 
         const sectionContinue = document.getElementById('section-continue');
-        sectionContinue.style.display = selectedIds.length > 0 ? 'block' : 'none';
+        sectionContinue.style.display = selectedIds.length > 0 ? 'flex' : 'none';
 
         const linkContinue = document.getElementById('link-continue');
         const baseURL = 'https://humawave.com/onboarding';
