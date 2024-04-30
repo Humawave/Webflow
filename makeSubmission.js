@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
       .then(data => {
         // Adjust delay if necessary to sync with the countdown
         setTimeout(() => {
-          window.location.href = `https://www.humawave.com/session/${data.slug}`;
+          window.location.href = `https://www.humawave.com/confirmation/${data.slug}`;
         }, 6000); // This delay should match the initial timeLeft * 1000
       })
       .catch(() => {
