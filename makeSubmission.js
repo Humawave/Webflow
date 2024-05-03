@@ -8,14 +8,14 @@ document.addEventListener('DOMContentLoaded', function () {
       // Start the countdown on form submission
       var countdownElement = document.getElementById('countdown');
       var timeLeft = 6; // seconds
-      countdownElement.textContent = "Magic will happen in " + timeLeft + " seconds";
+      countdownElement.textContent = "Customizing your experience, " + timeLeft + " seconds left";
 
       var countdownTimer = setInterval(function() {
         timeLeft--;
         if (timeLeft > 0) {
-          countdownElement.textContent = "Magic will happen in " + timeLeft + " seconds";
+          countdownElement.textContent = "Customizing your experience, " + timeLeft + " seconds left";
         } else if (timeLeft === 0) {
-          countdownElement.textContent = "🎉";
+          countdownElement.textContent = "All done 🎉";
           clearInterval(countdownTimer);
         }
       }, 1000);
