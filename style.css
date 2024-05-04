@@ -132,3 +132,30 @@
 .air-datepicker input[type="range"]::-ms-track {
     background-color: #143723 !important; /* Dark green track color for IE/Edge */
 }
+
+
+
+
+#leave-button {
+    background-color: #143723; /* Dark green background */
+    color: #f7f5ef; /* Off-white text */
+    border: none; /* No border */
+    padding: 10px 20px; /* Padding */
+    font-family: 'Roboto', sans-serif; /* Consistent font family */
+    font-size: 16px; /* Font size */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    display: flex; /* Flex layout */
+    align-items: center; /* Center items vertically */
+    justify-content: center; /* Center items horizontally */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Subtle shadow */
+}
+
+.material-symbols-outlined {
+    font-variation-settings:
+        'FILL' 0, /* Adjust as necessary */
+        'wght' 400, /* Weight of the icon */
+        'GRAD' 0, /* Grade of the icon */
+        'opsz' 24; /* Optical sizing of the icon, adjust size as needed */
+    margin-right: 10px; /* Space between icon and text */
+}
