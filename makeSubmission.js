@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
             countdownElement.textContent = "All done 🎉";
             setTimeout(function() { // Delay the redirection by 1 second
               window.location.href = `https://www.humawave.com/confirmation/${data.slug}`;
-            }, 1000); // 1000 milliseconds = 1 second
+            }, 5000); // 1000 milliseconds = 1 second
           } else if (attemptCount < maxAttempts) {
             attemptCount++;
             console.log('Attempt:', attemptCount, 'Status:', data.status);
