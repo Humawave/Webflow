@@ -5,20 +5,9 @@ document.addEventListener('DOMContentLoaded', function () {
     wfForm.addEventListener('submit', function (event) {
       event.preventDefault();
 
-      // Start the countdown on form submission
+      // Display the initial message
       var countdownElement = document.getElementById('countdown');
-      var timeLeft = 6; // seconds
-      countdownElement.textContent = "Customizing your experience, " + timeLeft + " seconds left";
-
-      var countdownTimer = setInterval(function() {
-        timeLeft--;
-        if (timeLeft > 0) {
-          countdownElement.textContent = "Customizing your experience, " + timeLeft + " seconds left";
-        } else if (timeLeft === 0) {
-          countdownElement.textContent = "All done 🎉";
-          clearInterval(countdownTimer);
-        }
-      }, 1000);
+      countdownElement.textContent = "Customizing your experience...";
 
       var formData = new FormData(wfForm);
 
@@ -33,10 +22,8 @@ document.addEventListener('DOMContentLoaded', function () {
         return response.json();
       })
       .then(data => {
-        // Adjust delay if necessary to sync with the countdown
-        setTimeout(() => {
-          window.location.href = `https://www.humawave.com/confirmation/${data.slug}`;
-        }, 6000); // This delay should match the initial timeLeft * 1000
+        countdownElement.textContent = "All done 🎉";
+        window.location.href = `https://www.humawave.com/confirmation/${data.slug}`;
       })
       .catch(() => {
         window.location.href = '/error'; // Replace with your error page URL
