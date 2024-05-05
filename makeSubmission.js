@@ -3,12 +3,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (wfForm) {
     wfForm.addEventListener('submit', function (event) {
-      event.preventDefault();
+      event.preventDefault(); // Prevent the form from submitting normally.
 
       var countdownElement = document.getElementById('countdown');
-      countdownElement.textContent = "Working our magic 🪄";
+      countdownElement.textContent = "Working our magic 🪄"; // Display initial processing message.
 
-      var formData = new FormData(wfForm);
+      var formData = new FormData(wfForm); // Gather form data for submission.
 
       var attemptCount = 0;
       var maxAttempts = 5;
@@ -19,32 +19,30 @@ document.addEventListener('DOMContentLoaded', function () {
           body: formData
         })
         .then(response => {
-          if (!response.ok) throw new Error('Network response was not ok');
-          return response.json();
+          if (!response.ok) throw new Error('Network response was not ok'); // Check if the HTTP response is OK.
+          return response.json(); // Parse the JSON from the response.
         })
         .then(data => {
-          console.log('Received data:', data); // Log the received data for debugging
+          console.log('Received data:', data); // Log the received data for debugging.
           if (data.status === 'complete') {
-            countdownElement.textContent = "All done 🎉";
-            setTimeout(function() { // Delay the redirection by 1 second
-              window.location.href = `https://www.humawave.com/confirmation/${data.slug}`;
-            }, 5000); // 1000 milliseconds = 1 second
+            countdownElement.textContent = "All done 🎉"; // Update the message to show completion.
+            window.location.href = `https://www.humawave.com/confirmation/${data.slug}`; // Redirect immediately.
           } else if (attemptCount < maxAttempts) {
-            attemptCount++;
-            console.log('Attempt:', attemptCount, 'Status:', data.status);
-            setTimeout(sendData, 2000); // Retry after 2 seconds
+            attemptCount++; // Increment the attempt counter.
+            console.log('Attempt:', attemptCount, 'Status:', data.status); // Log the attempt and status for debugging.
+            setTimeout(sendData, 2000); // Retry the sendData function after 2 seconds.
           } else {
-            throw new Error('Max attempts reached, process not complete');
+            throw new Error('Max attempts reached, process not complete'); // Throw an error if max attempts are reached.
           }
         })
         .catch(error => {
-          console.error('Error:', error);
-          countdownElement.textContent = "Error processing your request.";
-          setTimeout(() => window.location.href = '/error', 2000); // Delay redirect to error page
+          console.error('Error:', error); // Log any errors to the console.
+          countdownElement.textContent = "Error processing your request."; // Display an error message.
+          setTimeout(() => window.location.href = '/error', 2000); // Redirect to error page after a delay.
         });
       }
 
-      sendData(); // Start the send data process
+      sendData(); // Start the send data process.
     });
   }
 });
