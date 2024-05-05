@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
       event.preventDefault();
 
       var countdownElement = document.getElementById('countdown');
-      countdownElement.textContent = "Customizing your experience...";
+      countdownElement.textContent = "Working our magic 🪄";
 
       var formData = new FormData(wfForm);
 
