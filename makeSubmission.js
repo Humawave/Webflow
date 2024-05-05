@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // Display the initial message indicating the start of the process
       var countdownElement = document.getElementById('countdown');
-      countdownElement.textContent = "Customizing your experience...";
+      countdownElement.textContent = "Working our magic 🪄";
 
       // Prepare the form data to be sent to Make.com webhook
       var formData = new FormData(wfForm);
