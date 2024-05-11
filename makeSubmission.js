@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // Show the loader div
       var loader = document.getElementById('loader');
-      loader.style.display = 'block';
+      loader.style.display = 'flex';
 
       var countdownElement = document.getElementById('countdown');
       countdownElement.textContent = "Working our magic 🪄";
