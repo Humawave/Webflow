@@ -5,6 +5,10 @@ document.addEventListener('DOMContentLoaded', function () {
     wfForm.addEventListener('submit', function (event) {
       event.preventDefault();
 
+      // Show the loader div
+      var loader = document.getElementById('loader');
+      loader.style.display = 'block';
+
       var countdownElement = document.getElementById('countdown');
       countdownElement.textContent = "Working our magic 🪄";
 
