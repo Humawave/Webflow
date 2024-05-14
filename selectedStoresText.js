@@ -23,6 +23,7 @@ const storeNames = {
     'D2':  'Dollarama',
     'E1':  'ECCO',
     'E2':  'Ever New',
+    'E3':  'Eataly',
     'F1':  'Foot Locker',
     'F5':  'FYE',
     'G1':  'GameStop',
