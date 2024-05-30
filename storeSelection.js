@@ -5,27 +5,19 @@ function selectStore(storeId) {
     selectedStores.push(storeId);
     localStorage.setItem('selectedStores', JSON.stringify(selectedStores));
   }
-  console.log(`You have selected store ID: ${storeId}`);
 }
 
 // Add event listener to buttons with class 'button' and subclass 'is-shop-here'
 document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('.button.is-shop-here').forEach(button => {
-    button.addEventListener('click', function() {
+    button.addEventListener('click', function(event) {
+      event.preventDefault(); // Prevent default link behavior
       selectStore(this.id);
-    });
-  });
 
-  // Show continue section when at least one checkbox is selected
-  const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-  checkboxes.forEach(checkbox => {
-    checkbox.addEventListener('change', function() {
-      const anyChecked = Array.from(checkboxes).some(cb => cb.checked);
+      // Show continue section when at least one store is selected
       const continueSection = document.getElementById('section-continue');
-      if (anyChecked) {
+      if (continueSection) {
         continueSection.style.display = 'flex';
-      } else {
-        continueSection.style.display = 'none';
       }
     });
   });
