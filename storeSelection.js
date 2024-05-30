@@ -22,9 +22,9 @@ window.addEventListener('load', () => {
 
                 // Toggle section visibility
                 if (selectedButtons.size > 0) {
-                    continueSection.style.display = 'flex';
+                    continueSection.classList.add('flex');
                 } else {
-                    continueSection.style.display = 'none';
+                    continueSection.classList.remove('flex');
                 }
 
                 // Debugging: Log section visibility status
