@@ -1,0 +1,10 @@
+#section-continue {
+    display: none;
+    transition: opacity 100ms ease-in-out;
+    opacity: 0;
+}
+
+#section-continue.flex {
+    display: flex;
+    opacity: 1;
+}
