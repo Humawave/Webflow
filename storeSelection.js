@@ -37,9 +37,8 @@ window.addEventListener('load', () => {
     });
 
     function updateURL(selectedButtons) {
-        const baseURL = 'https://humawave.com';
         const params = Array.from(selectedButtons).join('&');
-        const newURL = params ? `${baseURL}?${params}` : baseURL;
+        const newURL = params ? `?${params}` : '';
         window.history.replaceState(null, '', newURL);
     }
 });
