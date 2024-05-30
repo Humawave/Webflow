@@ -27,9 +27,19 @@ window.addEventListener('load', () => {
                     continueSection.style.display = 'none';
                 }
 
+                // Update URL with selected buttons
+                updateURL(selectedButtons);
+
                 // Debugging: Log section visibility status
                 console.log('Continue Section Display:', continueSection.style.display);
             }
         });
     });
+
+    function updateURL(selectedButtons) {
+        const baseURL = 'https://humawave.com';
+        const params = Array.from(selectedButtons).join('&');
+        const newURL = params ? `${baseURL}?${params}` : baseURL;
+        window.history.replaceState(null, '', newURL);
+    }
 });
