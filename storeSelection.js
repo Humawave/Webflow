@@ -1,6 +1,6 @@
 window.addEventListener('load', () => {
     const buttons = document.querySelectorAll('.is-shop-here');
-    const continueSection = document.querySelector('.section_continue');
+    const continueSection = document.getElementById('section-continue');
     const selectedButtons = new Set();
 
     buttons.forEach(button => {
@@ -22,13 +22,13 @@ window.addEventListener('load', () => {
 
                 // Toggle section visibility
                 if (selectedButtons.size > 0) {
-                    continueSection.classList.add('flex');
+                    continueSection.style.display = 'flex';
                 } else {
-                    continueSection.classList.remove('flex');
+                    continueSection.style.display = 'none';
                 }
 
                 // Debugging: Log section visibility status
-                console.log('Continue Section Display:', getComputedStyle(continueSection).display);
+                console.log('Continue Section Display:', continueSection.style.display);
             }
         });
     });
