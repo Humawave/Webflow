@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('load', () => {
     const buttons = document.querySelectorAll('.is-shop-here');
     const continueSection = document.getElementById('section-continue');
     const selectedButtons = new Set();
