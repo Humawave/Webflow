@@ -1,6 +1,6 @@
 window.addEventListener('load', () => {
     const buttons = document.querySelectorAll('.is-shop-here');
-    const continueSection = document.getElementById('section-continue');
+    const continueSection = document.querySelector('.section_continue');
     const selectedButtons = new Set();
 
     buttons.forEach(button => {
@@ -28,7 +28,7 @@ window.addEventListener('load', () => {
                 }
 
                 // Debugging: Log section visibility status
-                console.log('Continue Section Display:', continueSection.style.display);
+                console.log('Continue Section Display:', getComputedStyle(continueSection).display);
             }
         });
     });
