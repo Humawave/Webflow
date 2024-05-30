@@ -1,9 +1,21 @@
 // Function to handle store selection
-function selectStore(storeId) {
+function toggleStoreSelection(storeId) {
   let selectedStores = JSON.parse(localStorage.getItem('selectedStores')) || [];
-  if (!selectedStores.includes(storeId)) {
+  
+  if (selectedStores.includes(storeId)) {
+    // Remove the store if it is already selected
+    selectedStores = selectedStores.filter(id => id !== storeId);
+  } else {
+    // Add the store if it is not selected
     selectedStores.push(storeId);
-    localStorage.setItem('selectedStores', JSON.stringify(selectedStores));
+  }
+
+  localStorage.setItem('selectedStores', JSON.stringify(selectedStores));
+
+  // Show or hide the continue section based on the selection
+  const continueSection = document.getElementById('section-continue');
+  if (continueSection) {
+    continueSection.style.display = selectedStores.length > 0 ? 'flex' : 'none';
   }
 }
 
@@ -12,13 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('.button.is-shop-here').forEach(button => {
     button.addEventListener('click', function(event) {
       event.preventDefault(); // Prevent default link behavior
-      selectStore(this.id);
-
-      // Show continue section when at least one store is selected
-      const continueSection = document.getElementById('section-continue');
-      if (continueSection) {
-        continueSection.style.display = 'flex';
-      }
+      toggleStoreSelection(this.id);
     });
   });
 
