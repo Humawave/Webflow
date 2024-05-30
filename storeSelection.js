@@ -37,8 +37,13 @@ window.addEventListener('load', () => {
     });
 
     function updateURL(selectedButtons) {
-        const params = Array.from(selectedButtons).join('&');
-        const newURL = params ? `?${params}` : '';
-        window.history.replaceState(null, '', newURL);
+        const baseURL = window.location.origin;
+        if (selectedButtons.size === 0) {
+            window.history.replaceState(null, '', baseURL);
+        } else {
+            const params = Array.from(selectedButtons).join('&');
+            const newURL = `?${params}`;
+            window.history.replaceState(null, '', newURL);
+        }
     }
 });
