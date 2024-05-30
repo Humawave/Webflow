@@ -1,40 +1,25 @@
-// Function to handle store selection
-function toggleStoreSelection(storeId) {
-  let selectedStores = JSON.parse(localStorage.getItem('selectedStores')) || [];
-  
-  if (selectedStores.includes(storeId)) {
-    // Remove the store if it is already selected
-    selectedStores = selectedStores.filter(id => id !== storeId);
-  } else {
-    // Add the store if it is not selected
-    selectedStores.push(storeId);
-  }
+document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('.is-shop-here');
+    const continueSection = document.getElementById('section-continue');
+    const selectedButtons = new Set();
 
-  localStorage.setItem('selectedStores', JSON.stringify(selectedStores));
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            const buttonId = button.id;
 
-  // Show or hide the continue section based on the selection
-  const continueSection = document.getElementById('section-continue');
-  if (continueSection) {
-    continueSection.style.display = selectedStores.length > 0 ? 'flex' : 'none';
-  }
-}
+            if (selectedButtons.has(buttonId)) {
+                selectedButtons.delete(buttonId);
+                button.classList.remove('selected'); // Optional: Add a class to indicate selection
+            } else {
+                selectedButtons.add(buttonId);
+                button.classList.add('selected'); // Optional: Add a class to indicate selection
+            }
 
-// Add event listener to buttons with class 'button' and subclass 'is-shop-here'
-document.addEventListener('DOMContentLoaded', function() {
-  document.querySelectorAll('.button.is-shop-here').forEach(button => {
-    button.addEventListener('click', function(event) {
-      event.preventDefault(); // Prevent default link behavior
-      toggleStoreSelection(this.id);
+            if (selectedButtons.size > 0) {
+                continueSection.style.display = 'flex';
+            } else {
+                continueSection.style.display = 'none';
+            }
+        });
     });
-  });
-
-  // Handle continue button click
-  const continueButton = document.getElementById('button-continue');
-  if (continueButton) {
-    continueButton.addEventListener('click', function() {
-      const selectedStores = JSON.parse(localStorage.getItem('selectedStores')) || [];
-      sessionStorage.setItem('selectedStores', JSON.stringify(selectedStores));
-      window.location.href = '/book';
-    });
-  }
 });
