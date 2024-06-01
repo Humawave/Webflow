@@ -1,6 +1,7 @@
 window.addEventListener('load', () => {
     const buttons = document.querySelectorAll('.is-shop-here');
     const continueSection = document.getElementById('section-continue');
+    const continueButton = document.getElementById('button-continue');
     const selectedButtons = new Set();
 
     buttons.forEach(button => {
@@ -23,6 +24,7 @@ window.addEventListener('load', () => {
                 // Toggle section visibility
                 if (selectedButtons.size > 0) {
                     continueSection.style.display = 'flex';
+                    updateContinueButtonURL(selectedButtons);
                 } else {
                     continueSection.style.display = 'none';
                 }
@@ -44,6 +46,17 @@ window.addEventListener('load', () => {
             const params = Array.from(selectedButtons).join('&');
             const newURL = `?${params}`;
             window.history.replaceState(null, '', newURL);
+        }
+    }
+
+    function updateContinueButtonURL(selectedButtons) {
+        if (continueButton) {
+            const params = Array.from(selectedButtons).join('&');
+            const newURL = `/book/?${params}`;
+            continueButton.href = newURL;
+
+            // Debugging: Log new URL for continue button
+            console.log('Continue Button URL:', continueButton.href);
         }
     }
 });
