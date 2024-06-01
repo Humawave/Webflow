@@ -1,23 +1,23 @@
 /* Selected date style */
-.easepick-wrapper .easepick-calendar .day.is-selected {
-    background-color: #143723 !important;
-    color: white !important;
+.onboarding1_calendar-wrapper .day.is-selected {
+    background-color: #143723;
+    color: white;
 }
 
 /* Hover over dates style */
-.easepick-wrapper .easepick-calendar .day:not(.is-disabled):hover {
-    outline: 2px solid #ddeba4 !important;
-    color: black !important;
+.onboarding1_calendar-wrapper .day:not(.is-disabled):hover {
+    outline: 2px solid #ddeba4;
+    color: black;
 }
 
 /* Style for past dates */
-.easepick-wrapper .easepick-calendar .day.is-disabled,
-.easepick-wrapper .easepick-calendar .day.is-previous {
-    color: grey !important;
+.onboarding1_calendar-wrapper .day.is-disabled,
+.onboarding1_calendar-wrapper .day.is-previous {
+    color: grey;
 }
 
 /* Style for today's date */
-.easepick-wrapper .easepick-calendar .day.is-today {
-    font-weight: bold !important;
-    color: black !important;
+.onboarding1_calendar-wrapper .day.is-today {
+    font-weight: bold;
+    color: black;
 }
