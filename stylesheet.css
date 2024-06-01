@@ -5,7 +5,25 @@
     -o-font-smoothing: antialiased;
 }
 
-/* Hide the input element showing the selected date in Easepick */
-.easepick-wrapper .easepick-header .easepick-input {
-    display: none;
+/* Selected date style */
+.easepick-wrapper .easepick-day[aria-selected="true"] {
+    background-color: #143723;
+    color: white;
+}
+
+/* Hover over dates style */
+.easepick-wrapper .easepick-day:hover {
+    outline: 2px solid #ddeba4;
+    color: black;
+}
+
+/* Style for past dates */
+.easepick-wrapper .easepick-day[aria-disabled="true"] {
+    color: grey;
+}
+
+/* Style for today's date */
+.easepick-wrapper .easepick-day[data-today="true"] {
+    font-weight: bold;
+    color: black;
 }
