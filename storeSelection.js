@@ -8,6 +8,9 @@ window.addEventListener('load', () => {
             const buttonId = button.id;
 
             if (buttonId) { // Ensure the button has a valid ID
+                // Track button click
+                trackButtonClick(buttonId);
+
                 // Toggle selection
                 if (selectedButtons.has(buttonId)) {
                     selectedButtons.delete(buttonId);
@@ -45,5 +48,12 @@ window.addEventListener('load', () => {
             const newURL = `?${params}`;
             window.history.replaceState(null, '', newURL);
         }
+    }
+
+    function trackButtonClick(buttonId) {
+        // RudderStack tracking code
+        rudderanalytics.track('Store Selected', {
+            storeId: buttonId
+        });
     }
 });
