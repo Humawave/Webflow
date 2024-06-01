@@ -1,4 +1,11 @@
-/* Hide the input element showing the selected date */
+/* Keep this CSS code to improve the font quality */
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -o-font-smoothing: antialiased;
+}
+
+/* Hide the input element showing the selected date in Easepick */
 .easepick-wrapper .easepick-header .easepick-input {
     display: none;
 }
