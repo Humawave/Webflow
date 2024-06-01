@@ -1,4 +1,4 @@
 /* Hide the input element showing the selected date */
-.easepick-wrapper .easepick-header input {
+.easepick-wrapper .easepick-header .easepick-input {
     display: none;
 }
