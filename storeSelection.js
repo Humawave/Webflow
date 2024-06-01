@@ -50,10 +50,10 @@ window.addEventListener('load', () => {
         }
     }
 
-    function trackButtonClick(buttonId) {
+//    function trackButtonClick(buttonId) {
         // RudderStack tracking code
-        rudderanalytics.track('Store Selected', {
-            storeId: buttonId
-        });
+//        rudderanalytics.track('Store Selected', {
+//            storeId: buttonId
+//        });
     }
 });
