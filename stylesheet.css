@@ -5,3 +5,33 @@
   --color-fg-accent: #143723;
   --color-bg-inrange: #000000;
 }
+
+/* Hide the selected date text */
+.onboarding1_calendar-wrapper.w-node-_18448795-8216-65de-aa5f-647e5666d143-c5a9c778 {
+  display: none;
+}
+
+/* Selected date style */
+.onboarding1_calendar-wrapper .day.is-selected {
+  background-color: #143723;
+  color: white;
+}
+
+/* Hover over dates style */
+.onboarding1_calendar-wrapper .day:not(.is-disabled):hover {
+  outline: 2px solid #ddeba4;
+  color: black;
+}
+
+/* Style for past dates */
+.onboarding1_calendar-wrapper .day.is-previous,
+.onboarding1_calendar-wrapper .day.is-disabled {
+  color: grey;
+  pointer-events: none; /* Disable click */
+}
+
+/* Style for today's date */
+.onboarding1_calendar-wrapper .day.is-today {
+  font-weight: bold;
+  color: black;
+}
