@@ -1,9 +1,7 @@
 :host {
   --color-bg-default: #f7f5ef;
   --color-fg-primary: #143723;
-  --color-fg-default: #fff;
+  --color-fg-default: #000000;
   --color-fg-accent: #143723;
   --color-bg-inrange: #000000;
-  --day-width: 35px;
-  --day-height: 30px;
 }
