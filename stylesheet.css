@@ -1,23 +1,16 @@
-/* Selected date style */
-.onboarding1_calendar-wrapper .day.is-selected {
-    background-color: #143723;
-    color: white;
+:host {
+  --color-bg-default: #3f51b5;
+  --color-fg-primary: #ffc107;
+  --color-fg-default: #fff;
+  --color-fg-accent: #ff9800;
+  --color-bg-inrange: #333;
+  --day-width: 35px;
+  --day-height: 30px;
 }
-
-/* Hover over dates style */
-.onboarding1_calendar-wrapper .day:not(.is-disabled):hover {
-    outline: 2px solid #ddeba4;
-    color: black;
-}
-
-/* Style for past dates */
-.onboarding1_calendar-wrapper .day.is-disabled,
-.onboarding1_calendar-wrapper .day.is-previous {
-    color: grey;
-}
-
-/* Style for today's date */
-.onboarding1_calendar-wrapper .day.is-today {
-    font-weight: bold;
-    color: black;
+/* increase start and end */
+.container.range-plugin .calendar>.days-grid>.day.start,
+.container.range-plugin .calendar>.days-grid>.day.end {
+  font-weight: bold;
+  transform: scale(1.2);
+  z-index: 1;
 }
