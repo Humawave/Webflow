@@ -4,28 +4,38 @@ document.addEventListener('DOMContentLoaded', () => {
     const buttonMonthBack = document.getElementById('button-month-back');
     const buttonMonthNext = document.getElementById('button-month-next');
     const selectedDateInput = document.getElementById('selected-date'); // Hidden input field
-    const timeSlotsContainer = document.getElementById('time-slots');
-    const template = document.getElementById('radio-template');
-    const buttonNext = document.getElementById('button-next');
-
-    const getAvailableSlotsUrl = 'https://us-central1-humawave.cloudfunctions.net/getAvailableSlots';
-    const bookSlotUrl = 'https://us-central1-humawave.cloudfunctions.net/bookSlot';
+    const timeSlotsContainer = document.getElementById('time-slots'); // Time slots container
+    const loader = document.getElementById('time-loader'); // Loader animation container
+    const radioTemplate = document.getElementById('radio-template');
+    const bookingForm = document.getElementById('booking-form');
+    const submitButton = document.querySelector('[data-form="submit-btn"]');
 
     const today = new Date();
     let currentMonth = today.getMonth();
     let currentYear = today.getFullYear();
     let selectedDate = null;
 
+    const getAvailableSlotsUrl = 'https://us-central1-humawave.cloudfunctions.net/getAvailableSlots';
+    const bookSlotUrl = 'https://us-central1-humawave.cloudfunctions.net/bookSlot';
+
     function formatDateString(date) {
         const day = String(date.getDate()).padStart(2, '0');
         const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
         const year = date.getFullYear();
-        return `${day}-${month}-${year}`;
+        return `${day}-${month}-${year}`; // Change format to DD-MM-YYYY for consistency with Google Sheets
     }
 
     async function fetchAvailableSlots(date) {
         try {
-            const response = await fetch(`${getAvailableSlotsUrl}?date=${date}`);
+            const response = await fetch(`${getAvailableSlotsUrl}?date=${formatDateString(date)}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            if (!response.ok) {
+                throw new Error('Failed to fetch available slots');
+            }
             const data = await response.json();
             return data.availableSlots;
         } catch (error) {
@@ -35,35 +45,60 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function updateAvailableSlots(date) {
+        // Show loader and hide time slots
+        loader.style.display = 'flex';
+        timeSlotsContainer.style.display = 'none';
+
         const availableSlots = await fetchAvailableSlots(date);
 
         // Clear any existing time slots
         timeSlotsContainer.innerHTML = '';
 
-        availableSlots.forEach(time => {
-            // Clone the template
-            const clone = template.cloneNode(true);
-
-            // Update the clone with the time slot details
-            const radioInput = clone.querySelector('input');
-            const radioLabel = clone.querySelector('label');
-
-            radioInput.value = time;
-            radioLabel.textContent = time;
-            radioLabel.setAttribute('for', `radio-time-${time}`);
-            radioInput.setAttribute('id', `radio-time-${time}`);
-
-            // Append the clone to the container
-            timeSlotsContainer.appendChild(clone);
+        // Populate with new available slots
+        availableSlots.forEach(slot => {
+            const newRadio = radioTemplate.cloneNode(true);
+            newRadio.querySelector('.onboarding1_radio-label').textContent = slot;
+            newRadio.querySelector('input').value = slot;
+            timeSlotsContainer.appendChild(newRadio);
         });
 
-        // Show the template if no available slots
-        if (availableSlots.length === 0) {
-            template.style.display = 'block';
-        } else {
-            template.style.display = 'none';
+        // Hide loader and show time slots
+        loader.style.display = 'none';
+        timeSlotsContainer.style.display = 'grid';
+    }
+
+    async function bookSlot(date, time) {
+        try {
+            console.log('Booking slot with date:', date, 'and time:', time); // Debugging log
+            const response = await fetch(bookSlotUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ date: formatDateString(date), time })
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to book slot');
+            }
+
+            // Handle the response without showing an alert
+            const data = await response.json();
+            console.log('Slot booked:', data);
+        } catch (error) {
+            console.error('Error booking slot:', error);
         }
     }
+
+    submitButton.addEventListener('click', async (event) => {
+        const selectedTimeButton = document.querySelector('input[name="radio-time"]:checked');
+        if (selectedDate && selectedTimeButton) {
+            const time = selectedTimeButton.value;
+            await bookSlot(selectedDate, time);
+        } else {
+            console.error('Selected date or time slot is missing.');
+        }
+    });
 
     function loadCalendar(month, year) {
         const firstDay = new Date(year, month, 1);
@@ -84,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
         for (let day = 1; day <= lastDay.getDate(); day++) {
             const dayCell = document.createElement('div');
             dayCell.className = 'calendar-item onboarding1_calendar-item';
-            
+
             const circle = document.createElement('div');
             circle.className = 'circle';
             circle.textContent = day;
@@ -108,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 selectedDateInput.value = formatDateString(currentDate); // Update hidden input field with DD-MM-YYYY format
                 console.log("Selected Date: ", selectedDate); // For debugging purposes
 
-                await updateAvailableSlots(formatDateString(currentDate));
+                await updateAvailableSlots(selectedDate); // Update available slots
             });
 
             calendarWrapper.appendChild(dayCell);
@@ -135,37 +170,6 @@ document.addEventListener('DOMContentLoaded', () => {
             currentMonth += 1;
         }
         loadCalendar(currentMonth, currentYear);
-    });
-
-    buttonNext.addEventListener('click', async () => {
-        if (selectedDate) {
-            const selectedTimeButton = document.querySelector('input[name="time-slot"]:checked');
-            if (selectedTimeButton) {
-                const timeSlot = selectedTimeButton.value;
-                try {
-                    const response = await fetch(bookSlotUrl, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ date: formatDateString(selectedDate), time: timeSlot })
-                    });
-                    const data = await response.json();
-                    if (response.ok) {
-                        alert('Booking successful');
-                        await updateAvailableSlots(formatDateString(selectedDate)); // Update the UI after booking
-                    } else {
-                        alert(data.message);
-                    }
-                } catch (error) {
-                    console.error('Error booking slot:', error);
-                }
-            } else {
-                alert("Please select a time before proceeding.");
-            }
-        } else {
-            alert("Please select a date before proceeding.");
-        }
     });
 
     loadCalendar(currentMonth, currentYear);
