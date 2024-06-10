@@ -14,6 +14,10 @@ window.addEventListener('load', () => {
         A11: 'Aritzia',
         A12: 'Athleta',
         A13: 'Aveda',
+        B1: 'B2',
+        B2: 'Babaton',
+        B3: 'Bailey Nelson',
+        B4: 'Banana Republic',
     };
 
     function updateHiddenFieldWithStoreNames() {
