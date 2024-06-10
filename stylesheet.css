@@ -51,3 +51,7 @@
 .today {
   font-weight: bold;
 }
+
+.preloader {
+  display: flex;
+}
