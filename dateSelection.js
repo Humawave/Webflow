@@ -6,8 +6,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const selectedDateInput = document.getElementById('selected-date'); // Hidden input field
     const timeSlotsContainer = document.getElementById('time-slots'); // Time slots container
     const loader = document.getElementById('time-loader'); // Loader animation container
+    const dayLoader = document.getElementById('day-loader'); // Day loader animation container
+    const calendar = document.getElementById('calendar'); // Calendar container
     const radioTemplate = document.getElementById('radio-template');
-    const bookingForm = document.getElementById('booking-form');
     const submitButton = document.querySelector('[data-form="submit-btn"]');
 
     const today = new Date();
@@ -15,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentYear = today.getFullYear();
     let selectedDate = null;
 
+    const getAvailableSlotsForMonthUrl = 'https://us-central1-humawave.cloudfunctions.net/getAvailableSlotsForMonth';
     const getAvailableSlotsUrl = 'https://us-central1-humawave.cloudfunctions.net/getAvailableSlots';
     const bookSlotUrl = 'https://us-central1-humawave.cloudfunctions.net/bookSlot';
 
@@ -23,6 +25,39 @@ document.addEventListener('DOMContentLoaded', () => {
         const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
         const year = date.getFullYear();
         return `${day}-${month}-${year}`; // Change format to DD-MM-YYYY for consistency with Google Sheets
+    }
+
+    async function fetchAvailableSlotsForMonth(year, month) {
+        try {
+            // Show day loader and hide calendar
+            dayLoader.style.display = 'flex';
+            calendar.style.display = 'none';
+
+            const response = await fetch(`${getAvailableSlotsForMonthUrl}?year=${year}&month=${month + 1}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            if (!response.ok) {
+                throw new Error('Failed to fetch available slots for the month');
+            }
+            const data = await response.json();
+
+            // Hide day loader and show calendar
+            dayLoader.style.display = 'none';
+            calendar.style.display = 'grid';
+
+            return data.monthData;
+        } catch (error) {
+            console.error('Error fetching available slots for the month:', error);
+
+            // Hide day loader and show calendar in case of error
+            dayLoader.style.display = 'none';
+            calendar.style.display = 'grid';
+
+            return {};
+        }
     }
 
     async function fetchAvailableSlots(date) {
@@ -100,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    function loadCalendar(month, year) {
+    async function loadCalendar(month, year) {
         const firstDay = new Date(year, month, 1);
         const lastDay = new Date(year, month + 1, 0);
 
@@ -116,6 +151,8 @@ document.addEventListener('DOMContentLoaded', () => {
             calendarWrapper.appendChild(emptyCell);
         }
 
+        const monthData = await fetchAvailableSlotsForMonth(year, month);
+
         for (let day = 1; day <= lastDay.getDate(); day++) {
             const dayCell = document.createElement('div');
             dayCell.className = 'calendar-item onboarding1_calendar-item';
@@ -126,7 +163,11 @@ document.addEventListener('DOMContentLoaded', () => {
             dayCell.appendChild(circle);
 
             const currentDate = new Date(year, month, day);
+            const dateString = formatDateString(currentDate);
+
             if (currentDate < today && !(currentDate.getDate() === today.getDate() && currentDate.getMonth() === today.getMonth() && currentDate.getFullYear() === today.getFullYear())) {
+                dayCell.classList.add('disabled');
+            } else if (!monthData[dateString]) {
                 dayCell.classList.add('disabled');
             }
 
@@ -135,15 +176,17 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             dayCell.addEventListener('click', async () => {
-                document.querySelectorAll('.onboarding1_calendar-item').forEach(item => {
-                    item.classList.remove('is-active-inputactive');
-                });
-                dayCell.classList.add('is-active-inputactive');
-                selectedDate = currentDate; // Save the selected date
-                selectedDateInput.value = formatDateString(currentDate); // Update hidden input field with DD-MM-YYYY format
-                console.log("Selected Date: ", selectedDate); // For debugging purposes
+                if (!dayCell.classList.contains('disabled')) {
+                    document.querySelectorAll('.onboarding1_calendar-item').forEach(item => {
+                        item.classList.remove('is-active-inputactive');
+                    });
+                    dayCell.classList.add('is-active-inputactive');
+                    selectedDate = currentDate; // Save the selected date
+                    selectedDateInput.value = formatDateString(currentDate); // Update hidden input field with DD-MM-YYYY format
+                    console.log("Selected Date: ", selectedDate); // For debugging purposes
 
-                await updateAvailableSlots(selectedDate); // Update available slots
+                    await updateAvailableSlots(selectedDate); // Update available slots
+                }
             });
 
             calendarWrapper.appendChild(dayCell);
