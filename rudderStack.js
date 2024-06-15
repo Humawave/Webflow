@@ -26,4 +26,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
   // Track the page view
   rudderanalytics.page();
+
+  // Function to track store selection
+  window.trackStoreSelection = function(storeName) {
+    rudderanalytics.track('Store Selected', {
+      store: storeName
+    });
+  };
 });
