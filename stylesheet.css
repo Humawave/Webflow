@@ -26,7 +26,8 @@
 }
 
 .onboarding1_calendar-item:hover .circle {
-  background-color: #ddeba4; /* Adjust to match your hover style */
+  background-color: transparent; /* Remove background color */
+  outline: 1px solid black; /* Add 1px black outline */
 }
 
 .is-active-inputactive .circle {
