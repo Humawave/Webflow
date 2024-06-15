@@ -17,6 +17,27 @@ window.addEventListener('load', () => {
         const buttonId = button.id;
 
         if (buttonId) { // Ensure the button has a valid ID
+            // Map button IDs to store names
+            const storeMap = {
+                A1: 'Abercrombie & Fitch',
+                A2: 'Adidas',
+                A3: 'Aerie',
+                A4: 'Aesop',
+                A5: 'Aldo',
+                A6: 'AllSaints',
+                A7: 'Alo Yoga',
+                A8: 'American Eagle Outfitters',
+                A9: 'Apple',
+                A10: 'Arc\'teryx',
+                A11: 'Aritzia',
+                A12: 'Athleta',
+                A13: 'Aveda',
+                B1: 'B2',
+                B2: 'Babaton',
+                B3: 'Bailey Nelson',
+                B4: 'Banana Republic',
+            };
+
             // Toggle selection
             if (selectedButtons.has(buttonId)) {
                 selectedButtons.delete(buttonId);
@@ -39,6 +60,12 @@ window.addEventListener('load', () => {
 
             // Update URL with selected buttons
             updateURL(selectedButtons);
+
+            // Track store selection with RudderStack
+            const storeName = storeMap[buttonId];
+            if (storeName) {
+                window.trackStoreSelection(storeName);
+            }
 
             // Debugging: Log section visibility status
             console.log('Continue Section Display:', continueSection.style.display);
