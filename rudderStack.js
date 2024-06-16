@@ -29,8 +29,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
   // Function to track store selection
   window.trackStoreSelection = function(storeName) {
-    rudderanalytics.track('Store Selected', {
-      store: storeName
+    rudderanalytics.track('store_selected', {
+      store_name: storeName
     });
   };
 });
