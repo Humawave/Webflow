@@ -21,11 +21,11 @@
   pointer-events: none;
 }
 
-.onboarding1_calendar-item {
+.book_calendar-item {
   cursor: pointer;
 }
 
-.onboarding1_calendar-item:hover .circle {
+.book_calendar-item:hover .circle {
   background-color: transparent; /* Remove background color */
   outline: 1px solid black; /* Add 1px black outline */
 }
