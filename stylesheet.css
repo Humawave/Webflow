@@ -3,3 +3,51 @@
   -moz-osx-font-smoothing: grayscale;
   -o-font-smoothing: antialiased;
 }
+
+.book_calendar-wrapper {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.book_calendar-item {
+  padding: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.disabled {
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+.book_calendar-item:hover .circle {
+  background-color: transparent; /* Remove background color */
+  outline: 1px solid black; /* Add 1px black outline */
+}
+
+.is-active-inputactive .circle {
+  background-color: #ddeba4; /* Adjust to match your active style */
+  outline: 1px solid black; /* Adjust to match your active style */
+  border-radius: 50%; /* Ensuring a circular shape */
+}
+
+.circle {
+  width: 2.5rem; /* Adjust the size as needed */
+  height: 2.5rem; /* Adjust the size as needed */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Ensure selected date retains its background color and outline thickness on hover */
+.book_calendar-item.is-active-inputactive:hover .circle {
+  background-color: #ddeba4; /* Maintain background color */
+  outline: 1px solid black; /* Maintain outline thickness */
+  border-radius: 50%; /* Ensuring a circular shape */
+}
