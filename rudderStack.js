@@ -34,16 +34,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
   };
 
-  // Send a sample eCommerce event to check if it appears in GA4
-  rudderanalytics.track('Product Viewed', {
-    product_id: '12345',
-    name: 'Sample Product',
-    category: 'Category',
-    brand: 'Brand',
-    price: 100,
-    currency: 'USD'
-  });
-
   // Optional: You can log a message to the console to confirm the event has been sent
   console.log('Sample Product Viewed event sent to RudderStack');
 });
