@@ -27,9 +27,10 @@
 }
 
 .is-active-inputactive .circle {
-  background-color: #ddeba4; /* Adjust to match your active style */
+  background-color: #143723; /* Adjust to match your active style */
   outline: 1px solid black; /* Adjust to match your active style */
   border-radius: 50%; /* Ensuring a circular shape */
+  color: white; /* Adding white text color */
 }
 
 .circle {
@@ -47,7 +48,7 @@
 
 /* Ensure selected date retains its background color and outline thickness on hover */
 .book_calendar-item.is-active-inputactive:hover .circle {
-  background-color: #ddeba4; /* Maintain background color */
+  background-color: #143723; /* Maintain background color */
   outline: 1px solid black; /* Maintain outline thickness */
   border-radius: 50%; /* Ensuring a circular shape */
 }
