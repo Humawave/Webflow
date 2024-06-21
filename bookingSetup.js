@@ -3,22 +3,99 @@ document.addEventListener('DOMContentLoaded', () => {
     const textCurrentMonth = document.getElementById('text-current-month');
     const buttonMonthBack = document.getElementById('button-month-back');
     const buttonMonthNext = document.getElementById('button-month-next');
-    const selectedDateInput = document.getElementById('selected-date'); // Hidden input field
-    const calendar = document.getElementById('calendar'); // Calendar container
+    const selectedDateInput = document.getElementById('selected-date');
+    const calendar = document.getElementById('calendar');
+    const timeSlotsContainer = document.getElementById('time-slots-container');
+    const timeSlotTemplate = document.getElementById('time-slot-template');
+    const loader = document.getElementById('book-loader');
+    const buttonNextTime = document.getElementById('button-next-time');
+    const selectedTimeInput = document.getElementById('selected-time');
 
     const today = new Date();
     let currentMonth = today.getMonth();
     let currentYear = today.getFullYear();
     let selectedDate = null;
+    let availableDates = {};
+
+    disableButton(buttonNextTime);
+
+    async function fetchAvailableDates(year, month) {
+        try {
+            showLoader();
+            hideCalendar();
+            const response = await fetch(`https://northamerica-northeast2-humawave.cloudfunctions.net/checkAvailability?year=${year}&month=${month + 1}`);
+            if (!response.ok) {
+                throw new Error('Failed to fetch available dates and times.');
+            }
+            availableDates = await response.json();
+            loadCalendar(currentMonth, currentYear);
+        } catch (error) {
+            console.error('Error:', error);
+        } finally {
+            hideLoader();
+            showCalendar();
+        }
+    }
+
+    async function fetchAvailableTimeSlots(dateString) {
+        try {
+            const response = await fetch(`https://northamerica-northeast2-humawave.cloudfunctions.net/checkAvailability?date=${dateString}`);
+            if (!response.ok) {
+                throw new Error('Failed to fetch available time slots.');
+            }
+            const timeSlots = await response.json();
+            displayAvailableTimeSlots(timeSlots);
+            enableButton(buttonNextTime);
+        } catch (error) {
+            console.error('Error fetching time slots:', error);
+        }
+    }
+
+    function disableButton(button) {
+        button.disabled = true;
+        button.style.opacity = '0.5';
+    }
+
+    function enableButton(button) {
+        button.disabled = false;
+        button.style.opacity = '1';
+    }
+
+    function showLoader() {
+        loader.style.display = 'flex';
+    }
+
+    function hideLoader() {
+        loader.style.display = 'none';
+    }
+
+    function hideCalendar() {
+        calendar.style.display = 'none';
+    }
+
+    function showCalendar() {
+        calendar.style.display = 'grid';
+    }
 
     function formatDateString(date) {
         const day = String(date.getDate()).padStart(2, '0');
-        const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+        const month = String(date.getMonth() + 1).padStart(2, '0');
         const year = date.getFullYear();
-        return `${year}-${month}-${day}`; // Change format to YYYY-MM-DD for consistency with Firestore
+        return `${year}-${month}-${day}`;
     }
 
-    async function loadCalendar(month, year) {
+    function formatTimeString(time) {
+        const timeParts = time.match(/(\d+):(\d+)(AM|PM)/);
+        if (!timeParts) {
+            throw new Error('Invalid time format');
+        }
+        const hour = parseInt(timeParts[1], 10);
+        const minute = parseInt(timeParts[2], 10);
+        const period = timeParts[3];
+        return `${hour}:${minute.toString().padStart(2, '0')}${period}`;
+    }
+
+    function loadCalendar(month, year) {
         const firstDay = new Date(year, month, 1);
         const lastDay = new Date(year, month + 1, 0);
 
@@ -26,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         calendarWrapper.innerHTML = '';
 
-        const startingDay = firstDay.getDay() === 0 ? 6 : firstDay.getDay() - 1; // Adjust for Sunday as the first day of the week
+        const startingDay = firstDay.getDay() === 0 ? 6 : firstDay.getDay() - 1;
 
         for (let i = 0; i < startingDay; i++) {
             const emptyCell = document.createElement('div');
@@ -44,13 +121,14 @@ document.addEventListener('DOMContentLoaded', () => {
             dayCell.appendChild(circle);
 
             const currentDate = new Date(year, month, day);
+            const dateString = formatDateString(currentDate);
 
-            if (currentDate < today && !(currentDate.getDate() === today.getDate() && currentDate.getMonth() === today.getMonth() && currentDate.getFullYear() === today.getFullYear())) {
+            if (currentDate < today || (currentDate.getDate() === today.getDate() && currentDate.getMonth() === today.getMonth() && currentDate.getFullYear() === today.getFullYear())) {
                 dayCell.classList.add('disabled');
-            }
-
-            if (currentDate.getDate() === today.getDate() && currentDate.getMonth() === today.getMonth() && currentDate.getFullYear() === today.getFullYear()) {
-                dayCell.classList.add('today');
+            } else if (availableDates[dateString] && availableDates[dateString].length === 0) {
+                dayCell.classList.add('disabled');
+            } else {
+                dayCell.classList.remove('disabled');
             }
 
             dayCell.addEventListener('click', () => {
@@ -59,9 +137,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         item.classList.remove('is-active-inputactive');
                     });
                     dayCell.classList.add('is-active-inputactive');
-                    selectedDate = currentDate; // Save the selected date
-                    selectedDateInput.value = formatDateString(currentDate); // Update hidden input field with YYYY-MM-DD format
-                    console.log("Selected Date: ", selectedDate); // For debugging purposes
+                    selectedDate = currentDate;
+                    selectedDateInput.value = formatDateString(currentDate);
+                    console.log("Selected Date: ", selectedDate);
+
+                    disableButton(buttonNextTime);
+
+                    // Fetch and display available time slots for the selected date
+                    fetchAvailableTimeSlots(formatDateString(currentDate));
                 }
             });
 
@@ -71,6 +154,23 @@ document.addEventListener('DOMContentLoaded', () => {
         buttonMonthBack.disabled = month === 5 && year === 2024;
     }
 
+    function displayAvailableTimeSlots(timeSlots) {
+        // Clear previous time slots
+        timeSlotsContainer.innerHTML = '';
+
+        timeSlots.forEach(time => {
+            const timeSlot = timeSlotTemplate.cloneNode(true);
+            timeSlot.style.display = 'flex';
+            timeSlot.querySelector('#text-time-slot').textContent = time;
+            timeSlot.addEventListener('click', () => {
+                const formattedTime = formatTimeString(time);
+                selectedTimeInput.value = formattedTime;
+                console.log("Selected Time: ", formattedTime);
+            });
+            timeSlotsContainer.appendChild(timeSlot);
+        });
+    }
+
     buttonMonthBack.addEventListener('click', () => {
         if (currentMonth === 0) {
             currentMonth = 11;
@@ -78,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             currentMonth -= 1;
         }
-        loadCalendar(currentMonth, currentYear);
+        fetchAvailableDates(currentYear, currentMonth);
     });
 
     buttonMonthNext.addEventListener('click', () => {
@@ -88,8 +188,8 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             currentMonth += 1;
         }
-        loadCalendar(currentMonth, currentYear);
+        fetchAvailableDates(currentYear, currentMonth);
     });
 
-    loadCalendar(currentMonth, currentYear);
+    fetchAvailableDates(currentYear, currentMonth);
 });
