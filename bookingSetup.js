@@ -17,8 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let selectedDate = null;
     let availableDates = {};
 
-    disableButton(buttonNextTime);
-
     async function fetchAvailableDates(year, month) {
         try {
             showLoader();
@@ -45,20 +43,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             const timeSlots = await response.json();
             displayAvailableTimeSlots(timeSlots);
-            enableButton(buttonNextTime);
         } catch (error) {
             console.error('Error fetching time slots:', error);
         }
-    }
-
-    function disableButton(button) {
-        button.disabled = true;
-        button.style.opacity = '0.5';
-    }
-
-    function enableButton(button) {
-        button.disabled = false;
-        button.style.opacity = '1';
     }
 
     function showLoader() {
@@ -141,9 +128,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     selectedDateInput.value = formatDateString(currentDate);
                     console.log("Selected Date: ", selectedDate);
 
-                    disableButton(buttonNextTime);
-
-                    // Fetch and display available time slots for the selected date
                     fetchAvailableTimeSlots(formatDateString(currentDate));
                 }
             });
