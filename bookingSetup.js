@@ -10,12 +10,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const loader = document.getElementById('book-loader');
     const buttonNextTime = document.getElementById('button-next-time');
     const selectedTimeInput = document.getElementById('selected-time');
+    const userUuidInput = document.getElementById('user-uuid');  // New input for UUID
 
     const today = new Date();
     let currentMonth = today.getMonth();
     let currentYear = today.getFullYear();
     let selectedDate = null;
     let availableDates = {};
+
+    // Function to fetch UUID from local storage
+    function getUserUUID() {
+        return localStorage.getItem('uniqueVisitorId');
+    }
+
+    // Set the UUID in the hidden input field
+    userUuidInput.value = getUserUUID();
 
     async function fetchAvailableDates(year, month) {
         try {
