@@ -36,6 +36,7 @@ window.addEventListener('load', () => {
                 B2: 'Babaton',
                 B3: 'Bailey Nelson',
                 B4: 'Banana Republic',
+                B5: 'Bath & Body Works',
             };
 
             // Toggle selection
