@@ -7,13 +7,19 @@
 .book_calendar-wrapper {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
+  grid-auto-rows: minmax(3rem, auto); /* Ensure uniform row height */
 }
 
 .book_calendar-item {
-  padding: 1.5rem;
+  padding: 1rem; /* Adjust padding as needed */
   text-align: center;
   cursor: pointer;
   position: relative;
+  display: flex;
+  align-items: center; /* Center vertically */
+  justify-content: center; /* Center horizontally */
+  font-size: 1rem; /* Ensure consistent font size */
+  line-height: 1rem; /* Ensure consistent line height */
 }
 
 .disabled {
