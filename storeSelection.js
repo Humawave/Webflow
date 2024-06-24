@@ -37,6 +37,10 @@ window.addEventListener('load', () => {
                 B3: 'Bailey Nelson',
                 B4: 'Banana Republic',
                 B5: 'Bath & Body Works',
+                B6: 'Bentley',
+                B7: 'Best Buy',
+                B8: 'Bikini Village',
+                B9: 'Bluenotes',
             };
 
             // Toggle selection
