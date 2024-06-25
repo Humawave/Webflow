@@ -7,10 +7,12 @@
 .book_calendar-wrapper {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  grid-auto-rows: minmax(3rem, auto); /* Ensure uniform row height */
+  grid-auto-rows: minmax(2rem, auto); 
+  gap: 0.5rem; 
 }
 
-.book_calendar-item {
+.book_calendar-item,
+.book_calendar-day {
   padding: 1rem; /* Adjust padding as needed */
   text-align: center;
   cursor: pointer;
@@ -20,6 +22,10 @@
   justify-content: center; /* Center horizontally */
   font-size: 1rem; /* Ensure consistent font size */
   line-height: 1rem; /* Ensure consistent line height */
+}
+
+.book_calendar-day {
+  font-weight: bold; /* Ensure weekday headers are distinguishable */
 }
 
 .disabled {
@@ -40,8 +46,8 @@
 }
 
 .circle {
-  width: 1.5rem; /* Adjust the size as needed */
-  height: 1.5rem; /* Adjust the size as needed */
+  width: 2rem; /* Adjust the size as needed */
+  height: 2rem; /* Adjust the size as needed */
   border-radius: 50%;
   display: flex;
   align-items: center;
