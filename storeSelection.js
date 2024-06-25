@@ -41,6 +41,9 @@ window.addEventListener('load', () => {
                 B7: 'Best Buy',
                 B8: 'Bikini Village',
                 B9: 'Bluenotes',
+                C1: 'Call It Spring',
+                C2: 'Canada Goose',
+                C3: 'Canadian Tire',
             };
 
             // Toggle selection
