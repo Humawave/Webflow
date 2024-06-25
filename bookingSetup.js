@@ -156,6 +156,13 @@ document.addEventListener('DOMContentLoaded', () => {
             timeSlot.style.display = 'flex';
             timeSlot.querySelector('#text-time-slot').textContent = time;
             timeSlot.addEventListener('click', () => {
+                // Clear previously selected time slot
+                document.querySelectorAll('.time-slot-selected').forEach(item => {
+                    item.classList.remove('time-slot-selected');
+                });
+
+                // Mark the clicked time slot as selected
+                timeSlot.classList.add('time-slot-selected');
                 const formattedTime = formatTimeString(time);
                 selectedTimeInput.value = formattedTime;
                 console.log("Selected Time: ", formattedTime);
