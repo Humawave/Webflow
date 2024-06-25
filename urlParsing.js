@@ -26,6 +26,8 @@ window.addEventListener('load', () => {
         C1: 'Call It Spring',
         C2: 'Canada Goose',
         C3: 'Canadian Tire',
+        C6: 'Club Monaco',
+        C7: 'Coach',
     };
 
     function updateHiddenFieldWithStoreNames() {
