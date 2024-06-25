@@ -28,6 +28,7 @@ window.addEventListener('load', () => {
         C3: 'Canadian Tire',
         C6: 'Club Monaco',
         C7: 'Coach',
+        D1: 'DAVIDsTEA',
     };
 
     function updateHiddenFieldWithStoreNames() {
