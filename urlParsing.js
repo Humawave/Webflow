@@ -18,6 +18,14 @@ window.addEventListener('load', () => {
         B2: 'Babaton',
         B3: 'Bailey Nelson',
         B4: 'Banana Republic',
+        B5: 'Bath & Body Works',
+        B6: 'Bentley',
+        B7: 'Best Buy',
+        B8: 'Bikini Village',
+        B9: 'Bluenotes',
+        C1: 'Call It Spring',
+        C2: 'Canada Goose',
+        C3: 'Canadian Tire',
     };
 
     function updateHiddenFieldWithStoreNames() {
