@@ -31,6 +31,9 @@ window.addEventListener('load', () => {
         D1: 'DAVIDsTEA',
         D2: 'Dollarama',
         D3: 'Dynamite',
+        E1: 'Eataly',
+        E2: 'ECCO',
+        E3: 'Ever New',
     };
 
     function updateHiddenFieldWithStoreNames() {
