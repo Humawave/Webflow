@@ -47,6 +47,8 @@ window.addEventListener('load', () => {
                 C6: 'Club Monaco',
                 C7: 'Coach',
                 D1: 'DAVIDsTEA',
+                D2: 'Dollarama',
+                D3: 'Dynamite',
             };
 
             // Toggle selection
