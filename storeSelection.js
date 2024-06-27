@@ -55,6 +55,10 @@ window.addEventListener('load', () => {
                 F1: 'Foot Locker',
                 F4: 'Frank & Oak',
                 F5: 'FYE',
+                G1: 'GameStop',
+                G2: 'Garage',
+                G3: 'Geox',
+                G4: 'GNC',
             };
 
             // Toggle selection
