@@ -2,6 +2,7 @@ window.addEventListener('load', () => {
     const continueSection = document.getElementById('section-continue');
     const continueButton = document.getElementById('button-continue');
     const selectedButtons = new Set();
+    const textQuantity = document.getElementById('text-quantity'); // Get the element for the counter
 
     const applyEventListeners = () => {
         const buttons = document.querySelectorAll('.is-shop-here');
@@ -77,6 +78,9 @@ window.addEventListener('load', () => {
                 selectedButtons.add(buttonId);
                 button.classList.add('selected'); // Optional: Add a class to indicate selection
             }
+
+            // Update the counter
+            textQuantity.textContent = `(${selectedButtons.size})`;
 
             // Debugging: Log selected buttons
             console.log('Selected Buttons:', Array.from(selectedButtons));
