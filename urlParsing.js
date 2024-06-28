@@ -43,6 +43,12 @@ window.addEventListener('load', () => {
         G4: 'GNC',
         H1: 'H&M',
         H4: 'Herschel',
+        H5: 'Hoka',
+        H6: 'Hollister',
+        H7: 'HomeSense',
+        H9: 'Hot Topic',
+        H10: 'Hudson\'s Bay',
+        H11: 'Hugo Boss',
     };
 
     function updateHiddenFieldWithStoreNames() {
