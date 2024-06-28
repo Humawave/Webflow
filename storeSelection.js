@@ -59,6 +59,8 @@ window.addEventListener('load', () => {
                 G2: 'Garage',
                 G3: 'Geox',
                 G4: 'GNC',
+                H1: 'H&M',
+                H4: 'Herschel',
             };
 
             // Toggle selection
