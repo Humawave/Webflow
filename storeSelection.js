@@ -1,6 +1,7 @@
 window.addEventListener('load', () => {
     const continueSection = document.getElementById('section-continue');
     const continueButton = document.getElementById('button-continue');
+    const cancelButton = document.getElementById('button-cancel'); // Get the cancel button
     const selectedButtons = new Set();
     const textQuantity = document.getElementById('text-quantity'); // Get the element for the counter
 
@@ -127,6 +128,26 @@ window.addEventListener('load', () => {
             // Debugging: Log new URL for continue button
             console.log('Continue Button URL:', continueButton.href);
         }
+    }
+
+    const clearSelections = () => {
+        const buttons = document.querySelectorAll('.is-shop-here');
+        selectedButtons.clear(); // Clear the set of selected buttons
+
+        buttons.forEach(button => {
+            button.classList.remove('selected'); // Remove selection indication
+        });
+
+        textQuantity.textContent = '(0)'; // Reset the counter
+        continueSection.style.display = 'none'; // Hide the continue section
+        window.history.replaceState(null, '', window.location.origin); // Clear the URL
+
+        // Debugging: Log cleared selections
+        console.log('Selections cleared');
+    };
+
+    if (cancelButton) {
+        cancelButton.addEventListener('click', clearSelections); // Add event listener to cancel button
     }
 
     const observer = new MutationObserver(mutations => {
