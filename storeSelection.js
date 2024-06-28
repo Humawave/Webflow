@@ -75,6 +75,7 @@ window.addEventListener('load', () => {
             if (selectedButtons.has(buttonId)) {
                 selectedButtons.delete(buttonId);
                 button.classList.remove('selected'); // Optional: Add a class to indicate selection
+                Webflow.require('ix2').init(); // Trigger Webflow interaction to turn off the button
             } else {
                 selectedButtons.add(buttonId);
                 button.classList.add('selected'); // Optional: Add a class to indicate selection
@@ -136,6 +137,11 @@ window.addEventListener('load', () => {
 
         buttons.forEach(button => {
             button.classList.remove('selected'); // Remove selection indication
+            button.classList.remove('w--selected'); // Ensure the Webflow interaction class is removed
+            // Manually trigger the Webflow interaction to turn off the button
+            const interaction = Webflow.require('ix2');
+            const event = new Event('click');
+            button.dispatchEvent(event);
         });
 
         textQuantity.textContent = '(0)'; // Reset the counter
