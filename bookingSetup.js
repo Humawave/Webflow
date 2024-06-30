@@ -39,14 +39,14 @@ document.addEventListener('DOMContentLoaded', () => {
             // Check if there are no available dates in the current month
             if (Object.keys(availableDates).length === 0) {
                 if (month === 11) {
-                    currentMonth = 0;
-                    currentYear += 1;
+                    year += 1;
+                    month = 0;
                 } else {
-                    currentMonth += 1;
+                    month += 1;
                 }
-                await fetchAvailableDates(currentYear, currentMonth);  // Fetch the next month
+                await fetchAvailableDates(year, month);  // Recursively fetch the next month
             } else {
-                loadCalendar(currentMonth, currentYear);  // Load the calendar with available dates
+                loadCalendar(month, year);  // Load the calendar with available dates
             }
         } catch (error) {
             console.error('Error:', error);
