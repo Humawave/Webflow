@@ -32,12 +32,13 @@ document.addEventListener('DOMContentLoaded', () => {
             hideCalendar();
             const response = await fetch(`https://northamerica-northeast2-humawave.cloudfunctions.net/checkAvailability?year=${year}&month=${month + 1}`);
             if (!response.ok) {
-                throw new Error('Failed to fetch available dates and times.');
+                throw new Error(`Failed to fetch available dates and times for ${year}-${month + 1}.`);
             }
             availableDates = await response.json();
             
             // Check if there are no available dates in the current month
             if (Object.keys(availableDates).length === 0) {
+                console.log(`No dates found for ${year}-${month + 1}. Checking next month.`);
                 if (month === 11) {
                     year += 1;
                     month = 0;
@@ -49,8 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 loadCalendar(month, year);  // Load the calendar with available dates
             }
         } catch (error) {
-            console.error('Error:', error);
-            alert('Error fetching available dates. Please try again later.');
+            console.error('Error:', error.message);
+            alert(error.message);
         } finally {
             hideLoader();
             showCalendar();
