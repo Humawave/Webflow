@@ -69,6 +69,8 @@ window.addEventListener('load', () => {
                 H9: 'Hot Topic',
                 H10: 'Hudson\'s Bay',
                 H11: 'Hugo Boss',
+                I1: 'IKEA',
+                I2: 'Indigo',
             };
 
             // Toggle selection
