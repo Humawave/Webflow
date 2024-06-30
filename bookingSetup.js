@@ -135,6 +135,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     dayCell.classList.add('is-active-inputactive');
                     selectedDate = currentDate;
                     selectedDateInput.value = formatDateString(currentDate);
+
+                    // Trigger input event to ensure Try Formly recognizes the change
+                    const dateEvent = new Event('input', { bubbles: true });
+                    selectedDateInput.dispatchEvent(dateEvent);
+
                     console.log("Selected Date: ", selectedDate);
 
                     fetchAvailableTimeSlots(formatDateString(currentDate));
@@ -155,16 +160,32 @@ document.addEventListener('DOMContentLoaded', () => {
             const timeSlot = timeSlotTemplate.cloneNode(true);
             timeSlot.style.display = 'flex';
             timeSlot.querySelector('#text-time-slot').textContent = time;
+            timeSlot.querySelector('input').name = 'timeSlot';
+            timeSlot.querySelector('input').value = time;
+
             timeSlot.addEventListener('click', () => {
                 // Clear previously selected time slot
                 document.querySelectorAll('.time-slot-selected').forEach(item => {
                     item.classList.remove('time-slot-selected');
+                    item.querySelector('input').checked = false;
                 });
 
                 // Mark the clicked time slot as selected
                 timeSlot.classList.add('time-slot-selected');
+                timeSlot.querySelector('input').checked = true;
                 const formattedTime = formatTimeString(time);
                 selectedTimeInput.value = formattedTime;
+
+                // Add the is-active-inputactive class for visual feedback
+                document.querySelectorAll('.is-active-inputactive').forEach(item => {
+                    item.classList.remove('is-active-inputactive');
+                });
+                timeSlot.classList.add('is-active-inputactive');
+
+                // Trigger input event to ensure Try Formly recognizes the change
+                const timeEvent = new Event('input', { bubbles: true });
+                selectedTimeInput.dispatchEvent(timeEvent);
+
                 console.log("Selected Time: ", formattedTime);
             });
             timeSlotsContainer.appendChild(timeSlot);
