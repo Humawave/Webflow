@@ -227,5 +227,26 @@ document.addEventListener('DOMContentLoaded', () => {
         fetchAvailableDates(currentYear, currentMonth);
     });
 
-    fetchAvailableDates(currentYear, currentMonth);
+    // Initial load
+    async function initialLoad() {
+        await fetchAvailableDates(currentYear, currentMonth);
+        const firstDay = new Date(currentYear, currentMonth, 1);
+        const lastDay = new Date(currentYear, currentMonth + 1, 0);
+        const dates = Object.keys(availableDates);
+        if (!dates.some(date => {
+            const d = new Date(date);
+            return d >= firstDay && d <= lastDay;
+        })) {
+            // No dates available in current month, advance to the next month
+            if (currentMonth === 11) {
+                currentMonth = 0;
+                currentYear += 1;
+            } else {
+                currentMonth += 1;
+            }
+            await fetchAvailableDates(currentYear, currentMonth);
+        }
+    }
+
+    initialLoad();
 });
