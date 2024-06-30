@@ -35,9 +35,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 throw new Error('Failed to fetch available dates and times.');
             }
             availableDates = await response.json();
-            loadCalendar(currentMonth, currentYear);
+            
+            // Check if there are no available dates in the current month
+            if (Object.keys(availableDates).length === 0) {
+                if (month === 11) {
+                    currentMonth = 0;
+                    currentYear += 1;
+                } else {
+                    currentMonth += 1;
+                }
+                await fetchAvailableDates(currentYear, currentMonth);  // Fetch the next month
+            } else {
+                loadCalendar(currentMonth, currentYear);  // Load the calendar with available dates
+            }
         } catch (error) {
             console.error('Error:', error);
+            alert('Error fetching available dates. Please try again later.');
         } finally {
             hideLoader();
             showCalendar();
@@ -54,6 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
             displayAvailableTimeSlots(timeSlots);
         } catch (error) {
             console.error('Error fetching time slots:', error);
+            alert('Error fetching time slots. Please try again later.');
         }
     }
 
