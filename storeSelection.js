@@ -71,6 +71,8 @@ window.addEventListener('load', () => {
                 H11: 'Hugo Boss',
                 I1: 'IKEA',
                 I2: 'Indigo',
+                J1: 'Jack & Jones',
+                J2: 'Jo Malone',
             };
 
             // Toggle selection
