@@ -73,6 +73,8 @@ window.addEventListener('load', () => {
                 I2: 'Indigo',
                 J1: 'Jack & Jones',
                 J2: 'Jo Malone',
+                K1: 'Kate Spade',
+                K2: 'Kiehl\'s',
             };
 
             // Toggle selection
