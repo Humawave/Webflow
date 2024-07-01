@@ -75,6 +75,7 @@ window.addEventListener('load', () => {
                 J2: 'Jo Malone',
                 K1: 'Kate Spade',
                 K2: 'Kiehl\'s',
+                L2: 'L\'Occitane',
             };
 
             // Toggle selection
