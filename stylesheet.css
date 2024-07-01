@@ -64,3 +64,13 @@
   outline: 1px solid black; /* Maintain outline thickness */
   border-radius: 50%; /* Ensuring a circular shape */
 }
+
+#account-loading {
+  display: none;
+  opacity: 1;
+  transition: opacity 0.1s ease-out;
+}
+
+#account-loading.hide {
+  opacity: 0;
+}
