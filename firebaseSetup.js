@@ -44,6 +44,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             window.location.href = 'https://www.humawave.com/welcome';
           });
         }
+
+        // Redirect to homepage if trying to access account pages
+        if (window.location.pathname.startsWith('/account')) {
+          window.location.href = 'https://www.humawave.com/';
+        }
       }
     });
   } catch (error) {
