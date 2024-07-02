@@ -76,6 +76,19 @@ window.addEventListener('load', () => {
                 K1: 'Kate Spade',
                 K2: 'Kiehl\'s',
                 L2: 'L\'Occitane',
+                L3: 'La Senza',
+                L4: 'La Vie en Rose',
+                L5: 'Laco Sac',
+                L6: 'Lacoste',
+                L7: 'Laderach',
+                L8: 'Laline',
+                L10: 'Levi\'s',
+                L11: 'Lids',
+                L12: 'Lindt',
+                L13: 'Little Burgundy',
+                L14: 'Loblaws',
+                L15: 'Lululemon',
+                L16: 'Lush',
             };
 
             // Toggle selection
