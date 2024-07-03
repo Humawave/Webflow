@@ -89,6 +89,9 @@ window.addEventListener('load', () => {
                 L14: 'Loblaws',
                 L15: 'Lululemon',
                 L16: 'Lush',
+                M1: 'MAC',
+                M3: 'Mango',
+                M6: 'Michael Kors',
             };
 
             // Toggle selection
