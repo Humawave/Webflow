@@ -133,8 +133,34 @@ document.addEventListener('DOMContentLoaded', () => {
             const currentDate = new Date(year, month, day);
             const dateString = formatDateString(currentDate);
 
-            if (currentDate < today || (currentDate.getDate() === today.getDate() && currentDate.getMonth() === today.getMonth() && currentDate.getFullYear() === today.getFullYear())) {
+            if (currentDate < today) {
                 dayCell.classList.add('disabled');
+            } else if (currentDate.getDate() === today.getDate() && currentDate.getMonth() === today.getMonth() && currentDate.getFullYear() === today.getFullYear()) {
+                // Fetch available time slots for today and check if any are still available
+                const timeSlotsForToday = availableDates[dateString] || [];
+                const now = new Date();
+
+                const futureTimeSlots = timeSlotsForToday.filter(timeSlot => {
+                    const [time, period] = timeSlot.match(/(\d+):(\d+)(AM|PM)/).slice(1);
+                    let [hours, minutes] = time.split(':').map(Number);
+
+                    if (period === 'PM' && hours < 12) {
+                        hours += 12;
+                    } else if (period === 'AM' && hours === 12) {
+                        hours = 0;
+                    }
+
+                    const slotDate = new Date();
+                    slotDate.setHours(hours, minutes, 0, 0);
+
+                    return slotDate > now;
+                });
+
+                if (futureTimeSlots.length === 0) {
+                    dayCell.classList.add('disabled');
+                } else {
+                    dayCell.classList.remove('disabled');
+                }
             } else if (availableDates[dateString] && availableDates[dateString].length === 0) {
                 dayCell.classList.add('disabled');
             } else {
