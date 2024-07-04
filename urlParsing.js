@@ -72,6 +72,7 @@ window.addEventListener('load', () => {
         M1: 'MAC',
         M3: 'Mango',
         M6: 'Michael Kors',
+        N1: 'Nike',
     };
 
     function updateHiddenFieldWithStoreNames() {
