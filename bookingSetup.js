@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     dayCell.classList.remove('disabled');
                 }
-            } else if (availableDates[dateString] && availableDates[dateString].length === 0) {
+            } else if (!availableDates[dateString] || availableDates[dateString].length === 0) {
                 dayCell.classList.add('disabled');
             } else {
                 dayCell.classList.remove('disabled');
