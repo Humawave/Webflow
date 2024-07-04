@@ -126,7 +126,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (currentDate < today) {
                 dayCell.classList.add('disabled');
             } else if (currentDate.getDate() === today.getDate() && currentDate.getMonth() === today.getMonth() && currentDate.getFullYear() === today.getFullYear()) {
-                // Fetch available time slots for today and check if any are still available
                 const timeSlotsForToday = availableDates[dateString] || [];
                 console.log('Time slots for today:', timeSlotsForToday);
                 const now = new Date();
@@ -148,9 +147,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 console.log('Future time slots for today:', futureTimeSlots);
+
                 if (futureTimeSlots.length === 0) {
+                    console.log('Disabling today due to no future time slots available');
                     dayCell.classList.add('disabled');
                 } else {
+                    console.log('Enabling today as there are future time slots available');
                     dayCell.classList.remove('disabled');
                 }
             } else if (!availableDates[dateString] || availableDates[dateString].length === 0) {
