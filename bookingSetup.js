@@ -35,6 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 throw new Error(`Failed to fetch available dates and times for ${year}-${month + 1}.`);
             }
             availableDates = await response.json();
+            console.log('Available dates:', availableDates);
 
             loadCalendar(month, year);  // Load the calendar with available dates
         } catch (error) {
@@ -52,6 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 throw new Error('Failed to fetch available time slots.');
             }
             const timeSlots = await response.json();
+            console.log('Available time slots for', dateString, ':', timeSlots);
             displayAvailableTimeSlots(timeSlots);
         } catch (error) {
             console.error('Error fetching time slots:', error);
@@ -126,6 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (currentDate.getDate() === today.getDate() && currentDate.getMonth() === today.getMonth() && currentDate.getFullYear() === today.getFullYear()) {
                 // Fetch available time slots for today and check if any are still available
                 const timeSlotsForToday = availableDates[dateString] || [];
+                console.log('Time slots for today:', timeSlotsForToday);
                 const now = new Date();
 
                 const futureTimeSlots = timeSlotsForToday.filter(timeSlot => {
@@ -144,6 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     return slotDate > now;
                 });
 
+                console.log('Future time slots for today:', futureTimeSlots);
                 if (futureTimeSlots.length === 0) {
                     dayCell.classList.add('disabled');
                 } else {
