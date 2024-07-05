@@ -73,6 +73,9 @@ window.addEventListener('load', () => {
         M3: 'Mango',
         M6: 'Michael Kors',
         N1: 'Nike',
+        R1: 'Ray-Ban',
+        R2: 'Reitmans',
+        R3: 'Roots',
     };
 
     function updateHiddenFieldWithStoreNames() {
