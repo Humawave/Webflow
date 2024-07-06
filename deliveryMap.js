@@ -5,7 +5,9 @@ async function initMap() {
 
   const script = document.createElement('script');
   script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=loadMap`;
+  script.async = true;
   script.defer = true;
+  script.setAttribute('loading', 'async');
   document.head.appendChild(script);
 }
 
@@ -27,6 +29,18 @@ function loadMap() {
         fillOpacity: 0.5 // Set fill opacity
       });
     });
+}
+
+// Add passive event listeners to improve performance
+window.addEventListener('touchstart', onTouchStart, { passive: true });
+window.addEventListener('touchmove', onTouchMove, { passive: true });
+
+function onTouchStart(e) {
+  // Your touchstart event handler logic
+}
+
+function onTouchMove(e) {
+  // Your touchmove event handler logic
 }
 
 window.onload = initMap;
