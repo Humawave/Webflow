@@ -13,9 +13,10 @@ async function initMap() {
 
 function loadMap() {
   const map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 9,
+    zoom: 8.5, // Use fractional zoom level
     center: { lat: 43.685059, lng: -79.38211 },
-    fullscreenControl: false // Remove the fullscreen control
+    fullscreenControl: false, // Remove the fullscreen control
+    isFractionalZoomEnabled: true // Enable fractional zoom
   });
 
   fetch('https://storage.googleapis.com/humawave-public-resources/toronto.geojson')
