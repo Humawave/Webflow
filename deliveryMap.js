@@ -3,20 +3,19 @@ async function initMap() {
   const data = await response.json();
   const apiKey = data.apiKey;
 
+  // Create the script element with the async and defer attributes
   const script = document.createElement('script');
   script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=loadMap`;
   script.async = true;
   script.defer = true;
-  script.setAttribute('loading', 'async');
   document.head.appendChild(script);
 }
 
 function loadMap() {
   const map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 8.5, // Use fractional zoom level
+    zoom: 8,
     center: { lat: 43.685059, lng: -79.38211 },
-    fullscreenControl: false, // Remove the fullscreen control
-    isFractionalZoomEnabled: true // Enable fractional zoom
+    fullscreenControl: false // Remove the fullscreen control
   });
 
   fetch('https://storage.googleapis.com/humawave-public-resources/toronto.geojson')
@@ -44,4 +43,5 @@ function onTouchMove(e) {
   // Your touchmove event handler logic
 }
 
+// Ensure the map initialization function is called once the window loads
 window.onload = initMap;
