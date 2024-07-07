@@ -73,6 +73,7 @@ window.addEventListener('load', () => {
         M3: 'Mango',
         M6: 'Michael Kors',
         N1: 'Nike',
+        N2: 'Nespresso',
         R1: 'Ray-Ban',
         R2: 'Reitmans',
         R3: 'Roots',
