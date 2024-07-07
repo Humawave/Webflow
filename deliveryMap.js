@@ -3,9 +3,9 @@ async function initMap() {
   const data = await response.json();
   const apiKey = data.apiKey;
 
-  // Create the script element with the async and defer attributes
+  // Create the script element with the async and defer attributes and the loading=async parameter
   const script = document.createElement('script');
-  script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=loadMap`;
+  script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=loadMap&loading=async`;
   script.async = true;
   script.defer = true;
   document.head.appendChild(script);
