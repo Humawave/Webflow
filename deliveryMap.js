@@ -13,7 +13,7 @@ async function initMap() {
 
 function loadMap() {
   const map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 8,
+    zoom: 9,
     center: { lat: 43.685059, lng: -79.38211 },
     fullscreenControl: false // Remove the fullscreen control
   });
