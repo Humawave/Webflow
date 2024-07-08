@@ -97,6 +97,9 @@ window.addEventListener('load', () => {
                 R1: 'Ray-Ban',
                 R2: 'Reitmans',
                 R3: 'Roots',
+                S1: 'Saje',
+                S4: 'Sephora',
+                S5: 'Shoppers Drug Mart',
             };
 
             // Toggle selection
