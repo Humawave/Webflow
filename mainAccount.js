@@ -1,4 +1,4 @@
-import { initializeFirebase } from './firebaseFunctions.js';
+import { initializeFirebase } from './firebaseSetup.js';
 import { getTimeGreeting, getTimeEmoji, convertTo24HourFormat, calculateTimeDifference } from './utilityFunctions.js';
 import { fetchUserData, fetchBookings } from './dataFetchers.js';
 
