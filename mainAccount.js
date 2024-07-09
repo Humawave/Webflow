@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   try {
     showLoader();
-    const { auth, db } = await initializeFirebase();
+    const { auth, db, onAuthStateChanged } = await initializeFirebase();
 
     onAuthStateChanged(auth, async (user) => {
       if (user) {
