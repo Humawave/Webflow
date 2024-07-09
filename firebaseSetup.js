@@ -1,5 +1,6 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js';
 import { getAuth, setPersistence, browserLocalPersistence, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js';
+import { getFirestore } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js';
 
 async function fetchFirebaseConfig() {
   try {
@@ -14,16 +15,21 @@ async function fetchFirebaseConfig() {
   }
 }
 
+export async function initializeFirebase() {
+  const firebaseConfig = await fetchFirebaseConfig();
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  await setPersistence(auth, browserLocalPersistence);
+
+  return { app, auth, db };
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    const firebaseConfig = await fetchFirebaseConfig();
-
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    // Set persistence to LOCAL
-    await setPersistence(auth, browserLocalPersistence);
+    const { auth } = await initializeFirebase();
 
     const myAccountButton = document.getElementById('my-account');
 
