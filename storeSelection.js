@@ -100,6 +100,8 @@ window.addEventListener('load', () => {
                 S1: 'Saje',
                 S4: 'Sephora',
                 S5: 'Shoppers Drug Mart',
+                S8: 'Sport Chek',
+                Z1: 'Zara',     
             };
 
             // Toggle selection
