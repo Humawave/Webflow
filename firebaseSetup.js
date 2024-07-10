@@ -1,6 +1,5 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js';
 import { getAuth, setPersistence, browserLocalPersistence, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js';
-import { getFirestore } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js';
 
 async function fetchFirebaseConfig() {
   try {
@@ -15,21 +14,16 @@ async function fetchFirebaseConfig() {
   }
 }
 
-export async function initializeFirebase() {
-  const firebaseConfig = await fetchFirebaseConfig();
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
-
-  await setPersistence(auth, browserLocalPersistence);
-
-  return { app, auth, db, onAuthStateChanged };
-}
-
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    const { auth, onAuthStateChanged } = await initializeFirebase();
+    const firebaseConfig = await fetchFirebaseConfig();
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Set persistence to LOCAL
+    await setPersistence(auth, browserLocalPersistence);
 
     const myAccountButton = document.getElementById('my-account');
 
@@ -43,11 +37,11 @@ document.addEventListener('DOMContentLoaded', async () => {
           });
         }
       } else {
-        // No user is signed in, set the account button to redirect to the welcome page
+        // No user is signed in, set the account button to redirect to the log-in page
         console.log('No user is signed in.');
         if (myAccountButton) {
           myAccountButton.addEventListener('click', () => {
-            window.location.href = 'https://www.humawave.com/welcome';
+            window.location.href = 'https://www.humawave.com/log-in';
           });
         }
 
