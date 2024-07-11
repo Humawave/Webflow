@@ -85,6 +85,11 @@ window.addEventListener('load', () => {
         T5: 'The Gap',
         T6: 'The North Face',
         T8: 'Torrid',
+        U1: 'UGG',
+        U2: 'Under Armour',
+        U3: 'Uniqlo',
+        V1: 'Victoria\'s Secret',
+        W3: 'Winners', 
         Z1: 'Zara',
     };
 
