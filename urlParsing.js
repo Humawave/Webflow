@@ -81,6 +81,10 @@ window.addEventListener('load', () => {
         S4: 'Sephora',
         S5: 'Shoppers Drug Mart',
         S8: 'Sport Chek',
+        T2: 'The Body Shop',
+        T5: 'The Gap',
+        T6: 'The North Face',
+        T8: 'Torrid',
         Z1: 'Zara',
     };
 
