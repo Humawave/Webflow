@@ -1,14 +1,14 @@
 document.addEventListener('DOMContentLoaded', (event) => {
-  // Generate a UUID
+  // Function to generate a UUID
   function generateUUID() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
       var r = Math.random() * 16 | 0,
-          v = c == 'x' ? r : (r & 0x3 | 0x8);
+          v = c === 'x' ? r : (r & 0x3 | 0x8);
       return v.toString(16);
     });
   }
 
-  // Generate a unique ID for each visitor if it doesn't already exist
+  // Function to generate or retrieve a unique visitor ID
   function getUniqueVisitorId() {
     let visitorId = localStorage.getItem('uniqueVisitorId');
     if (!visitorId) {
@@ -29,11 +29,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
   // Function to track store selection
   window.trackStoreSelection = function(storeName) {
-    rudderanalytics.track('store_selected', {
+    rudderanalytics.track('Store Selected', {
       store: storeName
     });
   };
-
-  // Optional: You can log a message to the console to confirm the event has been sent
-  console.log('Sample Product Viewed event sent to RudderStack');
 });
