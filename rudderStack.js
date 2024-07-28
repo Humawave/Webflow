@@ -9,28 +9,25 @@ document.addEventListener('DOMContentLoaded', (event) => {
   }
 
   // Function to generate or retrieve a unique visitor ID
-  function getUniqueVisitorId() {
-    let visitorId = localStorage.getItem('uniqueVisitorId');
-    if (!visitorId) {
-      visitorId = generateUUID();
-      localStorage.setItem('uniqueVisitorId', visitorId);
+  function getUserId() {
+    let userId = localStorage.getItem('userId');
+    if (!userId) {
+      userId = generateUUID();
+      localStorage.setItem('userId', userId);
     }
-    return visitorId;
+    return userId;
   }
 
-  // Get or create a unique visitor ID
-  const visitorId = getUniqueVisitorId();
+  // Get or create a unique user ID
+  const userId = getUserId();
 
   // Identify the visitor with RudderStack
-  rudderanalytics.identify(visitorId);
+  if (typeof rudderanalytics !== 'undefined') {
+    rudderanalytics.identify(userId);
 
-  // Track the page view
-  rudderanalytics.page();
-
-  // Function to track store selection
-  window.trackStoreSelection = function(storeName) {
-    rudderanalytics.track('Store Selected', {
-      store: storeName
-    });
-  };
+    // Track the page view
+    rudderanalytics.page();
+  } else {
+    console.error('RudderStack is not defined');
+  }
 });
